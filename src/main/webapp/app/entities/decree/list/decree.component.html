@@ -1,111 +1,75 @@
 <div class="entity-container">
-  <h2 id="page-heading" data-cy="DecreeHeading">
-    <span>Decrees</span>
+  <h3 id="page-heading">
+    <span>القرارات</span>
+  </h3>
+  <div class="mt-1 ml-1 d-flex align-items-center">
+    <button [routerLink]="['./new']" class="ml-1" color="primary" mat-raised-button>
+      <mat-icon>add</mat-icon>
+      <span jhiTranslate="eTravelApp.airline.home.createLabel"> اضافة قرار جديد </span>
+    </button>
 
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh List</span>
-      </button>
+    <form class="mr-4">
+      <mat-form-field appearance="standard" floatLabel="never">
+        <button (click)="search(currentSearch)" mat-icon-button matPrefix type="submit">
+          <mat-icon>search</mat-icon>
+        </button>
+        <input [(ngModel)]="currentSearch" matInput name="currentSearch" placeholder="بحث" type="text" />
 
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-decree"
-        [routerLink]="['/decree/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Decree </span>
-      </button>
-    </div>
-  </h2>
-
+        <button (click)="search('')" *ngIf="currentSearch" color="warn" mat-icon-button matSuffix>
+          <mat-icon>clear</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+  </div>
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>
-
-  <div class="alert alert-warning" id="no-result" *ngIf="decrees?.length === 0">
-    <span>No decrees found</span>
-  </div>
-
-  <div class="table-responsive" id="entities" *ngIf="decrees && decrees.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
+  <div *ngIf="decrees && decrees.length > 0; else emptyContent" class="col-12 p-0 mat-elevation-z1 mt-3" id="entities">
+    <table class="col mat-table">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id">
-            <span>ID</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="documentNo">
-            <span>Document No</span>
+            <span>#</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="decreeNo">
-            <span>Decree No</span>
+            <span>رقم القرار</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="title">
-            <span>Title</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="details">
-            <span>Details</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="keywords">
-            <span>Keywords</span>
+            <span>العنوان</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="pages">
-            <span>Pages</span>
+            <span>عدد الصفحات</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="decreeDate">
-            <span>Decree Date</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="year">
-            <span>Year</span>
+            <span>تاريخ القرار</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="notes">
-            <span>Notes</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="pdfFile">
-            <span>Pdf File</span>
+            <span>ملاحظات</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="pdfFileUrl">
-            <span>Pdf File Url</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="wordFile">
-            <span>Word File</span>
+            <span>ملف القرار PDF</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="wordFileUrl">
-            <span>Word File Url</span>
+            <span>ملف Word</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="decreeStatus">
-            <span>Decree Status</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="decreeType.name">
-            <span>Decree Type</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
+          <!--          <th scope="col" jhiSortBy="decreeStatus">-->
+          <!--            <span>حالة القرار</span>-->
+          <!--            <fa-icon icon="sort"></fa-icon>-->
+          <!--          </th>-->
           <th scope="col" jhiSortBy="decreeCategory.name">
-            <span>Decree Category</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="minister.name">
-            <span>Minister</span>
+            <span>تصنيف القرار</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="government.name">
-            <span>Government</span>
+            <span>الحكومة</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
@@ -116,84 +80,63 @@
           <td>
             <a [routerLink]="['/decree', decree.id, 'view']">{{ decree.id }}</a>
           </td>
-          <td>{{ decree.documentNo }}</td>
           <td>{{ decree.decreeNo }}</td>
           <td>{{ decree.title }}</td>
-          <td>{{ decree.details }}</td>
-          <td>{{ decree.keywords }}</td>
           <td>{{ decree.pages }}</td>
           <td>{{ decree.decreeDate | formatMediumDate }}</td>
-          <td>{{ decree.year }}</td>
           <td>{{ decree.notes }}</td>
-          <td>
-            <a *ngIf="decree.pdfFile" (click)="openFile(decree.pdfFile, decree.pdfFileContentType)">open</a>
-            <span *ngIf="decree.pdfFile">{{ decree.pdfFileContentType }}, {{ byteSize(decree.pdfFile) }}</span>
-          </td>
           <td>{{ decree.pdfFileUrl }}</td>
-          <td>
-            <a *ngIf="decree.wordFile" (click)="openFile(decree.wordFile, decree.wordFileContentType)">open</a>
-            <span *ngIf="decree.wordFile">{{ decree.wordFileContentType }}, {{ byteSize(decree.wordFile) }}</span>
-          </td>
           <td>{{ decree.wordFileUrl }}</td>
-          <td>{{ decree.decreeStatus }}</td>
-          <td>
-            <div *ngIf="decree.decreeType">
-              <a [routerLink]="['/decree-type', decree.decreeType?.id, 'view']">{{ decree.decreeType?.name }}</a>
-            </div>
-          </td>
+          <!--          <td>{{ decree.decreeStatus }}</td>-->
           <td>
             <div *ngIf="decree.decreeCategory">
-              <a [routerLink]="['/decree-category', decree.decreeCategory?.id, 'view']">{{ decree.decreeCategory?.name }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="decree.minister">
-              <a [routerLink]="['/minister', decree.minister?.id, 'view']">{{ decree.minister?.name }}</a>
+              <a>{{ decree.decreeCategory?.name }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="decree.government">
-              <a [routerLink]="['/government', decree.government?.id, 'view']">{{ decree.government?.name }}</a>
+              <a>{{ decree.government?.name }}</a>
             </div>
           </td>
-          <td class="text-right">
-            <div class="btn-group">
-              <button type="submit" [routerLink]="['/decree', decree.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
-              </button>
+          <td class="text-left">
+            <div class="btn-group flex-btn-group-container">
+              <mat-menu #appMenu="matMenu">
+                <button [routerLink]="['./', decree.id, 'view']" mat-menu-item>
+                  <mat-icon>remove_red_eye</mat-icon>
+                  <span class="d-none d-md-inline">عرض</span>
+                </button>
 
-              <button type="submit" [routerLink]="['/decree', decree.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
-              </button>
+                <button [routerLink]="['./', decree.id, 'edit']" mat-menu-item>
+                  <mat-icon>edit</mat-icon>
+                  <span class="d-none d-md-inline">تعديل</span>
+                </button>
+                <button (click)="delete(decree)" *jhiHasAnyAuthority="['ROLE_ADMIN']" mat-menu-item>
+                  <mat-icon>delete</mat-icon>
+                  <span class="d-none d-md-inline">حذف</span>
+                </button>
+              </mat-menu>
 
-              <button type="submit" (click)="delete(decree)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
+              <button [matMenuTriggerFor]="appMenu" class="mr-2" mat-icon-button>
+                <mat-icon>more_vert</mat-icon>
               </button>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
-  </div>
 
-  <div *ngIf="decrees && decrees.length > 0">
-    <div class="row justify-content-center">
-      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
-    </div>
-
-    <div class="row justify-content-center">
-      <ngb-pagination
-        [collectionSize]="totalItems"
-        [(page)]="ngbPaginationPage"
+    <div class="col white-b">
+      <mat-divider></mat-divider>
+      <mat-paginator
+        (page)="loadPage($event.pageIndex)"
+        [length]="totalItems"
+        [pageIndex]="page"
         [pageSize]="itemsPerPage"
-        [maxSize]="5"
-        [rotate]="true"
-        [boundaryLinks]="true"
-        (pageChange)="loadPage($event)"
-      ></ngb-pagination>
+        showFirstLastButtons
+      ></mat-paginator>
     </div>
   </div>
+  <ng-template #emptyContent>
+    <jhi-empty-content [isLoading]="isLoading"></jhi-empty-content>
+  </ng-template>
 </div>

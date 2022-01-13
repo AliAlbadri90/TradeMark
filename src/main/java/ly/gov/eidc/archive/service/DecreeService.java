@@ -5,6 +5,7 @@ import ly.gov.eidc.archive.domain.Decree;
 import ly.gov.eidc.archive.repository.DecreeRepository;
 import ly.gov.eidc.archive.service.dto.DecreeDTO;
 import ly.gov.eidc.archive.service.mapper.DecreeMapper;
+import ly.gov.eidc.archive.service.util.FileTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -39,6 +40,18 @@ public class DecreeService {
     public DecreeDTO save(DecreeDTO decreeDTO) {
         log.debug("Request to save Decree : {}", decreeDTO);
         Decree decree = decreeMapper.toEntity(decreeDTO);
+
+        if (decreeDTO.getPdfFile() != null) {
+            String filePath = FileTools.upload(
+                decree.getPdfFile(),
+                decree.getPdfFileContentType(),
+                decreeDTO.getDecreeNo() + "_" + decreeDTO.getYear()
+            );
+            decree.setPdfFile(null);
+            decree.setPdfFileContentType(decreeDTO.getPdfFileContentType());
+            decree.setPdfFileUrl(filePath);
+        }
+
         decree = decreeRepository.save(decree);
         return decreeMapper.toDto(decree);
     }

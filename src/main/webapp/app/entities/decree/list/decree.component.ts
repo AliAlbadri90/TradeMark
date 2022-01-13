@@ -24,6 +24,7 @@ export class DecreeComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  currentSearch: any;
 
   constructor(
     protected decreeService: DecreeService,
@@ -80,6 +81,10 @@ export class DecreeComponent implements OnInit {
         this.loadPage();
       }
     });
+  }
+
+  search(currentSearch: any): void {
+    // a
   }
 
   protected sort(): string[] {
