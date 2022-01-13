@@ -85,8 +85,16 @@
           <td>{{ decree.pages }}</td>
           <td>{{ decree.decreeDate | formatMediumDate }}</td>
           <td>{{ decree.notes }}</td>
-          <td>{{ decree.pdfFileUrl }}</td>
-          <td>{{ decree.wordFileUrl }}</td>
+          <td>
+            <button *ngIf="decree.pdfFileUrl" (click)="openFile(decree.pdfFileUrl)" color="primary" mat-raised-button type="button">
+              <mat-icon class="ml-2">picture_as_pdf</mat-icon>
+            </button>
+          </td>
+          <td>
+            <button *ngIf="decree.wordFileUrl" (click)="openFile(decree.wordFileUrl)" color="primary" mat-raised-button type="button">
+              <mat-icon class="ml-2">text_snippet</mat-icon>
+            </button>
+          </td>
           <!--          <td>{{ decree.decreeStatus }}</td>-->
           <td>
             <div *ngIf="decree.decreeCategory">

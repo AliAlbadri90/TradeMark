@@ -1,0 +1,53 @@
+enum DecreeStatus {
+	ACTIVE, DRAWN, CANCELLED
+}
+
+entity Decree {
+	documentNo String
+	decreeNo String
+	title String
+    details String
+    keywords String
+    pages Integer
+    decreeDate LocalDate
+    year Integer
+    notes String
+    pdfFile AnyBlob
+    pdfFileUrl String
+    wordFile AnyBlob
+    wordFileUrl String
+    decreeStatus DecreeStatus
+}
+scp /Users/osamaeshmilh/Projects/e osama@192.168.1.187:/home/osama/
+entity DecreeType {
+	name String
+    serialNo String
+}
+
+entity DecreeCategory {
+	name String
+  	serialNo String
+}
+
+entity Minister {
+	name String
+	serialNo String
+	jobTitle String
+}
+
+entity Government {
+	name String
+    serialNo String
+}
+
+relationship ManyToOne {
+	Decree{DecreeType(name)} to DecreeType
+	Decree{DecreeCategory(name)} to DecreeCategory
+	Decree{Minister(name)} to Minister
+	Decree{Government(name)} to Government
+}
+
+paginate * with pagination
+filter *
+service * with serviceClass
+dto * with mapstruct
