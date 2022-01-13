@@ -1,0 +1,24 @@
+{
+  "name": "DecreeCategory",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serialNo",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "decree_category",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220113163525"
+}

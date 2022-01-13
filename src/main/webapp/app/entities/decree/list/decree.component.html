@@ -1,0 +1,199 @@
+<div class="entity-container">
+  <h2 id="page-heading" data-cy="DecreeHeading">
+    <span>Decrees</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-decree"
+        [routerLink]="['/decree/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Decree </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="decrees?.length === 0">
+    <span>No decrees found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="decrees && decrees.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id">
+            <span>ID</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="documentNo">
+            <span>Document No</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="decreeNo">
+            <span>Decree No</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="title">
+            <span>Title</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="details">
+            <span>Details</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="keywords">
+            <span>Keywords</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="pages">
+            <span>Pages</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="decreeDate">
+            <span>Decree Date</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="year">
+            <span>Year</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="notes">
+            <span>Notes</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="pdfFile">
+            <span>Pdf File</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="pdfFileUrl">
+            <span>Pdf File Url</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="wordFile">
+            <span>Word File</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="wordFileUrl">
+            <span>Word File Url</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="decreeStatus">
+            <span>Decree Status</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="decreeType.name">
+            <span>Decree Type</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="decreeCategory.name">
+            <span>Decree Category</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="minister.name">
+            <span>Minister</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="government.name">
+            <span>Government</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let decree of decrees; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/decree', decree.id, 'view']">{{ decree.id }}</a>
+          </td>
+          <td>{{ decree.documentNo }}</td>
+          <td>{{ decree.decreeNo }}</td>
+          <td>{{ decree.title }}</td>
+          <td>{{ decree.details }}</td>
+          <td>{{ decree.keywords }}</td>
+          <td>{{ decree.pages }}</td>
+          <td>{{ decree.decreeDate | formatMediumDate }}</td>
+          <td>{{ decree.year }}</td>
+          <td>{{ decree.notes }}</td>
+          <td>
+            <a *ngIf="decree.pdfFile" (click)="openFile(decree.pdfFile, decree.pdfFileContentType)">open</a>
+            <span *ngIf="decree.pdfFile">{{ decree.pdfFileContentType }}, {{ byteSize(decree.pdfFile) }}</span>
+          </td>
+          <td>{{ decree.pdfFileUrl }}</td>
+          <td>
+            <a *ngIf="decree.wordFile" (click)="openFile(decree.wordFile, decree.wordFileContentType)">open</a>
+            <span *ngIf="decree.wordFile">{{ decree.wordFileContentType }}, {{ byteSize(decree.wordFile) }}</span>
+          </td>
+          <td>{{ decree.wordFileUrl }}</td>
+          <td>{{ decree.decreeStatus }}</td>
+          <td>
+            <div *ngIf="decree.decreeType">
+              <a [routerLink]="['/decree-type', decree.decreeType?.id, 'view']">{{ decree.decreeType?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="decree.decreeCategory">
+              <a [routerLink]="['/decree-category', decree.decreeCategory?.id, 'view']">{{ decree.decreeCategory?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="decree.minister">
+              <a [routerLink]="['/minister', decree.minister?.id, 'view']">{{ decree.minister?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="decree.government">
+              <a [routerLink]="['/government', decree.government?.id, 'view']">{{ decree.government?.name }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/decree', decree.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/decree', decree.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(decree)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="decrees && decrees.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

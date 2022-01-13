@@ -1,0 +1,36 @@
+<div class="entity-container">
+  <div class="mat-elevation-z1 round-card white-bg p-4 mt-5">
+    <div *ngIf="decreeCategory">
+      <h2 data-cy="decreeCategoryDetailsHeading"><span>Decree Category</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ decreeCategory.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ decreeCategory.name }}</span>
+        </dd>
+        <dt><span>Serial No</span></dt>
+        <dd>
+          <span>{{ decreeCategory.serialNo }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/decree-category', decreeCategory.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

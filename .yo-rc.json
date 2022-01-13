@@ -40,6 +40,8 @@
     "devServerPort": 4200,
     "clientPackageManager": "npm",
     "enableGradleEnterprise": false,
-    "languages": ["en", "fr"]
+    "languages": ["en", "fr"],
+    "entities": ["Decree", "DecreeType", "DecreeCategory", "Minister", "Government"],
+    "lastLiquibaseTimestamp": 1642091727000
   }
 }

@@ -1,0 +1,28 @@
+{
+  "name": "Minister",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serialNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "jobTitle",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "minister",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220113163526"
+}

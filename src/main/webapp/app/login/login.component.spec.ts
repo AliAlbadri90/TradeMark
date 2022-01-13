@@ -1,3 +1,4 @@
+jest.mock('@angular/router');
 jest.mock('app/core/auth/account.service');
 jest.mock('app/login/login.service');
 
@@ -5,7 +6,6 @@ import { ElementRef } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { Router, Navigation } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
 
 import { AccountService } from 'app/core/auth/account.service';
@@ -23,11 +23,11 @@ describe('LoginComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [RouterTestingModule.withRoutes([])],
         declarations: [LoginComponent],
         providers: [
           FormBuilder,
           AccountService,
+          Router,
           {
             provide: LoginService,
             useValue: {
@@ -45,7 +45,6 @@ describe('LoginComponent', () => {
     fixture = TestBed.createComponent(LoginComponent);
     comp = fixture.componentInstance;
     mockRouter = TestBed.inject(Router);
-    jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockLoginService = TestBed.inject(LoginService);
     mockAccountService = TestBed.inject(AccountService);
   });

@@ -1,0 +1,104 @@
+{
+  "name": "Decree",
+  "fields": [
+    {
+      "fieldName": "documentNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "decreeNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "details",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "keywords",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pages",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "decreeDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "year",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pdfFile",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "pdfFileUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "wordFile",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "wordFileUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "decreeStatus",
+      "fieldType": "DecreeStatus",
+      "fieldValues": "ACTIVE,DRAWN,CANCELLED"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "decreeType",
+      "otherEntityRelationshipName": "decree",
+      "relationshipName": "decreeType",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "decreeCategory",
+      "otherEntityRelationshipName": "decree",
+      "relationshipName": "decreeCategory",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "minister",
+      "otherEntityRelationshipName": "decree",
+      "relationshipName": "minister",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "government",
+      "otherEntityRelationshipName": "decree",
+      "relationshipName": "government",
+      "otherEntityField": "name"
+    }
+  ],
+  "entityTableName": "decree",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220113163523"
+}
