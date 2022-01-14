@@ -114,7 +114,7 @@
                   <span class="d-none d-md-inline">عرض</span>
                 </button>
 
-                <button [routerLink]="['./', decree.id, 'edit']" mat-menu-item>
+                <button [routerLink]="['./', decree.id, 'edit']" *jhiHasAnyAuthority="['ROLE_ADMIN']" mat-menu-item>
                   <mat-icon>edit</mat-icon>
                   <span class="d-none d-md-inline">تعديل</span>
                 </button>

@@ -80,6 +80,35 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" for="field_pdfFile">Pdf File</label>
+          <div>
+            <div *ngIf="editForm.get('pdfFile')!.value" class="form-text text-danger clearfix">
+              <a class="pull-left" (click)="openFile(editForm.get('pdfFile')!.value, editForm.get('pdfFileContentType')!.value)">open</a
+              ><br />
+              <span class="pull-left"
+                >{{ editForm.get('pdfFileContentType')!.value }} , {{ byteSize(editForm.get('pdfFile')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="editForm.patchValue({ pdfFile: null }); editForm.patchValue({ pdfFileContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_pdfFile" data-cy="pdfFile" (change)="setFileData($event, 'pdfFile', false)" />
+          </div>
+          <input type="hidden" class="form-control" name="pdfFile" id="field_pdfFile" data-cy="pdfFile" formControlName="pdfFile" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="pdfFileContentType"
+            id="field_pdfFileContentType"
+            formControlName="pdfFileContentType"
+          />
+        </div>
+
+        <div class="form-group" hidden>
           <label class="form-control-label" for="field_pdfFileUrl">Pdf File Url</label>
           <input
             type="text"
@@ -92,6 +121,35 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" for="field_wordFile">Word File</label>
+          <div>
+            <div *ngIf="editForm.get('wordFile')!.value" class="form-text text-danger clearfix">
+              <a class="pull-left" (click)="openFile(editForm.get('wordFile')!.value, editForm.get('wordFileContentType')!.value)">open</a
+              ><br />
+              <span class="pull-left"
+                >{{ editForm.get('wordFileContentType')!.value }}, {{ byteSize(editForm.get('wordFile')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="editForm.patchValue({ wordFile: null }); editForm.patchValue({ wordFileContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_wordFile" data-cy="wordFile" (change)="setFileData($event, 'wordFile', false)" />
+          </div>
+          <input type="hidden" class="form-control" name="wordFile" id="field_wordFile" data-cy="wordFile" formControlName="wordFile" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="wordFileContentType"
+            id="field_wordFileContentType"
+            formControlName="wordFileContentType"
+          />
+        </div>
+
+        <div class="form-group" hidden>
           <label class="form-control-label" for="field_wordFileUrl">Word File Url</label>
           <input
             type="text"
