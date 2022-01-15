@@ -48,6 +48,10 @@
             <span>تاريخ القرار</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="decreeDate">
+            <span>سنة القرار</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="notes">
             <span>ملاحظات</span>
             <fa-icon icon="sort"></fa-icon>
@@ -56,16 +60,20 @@
             <span>ملف القرار PDF</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="wordFileUrl">
-            <span>ملف Word</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
+          <!--          <th scope="col" jhiSortBy="wordFileUrl">-->
+          <!--            <span>ملف Word</span>-->
+          <!--            <fa-icon icon="sort"></fa-icon>-->
+          <!--          </th>-->
           <!--          <th scope="col" jhiSortBy="decreeStatus">-->
           <!--            <span>حالة القرار</span>-->
           <!--            <fa-icon icon="sort"></fa-icon>-->
           <!--          </th>-->
           <th scope="col" jhiSortBy="decreeCategory.name">
             <span>تصنيف القرار</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="minister.name">
+            <span>الوزير</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="government.name">
@@ -84,21 +92,27 @@
           <td>{{ decree.title }}</td>
           <td>{{ decree.pages }}</td>
           <td>{{ decree.decreeDate | formatMediumDate }}</td>
+          <td>{{ decree.year }}</td>
           <td>{{ decree.notes }}</td>
           <td>
             <button *ngIf="decree.pdfFileUrl" (click)="openFile(decree.pdfFileUrl)" color="primary" mat-raised-button type="button">
               <mat-icon class="ml-2">picture_as_pdf</mat-icon>
             </button>
           </td>
-          <td>
-            <button *ngIf="decree.wordFileUrl" (click)="openFile(decree.wordFileUrl)" color="primary" mat-raised-button type="button">
-              <mat-icon class="ml-2">text_snippet</mat-icon>
-            </button>
-          </td>
+          <!--          <td>-->
+          <!--            <button *ngIf="decree.wordFileUrl" (click)="openFile(decree.wordFileUrl)" color="primary" mat-raised-button type="button">-->
+          <!--              <mat-icon class="ml-2">text_snippet</mat-icon>-->
+          <!--            </button>-->
+          <!--          </td>-->
           <!--          <td>{{ decree.decreeStatus }}</td>-->
           <td>
             <div *ngIf="decree.decreeCategory">
               <a>{{ decree.decreeCategory?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="decree.minister">
+              <a>{{ decree.minister?.name }}</a>
             </div>
           </td>
           <td>

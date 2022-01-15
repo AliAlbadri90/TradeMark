@@ -23,7 +23,7 @@ export class DecreeComponent implements OnInit {
   page?: number;
   predicate!: string;
   ascending!: boolean;
-  ngbPaginationPage = 1;
+  ngbPaginationPage = 0;
   currentSearch: any;
 
   constructor(
@@ -36,11 +36,11 @@ export class DecreeComponent implements OnInit {
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
-    const pageToLoad: number = page ?? this.page ?? 1;
+    const pageToLoad: number = page ?? this.page ?? 0;
 
     this.decreeService
       .query({
-        page: pageToLoad - 1,
+        page: pageToLoad,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
@@ -84,7 +84,26 @@ export class DecreeComponent implements OnInit {
   }
 
   search(currentSearch: any): void {
-    // a
+    this.decreeService
+      .query({
+        'decreeNo.contains': currentSearch,
+        'title.contains': currentSearch,
+        'decreeDate.contains': currentSearch,
+        'notes.contains': currentSearch,
+        page: 0,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      })
+      .subscribe({
+        next: (res: HttpResponse<IDecree[]>) => {
+          this.isLoading = false;
+          this.onSuccess(res.body, res.headers, 0, true);
+        },
+        error: () => {
+          this.isLoading = false;
+          this.onError();
+        },
+      });
   }
 
   protected sort(): string[] {
@@ -98,7 +117,7 @@ export class DecreeComponent implements OnInit {
   protected handleNavigation(): void {
     combineLatest([this.activatedRoute.data, this.activatedRoute.queryParamMap]).subscribe(([data, params]) => {
       const page = params.get('page');
-      const pageNumber = +(page ?? 1);
+      const pageNumber = +(page ?? 0);
       const sort = (params.get(SORT) ?? data['defaultSort']).split(',');
       const predicate = sort[0];
       const ascending = sort[1] === ASC;
@@ -127,6 +146,6 @@ export class DecreeComponent implements OnInit {
   }
 
   protected onError(): void {
-    this.ngbPaginationPage = this.page ?? 1;
+    this.ngbPaginationPage = this.page ?? 0;
   }
 }
