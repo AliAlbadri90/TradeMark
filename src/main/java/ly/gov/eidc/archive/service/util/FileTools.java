@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 
 public class FileTools {
 
-    private static final String uploadsDir = "~/uploads/archive/";
+    private static final String uploadsDir = "uploads/archive/";
 
     public static String upload(byte[] imageBytes, String fileContentType, String name) {
         String generatedName = "";
