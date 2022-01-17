@@ -40,6 +40,10 @@
             <span>العنوان</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="keywords">
+            <span>كلمات مفتاحية</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="pages">
             <span>عدد الصفحات</span>
             <fa-icon icon="sort"></fa-icon>
@@ -68,10 +72,10 @@
           <!--            <span>حالة القرار</span>-->
           <!--            <fa-icon icon="sort"></fa-icon>-->
           <!--          </th>-->
-          <th scope="col" jhiSortBy="decreeCategory.name">
-            <span>تصنيف القرار</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
+          <!--          <th scope="col" jhiSortBy="decreeCategory.name">-->
+          <!--            <span>تصنيف القرار</span>-->
+          <!--            <fa-icon icon="sort"></fa-icon>-->
+          <!--          </th>-->
           <th scope="col" jhiSortBy="minister.name">
             <span>الوزير</span>
             <fa-icon icon="sort"></fa-icon>
@@ -90,6 +94,7 @@
           </td>
           <td>{{ decree.decreeNo }}</td>
           <td>{{ decree.title }}</td>
+          <td>{{ decree.keywords }}</td>
           <td>{{ decree.pages }}</td>
           <td>{{ decree.decreeDate | formatMediumDate }}</td>
           <td>{{ decree.year }}</td>
@@ -105,11 +110,11 @@
           <!--            </button>-->
           <!--          </td>-->
           <!--          <td>{{ decree.decreeStatus }}</td>-->
-          <td>
-            <div *ngIf="decree.decreeCategory">
-              <a>{{ decree.decreeCategory?.name }}</a>
-            </div>
-          </td>
+          <!--          <td>-->
+          <!--            <div *ngIf="decree.decreeCategory">-->
+          <!--              <a>{{ decree.decreeCategory?.name }}</a>-->
+          <!--            </div>-->
+          <!--          </td>-->
           <td>
             <div *ngIf="decree.minister">
               <a>{{ decree.minister?.name }}</a>

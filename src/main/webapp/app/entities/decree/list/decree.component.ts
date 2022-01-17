@@ -90,6 +90,7 @@ export class DecreeComponent implements OnInit {
         'title.contains': currentSearch,
         'decreeDate.contains': currentSearch,
         'notes.contains': currentSearch,
+        'keywords.contains': currentSearch,
         page: 0,
         size: this.itemsPerPage,
         sort: this.sort(),
