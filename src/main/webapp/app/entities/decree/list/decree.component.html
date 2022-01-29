@@ -32,10 +32,15 @@
             <span>#</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="year">
+            <span>سنة القرار</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="decreeNo">
             <span>رقم القرار</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
+
           <th scope="col" jhiSortBy="title">
             <span>العنوان</span>
             <fa-icon icon="sort"></fa-icon>
@@ -44,18 +49,11 @@
             <span>كلمات مفتاحية</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="pages">
-            <span>عدد الصفحات</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
           <th scope="col" jhiSortBy="decreeDate">
             <span>تاريخ القرار</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="decreeDate">
-            <span>سنة القرار</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
+
           <th scope="col" jhiSortBy="notes">
             <span>ملاحظات</span>
             <fa-icon icon="sort"></fa-icon>
@@ -92,12 +90,11 @@
           <td>
             <a [routerLink]="['/decree', decree.id, 'view']">{{ decree.id }}</a>
           </td>
+          <td>{{ decree.year }}</td>
           <td>{{ decree.decreeNo }}</td>
           <td>{{ decree.title }}</td>
           <td>{{ decree.keywords }}</td>
-          <td>{{ decree.pages }}</td>
           <td>{{ decree.decreeDate | formatMediumDate }}</td>
-          <td>{{ decree.year }}</td>
           <td>{{ decree.notes }}</td>
           <td>
             <button *ngIf="decree.pdfFileUrl" (click)="openFile(decree.pdfFileUrl)" color="primary" mat-raised-button type="button">
