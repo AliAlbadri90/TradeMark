@@ -1,5 +1,6 @@
 package ly.gov.eidc.archive.service;
 
+import java.util.List;
 import java.util.Optional;
 import ly.gov.eidc.archive.domain.Decree;
 import ly.gov.eidc.archive.repository.DecreeRepository;
@@ -108,5 +109,9 @@ public class DecreeService {
     public void delete(Long id) {
         log.debug("Request to delete Decree : {}", id);
         decreeRepository.deleteById(id);
+    }
+
+    public List<Object[]> getDecreeYearLineChart() {
+        return decreeRepository.getDecreeYearLineChart();
     }
 }

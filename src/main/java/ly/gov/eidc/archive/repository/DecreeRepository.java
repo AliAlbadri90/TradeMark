@@ -1,7 +1,9 @@
 package ly.gov.eidc.archive.repository;
 
+import java.util.List;
 import ly.gov.eidc.archive.domain.Decree;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,4 +11,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface DecreeRepository extends JpaRepository<Decree, Long>, JpaSpecificationExecutor<Decree> {}
+public interface DecreeRepository extends JpaRepository<Decree, Long>, JpaSpecificationExecutor<Decree> {
+    @Query(value = "SELECT year, " + "COUNT(id) " + "FROM decree " + "GROUP BY year", nativeQuery = true)
+    List<Object[]> getDecreeYearLineChart();
+}

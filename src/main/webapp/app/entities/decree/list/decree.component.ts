@@ -69,7 +69,7 @@ export class DecreeComponent implements OnInit {
   }
 
   openFile(fileUrl: any): void {
-    window.open('/api/public/file/download/' + fileUrl, '_blank');
+    window.open('/api/public/file/download/' + String(fileUrl), '_blank');
   }
 
   delete(decree: IDecree): void {

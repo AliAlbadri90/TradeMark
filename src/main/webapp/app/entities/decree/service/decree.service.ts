@@ -57,6 +57,15 @@ export class DecreeService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  getDecreeLineChart(): Observable<HttpResponse<any>> {
+    return this.http.get<any>(this.resourceUrl + '/decree-line-chart', { observe: 'response' });
+  }
+
+  count(req?: any): Observable<HttpResponse<any>> {
+    const options = createRequestOption(req);
+    return this.http.get<number>(this.resourceUrl + '/count', { params: options, observe: 'response' });
+  }
+
   addDecreeToCollectionIfMissing(decreeCollection: IDecree[], ...decreesToCheck: (IDecree | null | undefined)[]): IDecree[] {
     const decrees: IDecree[] = decreesToCheck.filter(isPresent);
     if (decrees.length > 0) {

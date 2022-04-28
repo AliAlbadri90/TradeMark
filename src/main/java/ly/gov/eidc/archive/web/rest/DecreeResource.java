@@ -198,4 +198,9 @@ public class DecreeResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/decrees/decree-line-chart")
+    public ResponseEntity<List<Object[]>> getDecreeYearLineChart() {
+        return ResponseEntity.ok().body(decreeRepository.getDecreeYearLineChart());
+    }
 }
