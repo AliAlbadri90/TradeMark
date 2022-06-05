@@ -24,7 +24,8 @@ export class DecreeComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 0;
-  currentSearch: any;
+  currentSearch: any = '';
+  year: any = '';
 
   constructor(
     protected decreeService: DecreeService,
@@ -40,6 +41,10 @@ export class DecreeComponent implements OnInit {
 
     this.decreeService
       .query({
+        'decreeNo.contains': this.currentSearch,
+        'title.contains': this.currentSearch,
+        'notes.contains': this.currentSearch,
+        'keywords.contains': this.currentSearch,
         page: pageToLoad,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -84,11 +89,11 @@ export class DecreeComponent implements OnInit {
   }
 
   search(currentSearch: any): void {
+    this.currentSearch = currentSearch;
     this.decreeService
       .query({
         'decreeNo.contains': currentSearch,
         'title.contains': currentSearch,
-        'decreeDate.contains': currentSearch,
         'notes.contains': currentSearch,
         'keywords.contains': currentSearch,
         page: 0,
@@ -105,6 +110,11 @@ export class DecreeComponent implements OnInit {
           this.onError();
         },
       });
+  }
+
+  filterByYear(year: any): void {
+    this.year = year;
+    this.loadPage(0);
   }
 
   protected sort(): string[] {
@@ -136,6 +146,10 @@ export class DecreeComponent implements OnInit {
     if (navigate) {
       this.router.navigate(['/decree'], {
         queryParams: {
+          'decreeNo.contains': this.currentSearch,
+          'title.contains': this.currentSearch,
+          'notes.contains': this.currentSearch,
+          'keywords.contains': this.currentSearch,
           page: this.page,
           size: this.itemsPerPage,
           sort: this.predicate + ',' + (this.ascending ? ASC : DESC),
