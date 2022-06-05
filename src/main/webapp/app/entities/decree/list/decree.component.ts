@@ -41,10 +41,9 @@ export class DecreeComponent implements OnInit {
 
     this.decreeService
       .query({
-        'decreeNo.contains': this.currentSearch,
-        'title.contains': this.currentSearch,
-        'notes.contains': this.currentSearch,
+        // 'decreeNo.contains': this.currentSearch,
         'keywords.contains': this.currentSearch,
+        'year.equals': this.year,
         page: pageToLoad,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -92,10 +91,9 @@ export class DecreeComponent implements OnInit {
     this.currentSearch = currentSearch;
     this.decreeService
       .query({
-        'decreeNo.contains': currentSearch,
-        'title.contains': currentSearch,
-        'notes.contains': currentSearch,
+        //'decreeNo.contains': currentSearch,
         'keywords.contains': currentSearch,
+        'year.equals': this.year,
         page: 0,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -146,10 +144,9 @@ export class DecreeComponent implements OnInit {
     if (navigate) {
       this.router.navigate(['/decree'], {
         queryParams: {
-          'decreeNo.contains': this.currentSearch,
-          'title.contains': this.currentSearch,
-          'notes.contains': this.currentSearch,
+          // 'decreeNo.contains': this.currentSearch,
           'keywords.contains': this.currentSearch,
+          'year.equals': this.year,
           page: this.page,
           size: this.itemsPerPage,
           sort: this.predicate + ',' + (this.ascending ? ASC : DESC),
