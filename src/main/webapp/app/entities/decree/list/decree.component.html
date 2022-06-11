@@ -3,7 +3,7 @@
     <span>القرارات</span>
   </h3>
   <div class="mt-1 ml-1 d-flex align-items-center">
-    <button [routerLink]="['./new']" class="ml-1" color="primary" mat-raised-button>
+    <button [routerLink]="['./new']" class="ml-1" color="primary" mat-raised-button *jhiHasAnyAuthority="['ROLE_ADMIN']">
       <mat-icon>add</mat-icon>
       <span jhiTranslate="eTravelApp.airline.home.createLabel"> اضافة قرار جديد </span>
     </button>
