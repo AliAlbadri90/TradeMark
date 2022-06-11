@@ -1,35 +1,19 @@
 <div class="entity-container">
-  <h2 id="page-heading" data-cy="DecreeTypeHeading">
-    <span>Decree Types</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh List</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-decree-type"
-        [routerLink]="['/decree-type/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Decree Type </span>
-      </button>
-    </div>
-  </h2>
-
+  <h3 id="page-heading">
+    <span>انواع القرارات</span>
+  </h3>
+  <div class="mt-1 ml-1 d-flex align-items-center">
+    <button [routerLink]="['./new']" class="ml-1" color="primary" mat-raised-button *jhiHasAnyAuthority="['ROLE_ADMIN']">
+      <mat-icon>add</mat-icon>
+      <span jhiTranslate="eTravelApp.airline.home.createLabel"> اضافة نوع جديد </span>
+    </button>
+  </div>
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>
 
-  <div class="alert alert-warning" id="no-result" *ngIf="decreeTypes?.length === 0">
-    <span>No decreeTypes found</span>
-  </div>
-
-  <div class="table-responsive" id="entities" *ngIf="decreeTypes && decreeTypes.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
+  <div *ngIf="decreeTypes && decreeTypes.length > 0; else emptyContent" class="col-12 p-0 mat-elevation-z1 mt-3" id="entities">
+    <table class="col mat-table">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id">
@@ -37,7 +21,7 @@
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="name">
-            <span>Name</span>
+            <span>الاسم</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="serialNo">
@@ -85,23 +69,19 @@
         </tr>
       </tbody>
     </table>
-  </div>
 
-  <div *ngIf="decreeTypes && decreeTypes.length > 0">
-    <div class="row justify-content-center">
-      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
-    </div>
-
-    <div class="row justify-content-center">
-      <ngb-pagination
-        [collectionSize]="totalItems"
-        [(page)]="ngbPaginationPage"
+    <div class="col white-b">
+      <mat-divider></mat-divider>
+      <mat-paginator
+        (page)="loadPage($event.pageIndex)"
+        [length]="totalItems"
+        [pageIndex]="page"
         [pageSize]="itemsPerPage"
-        [maxSize]="5"
-        [rotate]="true"
-        [boundaryLinks]="true"
-        (pageChange)="loadPage($event)"
-      ></ngb-pagination>
+        showFirstLastButtons
+      ></mat-paginator>
     </div>
   </div>
+  <ng-template #emptyContent>
+    <jhi-empty-content [isLoading]="isLoading"></jhi-empty-content>
+  </ng-template>
 </div>

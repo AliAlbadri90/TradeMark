@@ -14,6 +14,7 @@ public class FileResource {
 
     public FileResource() {}
 
+    //TODO:: FILE UUID
     @GetMapping("/public/file/download/{fileName}")
     public ResponseEntity<byte[]> downloadImage(@PathVariable String fileName) {
         if (fileName.contains(".pdf")) {
