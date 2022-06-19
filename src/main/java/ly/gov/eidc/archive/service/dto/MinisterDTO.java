@@ -16,6 +16,8 @@ public class MinisterDTO implements Serializable {
 
     private String jobTitle;
 
+    private Long decreeCount;
+
     public Long getId() {
         return id;
     }
@@ -78,5 +80,13 @@ public class MinisterDTO implements Serializable {
             ", serialNo='" + getSerialNo() + "'" +
             ", jobTitle='" + getJobTitle() + "'" +
             "}";
+    }
+
+    public Long getDecreeCount() {
+        return decreeCount;
+    }
+
+    public void setDecreeCount(Long decreeCount) {
+        this.decreeCount = decreeCount;
     }
 }

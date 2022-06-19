@@ -46,7 +46,7 @@ public class DecreeService {
             String filePath = FileTools.upload(
                 decree.getPdfFile(),
                 decree.getPdfFileContentType(),
-                decreeDTO.getDecreeNo() + "_" + decreeDTO.getYear()
+                decreeDTO.getYear() + "ـ" + decreeDTO.getMinister().getId() + "_" + decreeDTO.getDecreeNo()
             );
             decree.setPdfFile(null);
             decree.setPdfFileContentType(decreeDTO.getPdfFileContentType());

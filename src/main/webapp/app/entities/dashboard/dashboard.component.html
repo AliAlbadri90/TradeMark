@@ -15,6 +15,30 @@
         ></canvas>
       </div>
     </div>
+    <div class="row white-bg">
+      <div class="mat-elevation-z1 p-3 round-card col-6">
+        <p>القرارات حسب الوزير</p>
+        <canvas
+          *ngIf="ministerDecreesPieChartData && ministerDecreesPieChartLabels"
+          [data]="ministerDecreesPieChartData"
+          [labels]="ministerDecreesPieChartLabels"
+          chartType="pie"
+          baseChart
+        >
+        </canvas>
+      </div>
+      <div class="mat-elevation-z1 p-3 round-card col-6">
+        <p>القرارات حسب الحكومة</p>
+        <canvas
+          *ngIf="govDecreesDoughnutChartData && govDecreesDoughnutChartLabels"
+          [data]="govDecreesDoughnutChartData"
+          [labels]="govDecreesDoughnutChartLabels"
+          chartType="doughnut"
+          baseChart
+        >
+        </canvas>
+      </div>
+    </div>
   </div>
 
   <div class="row align-items-center mt-3">
@@ -30,8 +54,8 @@
 
     <div class="mat-elevation-z1 px-4 py-3 d-flex round-card col white-bg">
       <div class="d-flex flex-column">
-        <h3 class="m-0">{{ decreeCount }}</h3>
-        <p class="m-0">عدد القرارات</p>
+        <h3 class="m-0">{{ ministerCount }}</h3>
+        <p class="m-0">عدد الوزراء</p>
       </div>
       <mat-icon class="big-icon mr-auto" color="primary">business</mat-icon>
     </div>
@@ -39,8 +63,8 @@
     <span class="mx-2"></span>
     <div class="mat-elevation-z1 px-4 py-3 d-flex round-card col white-bg">
       <div class="d-flex flex-column">
-        <h3 class="m-0">{{ decreeCount }}</h3>
-        <p class="m-0">عدد القرارات</p>
+        <h3 class="m-0">{{ govCount }}</h3>
+        <p class="m-0">عدد الحكومات</p>
       </div>
       <mat-icon class="big-icon mr-auto" color="primary">payment</mat-icon>
     </div>

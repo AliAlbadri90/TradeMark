@@ -14,6 +14,8 @@ public class GovernmentDTO implements Serializable {
 
     private String serialNo;
 
+    private Long decreeCount;
+
     public Long getId() {
         return id;
     }
@@ -67,5 +69,13 @@ public class GovernmentDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", serialNo='" + getSerialNo() + "'" +
             "}";
+    }
+
+    public Long getDecreeCount() {
+        return decreeCount;
+    }
+
+    public void setDecreeCount(Long decreeCount) {
+        this.decreeCount = decreeCount;
     }
 }

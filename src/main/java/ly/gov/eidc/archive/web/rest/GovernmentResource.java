@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import ly.gov.eidc.archive.repository.GovernmentRepository;
+import ly.gov.eidc.archive.service.DecreeQueryService;
+import ly.gov.eidc.archive.service.DecreeService;
 import ly.gov.eidc.archive.service.GovernmentQueryService;
 import ly.gov.eidc.archive.service.GovernmentService;
+import ly.gov.eidc.archive.service.criteria.DecreeCriteria;
 import ly.gov.eidc.archive.service.criteria.GovernmentCriteria;
 import ly.gov.eidc.archive.service.dto.GovernmentDTO;
 import ly.gov.eidc.archive.web.rest.errors.BadRequestAlertException;
@@ -20,6 +23,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import tech.jhipster.service.filter.LongFilter;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -44,14 +48,18 @@ public class GovernmentResource {
 
     private final GovernmentQueryService governmentQueryService;
 
+    private final DecreeQueryService decreeQueryService;
+
     public GovernmentResource(
         GovernmentService governmentService,
         GovernmentRepository governmentRepository,
-        GovernmentQueryService governmentQueryService
+        GovernmentQueryService governmentQueryService,
+        DecreeQueryService decreeQueryService
     ) {
         this.governmentService = governmentService;
         this.governmentRepository = governmentRepository;
         this.governmentQueryService = governmentQueryService;
+        this.decreeQueryService = decreeQueryService;
     }
 
     /**
@@ -158,6 +166,13 @@ public class GovernmentResource {
     ) {
         log.debug("REST request to get Governments by criteria: {}", criteria);
         Page<GovernmentDTO> page = governmentQueryService.findByCriteria(criteria, pageable);
+        DecreeCriteria decreeCriteria = new DecreeCriteria();
+        LongFilter longFilter = new LongFilter();
+        page.forEach(governmentDTO -> {
+            longFilter.setEquals(governmentDTO.getId());
+            decreeCriteria.setGovernmentId(longFilter);
+            governmentDTO.setDecreeCount(decreeQueryService.countByCriteria(decreeCriteria));
+        });
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

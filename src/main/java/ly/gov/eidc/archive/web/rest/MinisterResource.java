@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import ly.gov.eidc.archive.repository.MinisterRepository;
+import ly.gov.eidc.archive.service.DecreeQueryService;
 import ly.gov.eidc.archive.service.MinisterQueryService;
 import ly.gov.eidc.archive.service.MinisterService;
+import ly.gov.eidc.archive.service.criteria.DecreeCriteria;
 import ly.gov.eidc.archive.service.criteria.MinisterCriteria;
 import ly.gov.eidc.archive.service.dto.MinisterDTO;
 import ly.gov.eidc.archive.web.rest.errors.BadRequestAlertException;
@@ -20,6 +22,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import tech.jhipster.service.filter.LongFilter;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -44,14 +47,18 @@ public class MinisterResource {
 
     private final MinisterQueryService ministerQueryService;
 
+    private final DecreeQueryService decreeQueryService;
+
     public MinisterResource(
         MinisterService ministerService,
         MinisterRepository ministerRepository,
-        MinisterQueryService ministerQueryService
+        MinisterQueryService ministerQueryService,
+        DecreeQueryService decreeQueryService
     ) {
         this.ministerService = ministerService;
         this.ministerRepository = ministerRepository;
         this.ministerQueryService = ministerQueryService;
+        this.decreeQueryService = decreeQueryService;
     }
 
     /**
@@ -158,6 +165,13 @@ public class MinisterResource {
     ) {
         log.debug("REST request to get Ministers by criteria: {}", criteria);
         Page<MinisterDTO> page = ministerQueryService.findByCriteria(criteria, pageable);
+        DecreeCriteria decreeCriteria = new DecreeCriteria();
+        LongFilter longFilter = new LongFilter();
+        page.forEach(ministerDTO -> {
+            longFilter.setEquals(ministerDTO.getId());
+            decreeCriteria.setMinisterId(longFilter);
+            ministerDTO.setDecreeCount(decreeQueryService.countByCriteria(decreeCriteria));
+        });
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

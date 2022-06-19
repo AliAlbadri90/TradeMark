@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DecreeService } from '../decree/service/decree.service';
+import { MinisterService } from '../minister/service/minister.service';
+import { GovernmentService } from '../government/service/government.service';
+import { map } from 'rxjs/operators';
+import { HttpResponse } from '@angular/common/http';
+import { IMinister } from '../minister/minister.model';
+import { IGovernment } from '../government/government.model';
 
 @Component({
   selector: 'jhi-dashboard',
@@ -7,6 +13,8 @@ import { DecreeService } from '../decree/service/decree.service';
 })
 export class DashboardComponent {
   decreeCount: any = 0;
+  ministerCount: any = 0;
+  govCount: any = 0;
 
   companyLineChartData: Array<any> = [];
   companyLineChartLabels = [];
@@ -22,11 +30,33 @@ export class DashboardComponent {
     },
   ];
 
-  constructor(private decreeService: DecreeService) {}
+  ministerDecreesPieChartData: any;
+  ministerDecreesPieChartLabels: any;
+  public ministerDecreesData: Array<any> = [];
+  public ministerDecreesLabelsData: Array<any> = [];
+
+  govDecreesDoughnutChartData: any;
+  govDecreesDoughnutChartLabels: any;
+  public govDecreesData: Array<any> = [];
+  public govDecreesLabelsData: Array<any> = [];
+
+  constructor(
+    private decreeService: DecreeService,
+    private ministerService: MinisterService,
+    private governmentService: GovernmentService
+  ) {}
 
   ngOnInit(): void {
     this.decreeService.count().subscribe((res: any) => {
       this.decreeCount = res.body;
+    });
+
+    this.governmentService.count().subscribe((res: any) => {
+      this.govCount = res.body;
+    });
+
+    this.ministerService.count().subscribe((res: any) => {
+      this.ministerCount = res.body;
     });
 
     this.decreeService.getDecreeLineChart().subscribe((res: any) => {
@@ -39,5 +69,29 @@ export class DashboardComponent {
         },
       ];
     });
+
+    this.ministerService
+      .query({ size: 200 })
+      .pipe(map((res: HttpResponse<IMinister[]>) => res.body ?? []))
+      .subscribe((ministers: IMinister[]) => {
+        ministers.forEach((minister: IMinister) => {
+          this.ministerDecreesData.push(minister.decreeCount);
+          this.ministerDecreesLabelsData.push(minister.name);
+        });
+        this.ministerDecreesPieChartData = this.ministerDecreesData;
+        this.ministerDecreesPieChartLabels = this.ministerDecreesLabelsData;
+      });
+
+    this.governmentService
+      .query({ size: 200 })
+      .pipe(map((res: HttpResponse<IGovernment[]>) => res.body ?? []))
+      .subscribe((governments: IGovernment[]) => {
+        governments.forEach((government: IGovernment) => {
+          this.govDecreesData.push(government.decreeCount);
+          this.govDecreesLabelsData.push(government.name);
+        });
+        this.govDecreesDoughnutChartData = this.govDecreesData;
+        this.govDecreesDoughnutChartLabels = this.govDecreesLabelsData;
+      });
   }
 }

@@ -29,11 +29,11 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id">
-            <span>ID</span>
+            <span>#</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="name">
-            <span>Name</span>
+            <span>الاسم</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="serialNo">
@@ -43,6 +43,9 @@
           <th scope="col" jhiSortBy="jobTitle">
             <span>Job Title</span>
             <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col">
+            <span>عدد القرارات</span>
           </th>
           <th scope="col"></th>
         </tr>
@@ -55,6 +58,7 @@
           <td>{{ minister.name }}</td>
           <td>{{ minister.serialNo }}</td>
           <td>{{ minister.jobTitle }}</td>
+          <td>{{ minister.decreeCount }}</td>
           <td class="text-right">
             <div class="btn-group">
               <button

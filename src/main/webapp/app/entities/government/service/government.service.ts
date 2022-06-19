@@ -64,4 +64,9 @@ export class GovernmentService {
     }
     return governmentCollection;
   }
+
+  count(req?: any): Observable<HttpResponse<any>> {
+    const options = createRequestOption(req);
+    return this.http.get<number>(this.resourceUrl + '/count', { params: options, observe: 'response' });
+  }
 }
