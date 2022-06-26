@@ -29,7 +29,7 @@ public class FileTools {
                     fileContentType.equals(MediaType.IMAGE_GIF_VALUE)
                 ) generatedName = name + "_" + new Random().nextInt(100) + ".gif"; else if (
                     fileContentType.equals(MediaType.APPLICATION_PDF_VALUE)
-                ) generatedName = name + "_" + new Random().nextInt(100) + ".pdf"; else {
+                ) generatedName = name + "_U" + ".pdf"; else {
                     generatedName = name + "_" + new Random().nextInt(100) + "." + fileContentType;
                 }
 
@@ -79,7 +79,7 @@ public class FileTools {
             System.out.println(fileName + "");
             return pdf;
         } catch (Exception e) {
-            return new byte[0];
+            return null;
         }
     }
 }

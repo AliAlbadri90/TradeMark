@@ -26,11 +26,11 @@
         <dd>
           <span>{{ decree.title }}</span>
         </dd>
-        <dt><span>Details</span></dt>
+        <dt><span>التفاصيل</span></dt>
         <dd>
           <span>{{ decree.details }}</span>
         </dd>
-        <dt><span>Keywords</span></dt>
+        <dt><span>كلمات مفتاحية</span></dt>
         <dd>
           <span>{{ decree.keywords }}</span>
         </dd>
@@ -50,51 +50,44 @@
         <dd>
           <span>{{ decree.notes }}</span>
         </dd>
-        <dt><span>Pdf File</span></dt>
-        <dd>
-          <div *ngIf="decree.pdfFile">
-            <a (click)="openFile(decree.pdfFile, decree.pdfFileContentType)">open</a>
-            {{ decree.pdfFileContentType }}, {{ byteSize(decree.pdfFile) }}
-          </div>
-        </dd>
-        <dt><span>Pdf File Url</span></dt>
-        <dd>
-          <span>{{ decree.pdfFileUrl }}</span>
-        </dd>
-        <dt><span>Word File</span></dt>
-        <dd>
-          <div *ngIf="decree.wordFile">
-            <a (click)="openFile(decree.wordFile, decree.wordFileContentType)">open</a>
-            {{ decree.wordFileContentType }}, {{ byteSize(decree.wordFile) }}
-          </div>
-        </dd>
-        <dt><span>Word File Url</span></dt>
-        <dd>
-          <span>{{ decree.wordFileUrl }}</span>
-        </dd>
-        <dt><span>Decree Status</span></dt>
+        <!--        <dt><span>Pdf File Url</span></dt>-->
+        <!--        <dd>-->
+        <!--          <span>{{ decree.pdfFileUrl }}</span>-->
+        <!--        </dd>-->
+        <!--        <dt><span>Word File</span></dt>-->
+        <!--        <dd>-->
+        <!--          <div *ngIf="decree.wordFile">-->
+        <!--            <a (click)="openFile(decree.wordFile, decree.wordFileContentType)">open</a>-->
+        <!--            {{ decree.wordFileContentType }}, {{ byteSize(decree.wordFile) }}-->
+        <!--          </div>-->
+        <!--        </dd>-->
+        <!--        <dt><span>Word File Url</span></dt>-->
+        <!--        <dd>-->
+        <!--          <span>{{ decree.wordFileUrl }}</span>-->
+        <!--        </dd>-->
+        <dt><span>حالة القرار</span></dt>
         <dd>
           <span>{{ decree.decreeStatus }}</span>
         </dd>
-        <dt><span>Decree Type</span></dt>
+        <dt><span>نوع القرار</span></dt>
         <dd>
           <div *ngIf="decree.decreeType">
             <a [routerLink]="['/decree-type', decree.decreeType?.id, 'view']">{{ decree.decreeType?.name }}</a>
           </div>
         </dd>
-        <dt><span>Decree Category</span></dt>
+        <dt><span>تصنيف القرار</span></dt>
         <dd>
           <div *ngIf="decree.decreeCategory">
             <a [routerLink]="['/decree-category', decree.decreeCategory?.id, 'view']">{{ decree.decreeCategory?.name }}</a>
           </div>
         </dd>
-        <dt><span>Minister</span></dt>
+        <dt><span>الوزير</span></dt>
         <dd>
           <div *ngIf="decree.minister">
             <a [routerLink]="['/minister', decree.minister?.id, 'view']">{{ decree.minister?.name }}</a>
           </div>
         </dd>
-        <dt><span>Government</span></dt>
+        <dt><span>الحكومة</span></dt>
         <dd>
           <div *ngIf="decree.government">
             <a [routerLink]="['/government', decree.government?.id, 'view']">{{ decree.government?.name }}</a>
@@ -103,7 +96,7 @@
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>رجوع</span>
       </button>
     </div>
   </div>

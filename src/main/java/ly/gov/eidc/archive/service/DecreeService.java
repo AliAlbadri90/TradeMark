@@ -46,7 +46,7 @@ public class DecreeService {
             String filePath = FileTools.upload(
                 decree.getPdfFile(),
                 decree.getPdfFileContentType(),
-                decreeDTO.getYear() + "ـ" + decreeDTO.getMinister().getId() + "_" + decreeDTO.getDecreeNo()
+                decreeDTO.getYear() + "_" + decreeDTO.getMinister().getId() + "_" + decreeDTO.getDecreeNo()
             );
             decree.setPdfFile(null);
             decree.setPdfFileContentType(decreeDTO.getPdfFileContentType());
@@ -87,6 +87,11 @@ public class DecreeService {
     public Page<DecreeDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Decrees");
         return decreeRepository.findAll(pageable).map(decreeMapper::toDto);
+    }
+
+    @Transactional(readOnly = true)
+    public List<DecreeDTO> findAll() {
+        return decreeMapper.toDto(decreeRepository.findAll());
     }
 
     /**

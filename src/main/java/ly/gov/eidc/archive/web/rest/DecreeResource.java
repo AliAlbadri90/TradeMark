@@ -10,6 +10,7 @@ import ly.gov.eidc.archive.service.DecreeQueryService;
 import ly.gov.eidc.archive.service.DecreeService;
 import ly.gov.eidc.archive.service.criteria.DecreeCriteria;
 import ly.gov.eidc.archive.service.dto.DecreeDTO;
+import ly.gov.eidc.archive.service.util.FileTools;
 import ly.gov.eidc.archive.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -203,5 +204,15 @@ public class DecreeResource {
     @GetMapping("/decrees/decree-line-chart")
     public ResponseEntity<List<Object[]>> getDecreeYearLineChart() {
         return ResponseEntity.ok().body(decreeRepository.getDecreeYearLineChart());
+    }
+
+    @GetMapping("/decrees/recheck-files")
+    public void recheckFiles() {
+        decreeService
+            .findAll()
+            .forEach(decreeDTO -> {
+                if (FileTools.download(decreeDTO.getPdfFileUrl()) == null) decreeDTO.setPdfFileUrl(null);
+                decreeService.save(decreeDTO);
+            });
     }
 }
