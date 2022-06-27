@@ -11,7 +11,7 @@
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="form-group">
+        <div class="form-group" hidden>
           <label class="form-control-label" for="field_documentNo">Document No</label>
           <input
             type="text"
@@ -23,301 +23,305 @@
           />
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" for="field_decreeNo">رقم القرار</label>
-          <input type="text" class="form-control" name="decreeNo" id="field_decreeNo" data-cy="decreeNo" formControlName="decreeNo" />
-        </div>
+        <div *jhiHasAnyAuthority="['ROLE_EDIT', 'ROLE_ADMIN']">
+          <div class="form-group">
+            <label class="form-control-label" for="field_decreeNo">رقم القرار</label>
+            <input type="text" class="form-control" name="decreeNo" id="field_decreeNo" data-cy="decreeNo" formControlName="decreeNo" />
+          </div>
 
-        <div class="form-group">
-          <label class="form-control-label" for="field_title">العنوان</label>
-          <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
-        </div>
+          <div class="form-group">
+            <label class="form-control-label" for="field_title">العنوان</label>
+            <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
+          </div>
 
-        <div class="form-group">
-          <label class="form-control-label" for="field_details">نص القرار</label>
-          <input type="text" class="form-control" name="details" id="field_details" data-cy="details" formControlName="details" />
-        </div>
+          <div class="form-group">
+            <label class="form-control-label" for="field_details">نص القرار</label>
+            <input type="text" class="form-control" name="details" id="field_details" data-cy="details" formControlName="details" />
+          </div>
 
-        <div class="form-group">
-          <label class="form-control-label" for="field_keywords">كلمات مفتاحية</label>
-          <input type="text" class="form-control" name="keywords" id="field_keywords" data-cy="keywords" formControlName="keywords" />
-        </div>
+          <div class="form-group">
+            <label class="form-control-label" for="field_keywords">كلمات مفتاحية</label>
+            <input type="text" class="form-control" name="keywords" id="field_keywords" data-cy="keywords" formControlName="keywords" />
+          </div>
 
-        <div class="form-group">
-          <label class="form-control-label" for="field_pages">عدد الصفحات</label>
-          <input type="number" class="form-control" name="pages" id="field_pages" data-cy="pages" formControlName="pages" />
-        </div>
+          <div class="form-group">
+            <label class="form-control-label" for="field_pages">عدد الصفحات</label>
+            <input type="number" class="form-control" name="pages" id="field_pages" data-cy="pages" formControlName="pages" />
+          </div>
 
-        <div class="form-group">
-          <label class="form-control-label" for="field_decreeDate">تاريخ القرار</label>
-          <div class="input-group">
-            <input
-              id="field_decreeDate"
-              data-cy="decreeDate"
-              type="text"
+          <div class="form-group">
+            <label class="form-control-label" for="field_decreeDate">تاريخ القرار</label>
+            <div class="input-group">
+              <input
+                id="field_decreeDate"
+                data-cy="decreeDate"
+                type="text"
+                class="form-control"
+                name="decreeDate"
+                ngbDatepicker
+                #decreeDateDp="ngbDatepicker"
+                formControlName="decreeDate"
+              />
+              <span class="input-group-append">
+                <button type="button" class="btn btn-secondary" (click)="decreeDateDp.toggle()">
+                  <fa-icon icon="calendar-alt"></fa-icon>
+                </button>
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" for="field_year">سنة القرار</label>
+            <input type="number" class="form-control" name="year" id="field_year" data-cy="year" formControlName="year" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" for="field_notes">ملاحظات</label>
+            <input type="text" class="form-control" name="notes" id="field_notes" data-cy="notes" formControlName="notes" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" for="field_decreeStatus">حالة القرار</label>
+            <select class="form-control" name="decreeStatus" formControlName="decreeStatus" id="field_decreeStatus" data-cy="decreeStatus">
+              <option [ngValue]="null"></option>
+              <option *ngFor="let decreeStatus of decreeStatusValues" [value]="decreeStatus">{{ decreeStatus }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" for="field_decreeType">نوع القرار</label>
+            <select class="form-control" id="field_decreeType" data-cy="decreeType" name="decreeType" formControlName="decreeType">
+              <option [ngValue]="null"></option>
+              <option
+                [ngValue]="
+                  decreeTypeOption.id === editForm.get('decreeType')!.value?.id ? editForm.get('decreeType')!.value : decreeTypeOption
+                "
+                *ngFor="let decreeTypeOption of decreeTypesSharedCollection; trackBy: trackDecreeTypeById"
+              >
+                {{ decreeTypeOption.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" for="field_decreeCategory">تصنيف القرار</label>
+            <select
               class="form-control"
-              name="decreeDate"
-              ngbDatepicker
-              #decreeDateDp="ngbDatepicker"
-              formControlName="decreeDate"
-            />
-            <span class="input-group-append">
-              <button type="button" class="btn btn-secondary" (click)="decreeDateDp.toggle()">
-                <fa-icon icon="calendar-alt"></fa-icon>
-              </button>
-            </span>
+              id="field_decreeCategory"
+              data-cy="decreeCategory"
+              name="decreeCategory"
+              formControlName="decreeCategory"
+            >
+              <option [ngValue]="null"></option>
+              <option
+                [ngValue]="
+                  decreeCategoryOption.id === editForm.get('decreeCategory')!.value?.id
+                    ? editForm.get('decreeCategory')!.value
+                    : decreeCategoryOption
+                "
+                *ngFor="let decreeCategoryOption of decreeCategoriesSharedCollection; trackBy: trackDecreeCategoryById"
+              >
+                {{ decreeCategoryOption.name }}
+              </option>
+            </select>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label class="form-control-label" for="field_year">سنة القرار</label>
-          <input type="number" class="form-control" name="year" id="field_year" data-cy="year" formControlName="year" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_notes">ملاحظات</label>
-          <input type="text" class="form-control" name="notes" id="field_notes" data-cy="notes" formControlName="notes" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_pdfFile">Pdf File</label>
-          <div>
-            <div *ngIf="editForm.get('pdfFile')!.value" class="form-text text-danger clearfix">
-              <a class="pull-left" (click)="openFile(editForm.get('pdfFile')!.value, editForm.get('pdfFileContentType')!.value)">open</a
-              ><br />
-              <span class="pull-left"
-                >{{ editForm.get('pdfFileContentType')!.value }} , {{ byteSize(editForm.get('pdfFile')!.value) }}</span
+          <div class="form-group">
+            <label class="form-control-label" for="field_minister">الوزير</label>
+            <select class="form-control" id="field_minister" data-cy="minister" name="minister" formControlName="minister">
+              <option [ngValue]="null"></option>
+              <option
+                [ngValue]="ministerOption.id === editForm.get('minister')!.value?.id ? editForm.get('minister')!.value : ministerOption"
+                *ngFor="let ministerOption of ministersSharedCollection; trackBy: trackMinisterById"
               >
-              <button
-                type="button"
-                (click)="editForm.patchValue({ pdfFile: null }); editForm.patchValue({ pdfFileContentType: null })"
-                class="btn btn-secondary btn-xs pull-right"
+                {{ ministerOption.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" for="field_government">الحكومة</label>
+            <select class="form-control" id="field_government" data-cy="government" name="government" formControlName="government">
+              <option [ngValue]="null"></option>
+              <option
+                [ngValue]="
+                  governmentOption.id === editForm.get('government')!.value?.id ? editForm.get('government')!.value : governmentOption
+                "
+                *ngFor="let governmentOption of governmentsSharedCollection; trackBy: trackGovernmentById"
               >
-                <fa-icon icon="times"></fa-icon>
-              </button>
+                {{ governmentOption.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" for="field_isHidden">قرار مخفي ؟</label>
+            <input type="checkbox" class="form-check" name="isHidden" id="field_isHidden" data-cy="isHidden" formControlName="isHidden" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" for="field_hideNotes">ملاحظات الاخفاء</label>
+            <input type="text" class="form-control" name="hideNotes" id="field_hideNotes" data-cy="hideNotes" formControlName="hideNotes" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label" for="field_hideEndDate">تاريخ ايقاف الاخفاء</label>
+            <div class="input-group">
+              <input
+                id="field_hideEndDate"
+                data-cy="hideEndDate"
+                type="text"
+                class="form-control"
+                name="hideEndDate"
+                ngbDatepicker
+                #hideEndDateDp="ngbDatepicker"
+                formControlName="hideEndDate"
+              />
+              <span class="input-group-append">
+                <button type="button" class="btn btn-secondary" (click)="hideEndDateDp.toggle()">
+                  <fa-icon icon="calendar-alt"></fa-icon>
+                </button>
+              </span>
             </div>
-            <input type="file" id="file_pdfFile" data-cy="pdfFile" (change)="setFileData($event, 'pdfFile', false)" />
           </div>
-          <input type="hidden" class="form-control" name="pdfFile" id="field_pdfFile" data-cy="pdfFile" formControlName="pdfFile" />
-          <input
-            type="hidden"
-            class="form-control"
-            name="pdfFileContentType"
-            id="field_pdfFileContentType"
-            formControlName="pdfFileContentType"
-          />
         </div>
 
-        <div class="form-group" hidden>
-          <label class="form-control-label" for="field_pdfFileUrl">Pdf File Url</label>
-          <input
-            type="text"
-            class="form-control"
-            name="pdfFileUrl"
-            id="field_pdfFileUrl"
-            data-cy="pdfFileUrl"
-            formControlName="pdfFileUrl"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_wordFile">Word File</label>
-          <div>
-            <div *ngIf="editForm.get('wordFile')!.value" class="form-text text-danger clearfix">
-              <a class="pull-left" (click)="openFile(editForm.get('wordFile')!.value, editForm.get('wordFileContentType')!.value)">open</a
-              ><br />
-              <span class="pull-left"
-                >{{ editForm.get('wordFileContentType')!.value }}, {{ byteSize(editForm.get('wordFile')!.value) }}</span
-              >
-              <button
-                type="button"
-                (click)="editForm.patchValue({ wordFile: null }); editForm.patchValue({ wordFileContentType: null })"
-                class="btn btn-secondary btn-xs pull-right"
-              >
-                <fa-icon icon="times"></fa-icon>
-              </button>
-            </div>
-            <input type="file" id="file_wordFile" data-cy="wordFile" (change)="setFileData($event, 'wordFile', false)" />
-          </div>
-          <input type="hidden" class="form-control" name="wordFile" id="field_wordFile" data-cy="wordFile" formControlName="wordFile" />
-          <input
-            type="hidden"
-            class="form-control"
-            name="wordFileContentType"
-            id="field_wordFileContentType"
-            formControlName="wordFileContentType"
-          />
-        </div>
-
-        <div class="form-group" hidden>
-          <label class="form-control-label" for="field_wordFileUrl">Word File Url</label>
-          <input
-            type="text"
-            class="form-control"
-            name="wordFileUrl"
-            id="field_wordFileUrl"
-            data-cy="wordFileUrl"
-            formControlName="wordFileUrl"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_extraPdfFile">Extra Pdf File</label>
-          <div>
-            <div *ngIf="editForm.get('extraPdfFile')!.value" class="form-text text-danger clearfix">
-              <a class="pull-left" (click)="openFile(editForm.get('extraPdfFile')!.value, editForm.get('extraPdfFileContentType')!.value)"
-                >open</a
-              ><br />
-              <span class="pull-left"
-                >{{ editForm.get('extraPdfFileContentType')!.value }} , {{ byteSize(editForm.get('extraPdfFile')!.value) }}</span
-              >
-              <button
-                type="button"
-                (click)="editForm.patchValue({ extraPdfFile: null }); editForm.patchValue({ extraPdfFileContentType: null })"
-                class="btn btn-secondary btn-xs pull-right"
-              >
-                <fa-icon icon="times"></fa-icon>
-              </button>
-            </div>
-            <input type="file" id="file_extraPdfFile" data-cy="extraPdfFile" (change)="setFileData($event, 'extraPdfFile', false)" />
-          </div>
-          <input
-            type="hidden"
-            class="form-control"
-            name="extraPdfFile"
-            id="field_extraPdfFile"
-            data-cy="extraPdfFile"
-            formControlName="extraPdfFile"
-          />
-          <input
-            type="hidden"
-            class="form-control"
-            name="extraPdfFileContentType"
-            id="field_extraPdfFileContentType"
-            formControlName="extraPdfFileContentType"
-          />
-        </div>
-
-        <div class="form-group" hidden>
-          <label class="form-control-label" for="field_extraPdfFileUrl">Extra Pdf File Url</label>
-          <input
-            type="text"
-            class="form-control"
-            name="extraPdfFileUrl"
-            id="field_extraPdfFileUrl"
-            data-cy="extraPdfFileUrl"
-            formControlName="extraPdfFileUrl"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_decreeStatus">Decree Status</label>
-          <select class="form-control" name="decreeStatus" formControlName="decreeStatus" id="field_decreeStatus" data-cy="decreeStatus">
-            <option [ngValue]="null"></option>
-            <option *ngFor="let decreeStatus of decreeStatusValues" [value]="decreeStatus">{{ decreeStatus }}</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_remarks">Remarks</label>
+        <div class="form-group" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_ADD_REMARKS']">
+          <label class="form-control-label" for="field_remarks">التعليقات</label>
           <input type="text" class="form-control" name="remarks" id="field_remarks" data-cy="remarks" formControlName="remarks" />
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" for="field_isHidden">Is Hidden</label>
-          <input type="checkbox" class="form-check" name="isHidden" id="field_isHidden" data-cy="isHidden" formControlName="isHidden" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_hideNotes">Hide Notes</label>
-          <input type="text" class="form-control" name="hideNotes" id="field_hideNotes" data-cy="hideNotes" formControlName="hideNotes" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_hideEndDate">Hide End Date</label>
-          <div class="input-group">
+        <div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_UPLOAD_FILES']">
+          <div class="form-group">
+            <label class="form-control-label" for="field_pdfFile">Pdf File</label>
+            <div>
+              <div *ngIf="editForm.get('pdfFile')!.value" class="form-text text-danger clearfix">
+                <a class="pull-left" (click)="openFile(editForm.get('pdfFile')!.value, editForm.get('pdfFileContentType')!.value)">open</a
+                ><br />
+                <span class="pull-left"
+                  >{{ editForm.get('pdfFileContentType')!.value }} , {{ byteSize(editForm.get('pdfFile')!.value) }}</span
+                >
+                <button
+                  type="button"
+                  (click)="editForm.patchValue({ pdfFile: null }); editForm.patchValue({ pdfFileContentType: null })"
+                  class="btn btn-secondary btn-xs pull-right"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+              <input type="file" id="file_pdfFile" data-cy="pdfFile" (change)="setFileData($event, 'pdfFile', false)" />
+            </div>
+            <input type="hidden" class="form-control" name="pdfFile" id="field_pdfFile" data-cy="pdfFile" formControlName="pdfFile" />
             <input
-              id="field_hideEndDate"
-              data-cy="hideEndDate"
+              type="hidden"
+              class="form-control"
+              name="pdfFileContentType"
+              id="field_pdfFileContentType"
+              formControlName="pdfFileContentType"
+            />
+          </div>
+
+          <div class="form-group" hidden>
+            <label class="form-control-label" for="field_pdfFileUrl">Pdf File Url</label>
+            <input
               type="text"
               class="form-control"
-              name="hideEndDate"
-              ngbDatepicker
-              #hideEndDateDp="ngbDatepicker"
-              formControlName="hideEndDate"
+              name="pdfFileUrl"
+              id="field_pdfFileUrl"
+              data-cy="pdfFileUrl"
+              formControlName="pdfFileUrl"
             />
-            <span class="input-group-append">
-              <button type="button" class="btn btn-secondary" (click)="hideEndDateDp.toggle()">
-                <fa-icon icon="calendar-alt"></fa-icon>
-              </button>
-            </span>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label class="form-control-label" for="field_decreeType">Decree Type</label>
-          <select class="form-control" id="field_decreeType" data-cy="decreeType" name="decreeType" formControlName="decreeType">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
-                decreeTypeOption.id === editForm.get('decreeType')!.value?.id ? editForm.get('decreeType')!.value : decreeTypeOption
-              "
-              *ngFor="let decreeTypeOption of decreeTypesSharedCollection; trackBy: trackDecreeTypeById"
-            >
-              {{ decreeTypeOption.name }}
-            </option>
-          </select>
-        </div>
+          <div class="form-group">
+            <label class="form-control-label" for="field_wordFile">Word File</label>
+            <div>
+              <div *ngIf="editForm.get('wordFile')!.value" class="form-text text-danger clearfix">
+                <a class="pull-left" (click)="openFile(editForm.get('wordFile')!.value, editForm.get('wordFileContentType')!.value)">open</a
+                ><br />
+                <span class="pull-left"
+                  >{{ editForm.get('wordFileContentType')!.value }}, {{ byteSize(editForm.get('wordFile')!.value) }}</span
+                >
+                <button
+                  type="button"
+                  (click)="editForm.patchValue({ wordFile: null }); editForm.patchValue({ wordFileContentType: null })"
+                  class="btn btn-secondary btn-xs pull-right"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+              <input type="file" id="file_wordFile" data-cy="wordFile" (change)="setFileData($event, 'wordFile', false)" />
+            </div>
+            <input type="hidden" class="form-control" name="wordFile" id="field_wordFile" data-cy="wordFile" formControlName="wordFile" />
+            <input
+              type="hidden"
+              class="form-control"
+              name="wordFileContentType"
+              id="field_wordFileContentType"
+              formControlName="wordFileContentType"
+            />
+          </div>
 
-        <div class="form-group">
-          <label class="form-control-label" for="field_decreeCategory">تصنيف القرار</label>
-          <select
-            class="form-control"
-            id="field_decreeCategory"
-            data-cy="decreeCategory"
-            name="decreeCategory"
-            formControlName="decreeCategory"
-          >
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
-                decreeCategoryOption.id === editForm.get('decreeCategory')!.value?.id
-                  ? editForm.get('decreeCategory')!.value
-                  : decreeCategoryOption
-              "
-              *ngFor="let decreeCategoryOption of decreeCategoriesSharedCollection; trackBy: trackDecreeCategoryById"
-            >
-              {{ decreeCategoryOption.name }}
-            </option>
-          </select>
-        </div>
+          <div class="form-group" hidden>
+            <label class="form-control-label" for="field_wordFileUrl">Word File Url</label>
+            <input
+              type="text"
+              class="form-control"
+              name="wordFileUrl"
+              id="field_wordFileUrl"
+              data-cy="wordFileUrl"
+              formControlName="wordFileUrl"
+            />
+          </div>
 
-        <div class="form-group">
-          <label class="form-control-label" for="field_minister">الوزير</label>
-          <select class="form-control" id="field_minister" data-cy="minister" name="minister" formControlName="minister">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="ministerOption.id === editForm.get('minister')!.value?.id ? editForm.get('minister')!.value : ministerOption"
-              *ngFor="let ministerOption of ministersSharedCollection; trackBy: trackMinisterById"
-            >
-              {{ ministerOption.name }}
-            </option>
-          </select>
-        </div>
+          <div class="form-group">
+            <label class="form-control-label" for="field_extraPdfFile">Extra Pdf File</label>
+            <div>
+              <div *ngIf="editForm.get('extraPdfFile')!.value" class="form-text text-danger clearfix">
+                <a class="pull-left" (click)="openFile(editForm.get('extraPdfFile')!.value, editForm.get('extraPdfFileContentType')!.value)"
+                  >open</a
+                ><br />
+                <span class="pull-left"
+                  >{{ editForm.get('extraPdfFileContentType')!.value }} , {{ byteSize(editForm.get('extraPdfFile')!.value) }}</span
+                >
+                <button
+                  type="button"
+                  (click)="editForm.patchValue({ extraPdfFile: null }); editForm.patchValue({ extraPdfFileContentType: null })"
+                  class="btn btn-secondary btn-xs pull-right"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+              <input type="file" id="file_extraPdfFile" data-cy="extraPdfFile" (change)="setFileData($event, 'extraPdfFile', false)" />
+            </div>
+            <input
+              type="hidden"
+              class="form-control"
+              name="extraPdfFile"
+              id="field_extraPdfFile"
+              data-cy="extraPdfFile"
+              formControlName="extraPdfFile"
+            />
+            <input
+              type="hidden"
+              class="form-control"
+              name="extraPdfFileContentType"
+              id="field_extraPdfFileContentType"
+              formControlName="extraPdfFileContentType"
+            />
+          </div>
 
-        <div class="form-group">
-          <label class="form-control-label" for="field_government">الحكومة</label>
-          <select class="form-control" id="field_government" data-cy="government" name="government" formControlName="government">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
-                governmentOption.id === editForm.get('government')!.value?.id ? editForm.get('government')!.value : governmentOption
-              "
-              *ngFor="let governmentOption of governmentsSharedCollection; trackBy: trackGovernmentById"
-            >
-              {{ governmentOption.name }}
-            </option>
-          </select>
+          <div class="form-group" hidden>
+            <label class="form-control-label" for="field_extraPdfFileUrl">Extra Pdf File Url</label>
+            <input
+              type="text"
+              class="form-control"
+              name="extraPdfFileUrl"
+              id="field_extraPdfFileUrl"
+              data-cy="extraPdfFileUrl"
+              formControlName="extraPdfFileUrl"
+            />
+          </div>
         </div>
       </div>
 

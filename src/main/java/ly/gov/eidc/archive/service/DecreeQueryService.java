@@ -86,65 +86,62 @@ public class DecreeQueryService extends QueryService<Decree> {
         if (criteria != null) {
             // This has to be called first, because the distinct method returns null
             if (criteria.getDistinct() != null) {
-                specification = specification.and(distinct(criteria.getDistinct()));
+                specification = specification.or(distinct(criteria.getDistinct()));
             }
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Decree_.id));
+                specification = specification.or(buildRangeSpecification(criteria.getId(), Decree_.id));
             }
             if (criteria.getDocumentNo() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDocumentNo(), Decree_.documentNo));
+                specification = specification.or(buildStringSpecification(criteria.getDocumentNo(), Decree_.documentNo));
             }
             if (criteria.getDecreeNo() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDecreeNo(), Decree_.decreeNo));
+                specification = specification.or(buildStringSpecification(criteria.getDecreeNo(), Decree_.decreeNo));
             }
             if (criteria.getTitle() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getTitle(), Decree_.title));
+                specification = specification.or(buildStringSpecification(criteria.getTitle(), Decree_.title));
             }
             if (criteria.getDetails() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDetails(), Decree_.details));
+                specification = specification.or(buildStringSpecification(criteria.getDetails(), Decree_.details));
             }
             if (criteria.getKeywords() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getKeywords(), Decree_.keywords));
+                specification = specification.or(buildStringSpecification(criteria.getKeywords(), Decree_.keywords));
             }
             if (criteria.getPages() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getPages(), Decree_.pages));
+                specification = specification.or(buildRangeSpecification(criteria.getPages(), Decree_.pages));
             }
             if (criteria.getDecreeDate() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getDecreeDate(), Decree_.decreeDate));
+                specification = specification.or(buildRangeSpecification(criteria.getDecreeDate(), Decree_.decreeDate));
             }
             if (criteria.getYear() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getYear(), Decree_.year));
             }
             if (criteria.getNotes() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getNotes(), Decree_.notes));
+                specification = specification.or(buildStringSpecification(criteria.getNotes(), Decree_.notes));
             }
             if (criteria.getPdfFileUrl() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getPdfFileUrl(), Decree_.pdfFileUrl));
+                specification = specification.or(buildStringSpecification(criteria.getPdfFileUrl(), Decree_.pdfFileUrl));
             }
             if (criteria.getWordFileUrl() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getWordFileUrl(), Decree_.wordFileUrl));
-            }
-            if (criteria.getExtraPdfFileUrl() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getExtraPdfFileUrl(), Decree_.extraPdfFileUrl));
+                specification = specification.or(buildStringSpecification(criteria.getWordFileUrl(), Decree_.wordFileUrl));
             }
             if (criteria.getDecreeStatus() != null) {
-                specification = specification.and(buildSpecification(criteria.getDecreeStatus(), Decree_.decreeStatus));
+                specification = specification.or(buildSpecification(criteria.getDecreeStatus(), Decree_.decreeStatus));
             }
             if (criteria.getRemarks() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getRemarks(), Decree_.remarks));
+                specification = specification.or(buildStringSpecification(criteria.getRemarks(), Decree_.remarks));
             }
             if (criteria.getIsHidden() != null) {
-                specification = specification.and(buildSpecification(criteria.getIsHidden(), Decree_.isHidden));
+                specification = specification.or(buildSpecification(criteria.getIsHidden(), Decree_.isHidden));
             }
             if (criteria.getHideNotes() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getHideNotes(), Decree_.hideNotes));
+                specification = specification.or(buildStringSpecification(criteria.getHideNotes(), Decree_.hideNotes));
             }
             if (criteria.getHideEndDate() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getHideEndDate(), Decree_.hideEndDate));
+                specification = specification.or(buildRangeSpecification(criteria.getHideEndDate(), Decree_.hideEndDate));
             }
             if (criteria.getDecreeTypeId() != null) {
                 specification =
-                    specification.and(
+                    specification.or(
                         buildSpecification(
                             criteria.getDecreeTypeId(),
                             root -> root.join(Decree_.decreeType, JoinType.LEFT).get(DecreeType_.id)
@@ -153,7 +150,7 @@ public class DecreeQueryService extends QueryService<Decree> {
             }
             if (criteria.getDecreeCategoryId() != null) {
                 specification =
-                    specification.and(
+                    specification.or(
                         buildSpecification(
                             criteria.getDecreeCategoryId(),
                             root -> root.join(Decree_.decreeCategory, JoinType.LEFT).get(DecreeCategory_.id)
@@ -162,13 +159,13 @@ public class DecreeQueryService extends QueryService<Decree> {
             }
             if (criteria.getMinisterId() != null) {
                 specification =
-                    specification.and(
+                    specification.or(
                         buildSpecification(criteria.getMinisterId(), root -> root.join(Decree_.minister, JoinType.LEFT).get(Minister_.id))
                     );
             }
             if (criteria.getGovernmentId() != null) {
                 specification =
-                    specification.and(
+                    specification.or(
                         buildSpecification(
                             criteria.getGovernmentId(),
                             root -> root.join(Decree_.government, JoinType.LEFT).get(Government_.id)
