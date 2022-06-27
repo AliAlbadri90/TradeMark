@@ -40,7 +40,6 @@ public class DecreeQueryService extends QueryService<Decree> {
 
     /**
      * Return a {@link List} of {@link DecreeDTO} which matches the criteria from the database.
-     *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
@@ -67,7 +66,6 @@ public class DecreeQueryService extends QueryService<Decree> {
 
     /**
      * Return the number of matching entities in the database.
-     *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the number of matching entities.
      */
@@ -80,7 +78,6 @@ public class DecreeQueryService extends QueryService<Decree> {
 
     /**
      * Function to convert {@link DecreeCriteria} to a {@link Specification}
-     *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching {@link Specification} of the entity.
      */
@@ -89,50 +86,65 @@ public class DecreeQueryService extends QueryService<Decree> {
         if (criteria != null) {
             // This has to be called first, because the distinct method returns null
             if (criteria.getDistinct() != null) {
-                specification = specification.or(distinct(criteria.getDistinct()));
+                specification = specification.and(distinct(criteria.getDistinct()));
             }
             if (criteria.getId() != null) {
-                specification = specification.or(buildRangeSpecification(criteria.getId(), Decree_.id));
+                specification = specification.and(buildRangeSpecification(criteria.getId(), Decree_.id));
             }
             if (criteria.getDocumentNo() != null) {
-                specification = specification.or(buildStringSpecification(criteria.getDocumentNo(), Decree_.documentNo));
+                specification = specification.and(buildStringSpecification(criteria.getDocumentNo(), Decree_.documentNo));
             }
             if (criteria.getDecreeNo() != null) {
-                specification = specification.or(buildStringSpecification(criteria.getDecreeNo(), Decree_.decreeNo));
+                specification = specification.and(buildStringSpecification(criteria.getDecreeNo(), Decree_.decreeNo));
             }
             if (criteria.getTitle() != null) {
-                specification = specification.or(buildStringSpecification(criteria.getTitle(), Decree_.title));
+                specification = specification.and(buildStringSpecification(criteria.getTitle(), Decree_.title));
             }
             if (criteria.getDetails() != null) {
-                specification = specification.or(buildStringSpecification(criteria.getDetails(), Decree_.details));
+                specification = specification.and(buildStringSpecification(criteria.getDetails(), Decree_.details));
             }
             if (criteria.getKeywords() != null) {
-                specification = specification.or(buildStringSpecification(criteria.getKeywords(), Decree_.keywords));
+                specification = specification.and(buildStringSpecification(criteria.getKeywords(), Decree_.keywords));
             }
             if (criteria.getPages() != null) {
-                specification = specification.or(buildRangeSpecification(criteria.getPages(), Decree_.pages));
+                specification = specification.and(buildRangeSpecification(criteria.getPages(), Decree_.pages));
             }
             if (criteria.getDecreeDate() != null) {
-                specification = specification.or(buildRangeSpecification(criteria.getDecreeDate(), Decree_.decreeDate));
+                specification = specification.and(buildRangeSpecification(criteria.getDecreeDate(), Decree_.decreeDate));
             }
             if (criteria.getYear() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getYear(), Decree_.year));
             }
             if (criteria.getNotes() != null) {
-                specification = specification.or(buildStringSpecification(criteria.getNotes(), Decree_.notes));
+                specification = specification.and(buildStringSpecification(criteria.getNotes(), Decree_.notes));
             }
             if (criteria.getPdfFileUrl() != null) {
-                specification = specification.or(buildStringSpecification(criteria.getPdfFileUrl(), Decree_.pdfFileUrl));
+                specification = specification.and(buildStringSpecification(criteria.getPdfFileUrl(), Decree_.pdfFileUrl));
             }
             if (criteria.getWordFileUrl() != null) {
-                specification = specification.or(buildStringSpecification(criteria.getWordFileUrl(), Decree_.wordFileUrl));
+                specification = specification.and(buildStringSpecification(criteria.getWordFileUrl(), Decree_.wordFileUrl));
+            }
+            if (criteria.getExtraPdfFileUrl() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getExtraPdfFileUrl(), Decree_.extraPdfFileUrl));
             }
             if (criteria.getDecreeStatus() != null) {
-                specification = specification.or(buildSpecification(criteria.getDecreeStatus(), Decree_.decreeStatus));
+                specification = specification.and(buildSpecification(criteria.getDecreeStatus(), Decree_.decreeStatus));
+            }
+            if (criteria.getRemarks() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getRemarks(), Decree_.remarks));
+            }
+            if (criteria.getIsHidden() != null) {
+                specification = specification.and(buildSpecification(criteria.getIsHidden(), Decree_.isHidden));
+            }
+            if (criteria.getHideNotes() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getHideNotes(), Decree_.hideNotes));
+            }
+            if (criteria.getHideEndDate() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getHideEndDate(), Decree_.hideEndDate));
             }
             if (criteria.getDecreeTypeId() != null) {
                 specification =
-                    specification.or(
+                    specification.and(
                         buildSpecification(
                             criteria.getDecreeTypeId(),
                             root -> root.join(Decree_.decreeType, JoinType.LEFT).get(DecreeType_.id)
@@ -141,7 +153,7 @@ public class DecreeQueryService extends QueryService<Decree> {
             }
             if (criteria.getDecreeCategoryId() != null) {
                 specification =
-                    specification.or(
+                    specification.and(
                         buildSpecification(
                             criteria.getDecreeCategoryId(),
                             root -> root.join(Decree_.decreeCategory, JoinType.LEFT).get(DecreeCategory_.id)
@@ -150,13 +162,13 @@ public class DecreeQueryService extends QueryService<Decree> {
             }
             if (criteria.getMinisterId() != null) {
                 specification =
-                    specification.or(
+                    specification.and(
                         buildSpecification(criteria.getMinisterId(), root -> root.join(Decree_.minister, JoinType.LEFT).get(Minister_.id))
                     );
             }
             if (criteria.getGovernmentId() != null) {
                 specification =
-                    specification.or(
+                    specification.and(
                         buildSpecification(
                             criteria.getGovernmentId(),
                             root -> root.join(Decree_.government, JoinType.LEFT).get(Government_.id)

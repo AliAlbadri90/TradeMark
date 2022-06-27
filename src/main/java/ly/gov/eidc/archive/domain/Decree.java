@@ -10,7 +10,7 @@ import ly.gov.eidc.archive.domain.enumeration.DecreeStatus;
  */
 @Entity
 @Table(name = "decree")
-public class Decree implements Serializable {
+public class Decree extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -66,9 +66,31 @@ public class Decree implements Serializable {
     @Column(name = "word_file_url")
     private String wordFileUrl;
 
+    @Lob
+    @Column(name = "extra_pdf_file")
+    private byte[] extraPdfFile;
+
+    @Column(name = "extra_pdf_file_content_type")
+    private String extraPdfFileContentType;
+
+    @Column(name = "extra_pdf_file_url")
+    private String extraPdfFileUrl;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "decree_status")
     private DecreeStatus decreeStatus;
+
+    @Column(name = "remarks")
+    private String remarks;
+
+    @Column(name = "is_hidden")
+    private Boolean isHidden;
+
+    @Column(name = "hide_notes")
+    private String hideNotes;
+
+    @Column(name = "hide_end_date")
+    private LocalDate hideEndDate;
 
     @ManyToOne
     private DecreeType decreeType;
@@ -292,6 +314,45 @@ public class Decree implements Serializable {
         this.wordFileUrl = wordFileUrl;
     }
 
+    public byte[] getExtraPdfFile() {
+        return this.extraPdfFile;
+    }
+
+    public Decree extraPdfFile(byte[] extraPdfFile) {
+        this.setExtraPdfFile(extraPdfFile);
+        return this;
+    }
+
+    public void setExtraPdfFile(byte[] extraPdfFile) {
+        this.extraPdfFile = extraPdfFile;
+    }
+
+    public String getExtraPdfFileContentType() {
+        return this.extraPdfFileContentType;
+    }
+
+    public Decree extraPdfFileContentType(String extraPdfFileContentType) {
+        this.extraPdfFileContentType = extraPdfFileContentType;
+        return this;
+    }
+
+    public void setExtraPdfFileContentType(String extraPdfFileContentType) {
+        this.extraPdfFileContentType = extraPdfFileContentType;
+    }
+
+    public String getExtraPdfFileUrl() {
+        return this.extraPdfFileUrl;
+    }
+
+    public Decree extraPdfFileUrl(String extraPdfFileUrl) {
+        this.setExtraPdfFileUrl(extraPdfFileUrl);
+        return this;
+    }
+
+    public void setExtraPdfFileUrl(String extraPdfFileUrl) {
+        this.extraPdfFileUrl = extraPdfFileUrl;
+    }
+
     public DecreeStatus getDecreeStatus() {
         return this.decreeStatus;
     }
@@ -303,6 +364,58 @@ public class Decree implements Serializable {
 
     public void setDecreeStatus(DecreeStatus decreeStatus) {
         this.decreeStatus = decreeStatus;
+    }
+
+    public String getRemarks() {
+        return this.remarks;
+    }
+
+    public Decree remarks(String remarks) {
+        this.setRemarks(remarks);
+        return this;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public Boolean getIsHidden() {
+        return this.isHidden;
+    }
+
+    public Decree isHidden(Boolean isHidden) {
+        this.setIsHidden(isHidden);
+        return this;
+    }
+
+    public void setIsHidden(Boolean isHidden) {
+        this.isHidden = isHidden;
+    }
+
+    public String getHideNotes() {
+        return this.hideNotes;
+    }
+
+    public Decree hideNotes(String hideNotes) {
+        this.setHideNotes(hideNotes);
+        return this;
+    }
+
+    public void setHideNotes(String hideNotes) {
+        this.hideNotes = hideNotes;
+    }
+
+    public LocalDate getHideEndDate() {
+        return this.hideEndDate;
+    }
+
+    public Decree hideEndDate(LocalDate hideEndDate) {
+        this.setHideEndDate(hideEndDate);
+        return this;
+    }
+
+    public void setHideEndDate(LocalDate hideEndDate) {
+        this.hideEndDate = hideEndDate;
     }
 
     public DecreeType getDecreeType() {
@@ -396,7 +509,14 @@ public class Decree implements Serializable {
             ", wordFile='" + getWordFile() + "'" +
             ", wordFileContentType='" + getWordFileContentType() + "'" +
             ", wordFileUrl='" + getWordFileUrl() + "'" +
+            ", extraPdfFile='" + getExtraPdfFile() + "'" +
+            ", extraPdfFileContentType='" + getExtraPdfFileContentType() + "'" +
+            ", extraPdfFileUrl='" + getExtraPdfFileUrl() + "'" +
             ", decreeStatus='" + getDecreeStatus() + "'" +
+            ", remarks='" + getRemarks() + "'" +
+            ", isHidden='" + getIsHidden() + "'" +
+            ", hideNotes='" + getHideNotes() + "'" +
+            ", hideEndDate='" + getHideEndDate() + "'" +
             "}";
     }
 }

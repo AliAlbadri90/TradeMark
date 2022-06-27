@@ -22,7 +22,14 @@ export interface IDecree {
   wordFileContentType?: string | null;
   wordFile?: string | null;
   wordFileUrl?: string | null;
+  extraPdfFileContentType?: string | null;
+  extraPdfFile?: string | null;
+  extraPdfFileUrl?: string | null;
   decreeStatus?: DecreeStatus | null;
+  remarks?: string | null;
+  isHidden?: boolean | null;
+  hideNotes?: string | null;
+  hideEndDate?: dayjs.Dayjs | null;
   decreeType?: IDecreeType | null;
   decreeCategory?: IDecreeCategory | null;
   minister?: IMinister | null;
@@ -47,12 +54,21 @@ export class Decree implements IDecree {
     public wordFileContentType?: string | null,
     public wordFile?: string | null,
     public wordFileUrl?: string | null,
+    public extraPdfFileContentType?: string | null,
+    public extraPdfFile?: string | null,
+    public extraPdfFileUrl?: string | null,
     public decreeStatus?: DecreeStatus | null,
+    public remarks?: string | null,
+    public isHidden?: boolean | null,
+    public hideNotes?: string | null,
+    public hideEndDate?: dayjs.Dayjs | null,
     public decreeType?: IDecreeType | null,
     public decreeCategory?: IDecreeCategory | null,
     public minister?: IMinister | null,
     public government?: IGovernment | null
-  ) {}
+  ) {
+    this.isHidden = this.isHidden ?? false;
+  }
 }
 
 export function getDecreeIdentifier(decree: IDecree): number | undefined {

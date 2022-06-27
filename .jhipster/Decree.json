@@ -56,9 +56,34 @@
       "fieldType": "String"
     },
     {
+      "fieldName": "extraPdfFile",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "extraPdfFileUrl",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "decreeStatus",
       "fieldType": "DecreeStatus",
       "fieldValues": "ACTIVE,DRAWN,CANCELLED"
+    },
+    {
+      "fieldName": "remarks",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isHidden",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "hideNotes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "hideEndDate",
+      "fieldType": "LocalDate"
     }
   ],
   "relationships": [

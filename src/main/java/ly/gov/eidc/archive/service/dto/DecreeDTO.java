@@ -43,7 +43,21 @@ public class DecreeDTO implements Serializable {
     private String wordFileContentType;
     private String wordFileUrl;
 
+    @Lob
+    private byte[] extraPdfFile;
+
+    private String extraPdfFileContentType;
+    private String extraPdfFileUrl;
+
     private DecreeStatus decreeStatus;
+
+    private String remarks;
+
+    private Boolean isHidden;
+
+    private String hideNotes;
+
+    private LocalDate hideEndDate;
 
     private DecreeTypeDTO decreeType;
 
@@ -181,12 +195,68 @@ public class DecreeDTO implements Serializable {
         this.wordFileUrl = wordFileUrl;
     }
 
+    public byte[] getExtraPdfFile() {
+        return extraPdfFile;
+    }
+
+    public void setExtraPdfFile(byte[] extraPdfFile) {
+        this.extraPdfFile = extraPdfFile;
+    }
+
+    public String getExtraPdfFileContentType() {
+        return extraPdfFileContentType;
+    }
+
+    public void setExtraPdfFileContentType(String extraPdfFileContentType) {
+        this.extraPdfFileContentType = extraPdfFileContentType;
+    }
+
+    public String getExtraPdfFileUrl() {
+        return extraPdfFileUrl;
+    }
+
+    public void setExtraPdfFileUrl(String extraPdfFileUrl) {
+        this.extraPdfFileUrl = extraPdfFileUrl;
+    }
+
     public DecreeStatus getDecreeStatus() {
         return decreeStatus;
     }
 
     public void setDecreeStatus(DecreeStatus decreeStatus) {
         this.decreeStatus = decreeStatus;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public Boolean getIsHidden() {
+        return isHidden;
+    }
+
+    public void setIsHidden(Boolean isHidden) {
+        this.isHidden = isHidden;
+    }
+
+    public String getHideNotes() {
+        return hideNotes;
+    }
+
+    public void setHideNotes(String hideNotes) {
+        this.hideNotes = hideNotes;
+    }
+
+    public LocalDate getHideEndDate() {
+        return hideEndDate;
+    }
+
+    public void setHideEndDate(LocalDate hideEndDate) {
+        this.hideEndDate = hideEndDate;
     }
 
     public DecreeTypeDTO getDecreeType() {
@@ -260,7 +330,13 @@ public class DecreeDTO implements Serializable {
             ", pdfFileUrl='" + getPdfFileUrl() + "'" +
             ", wordFile='" + getWordFile() + "'" +
             ", wordFileUrl='" + getWordFileUrl() + "'" +
+            ", extraPdfFile='" + getExtraPdfFile() + "'" +
+            ", extraPdfFileUrl='" + getExtraPdfFileUrl() + "'" +
             ", decreeStatus='" + getDecreeStatus() + "'" +
+            ", remarks='" + getRemarks() + "'" +
+            ", isHidden='" + getIsHidden() + "'" +
+            ", hideNotes='" + getHideNotes() + "'" +
+            ", hideEndDate='" + getHideEndDate() + "'" +
             ", decreeType=" + getDecreeType() +
             ", decreeCategory=" + getDecreeCategory() +
             ", minister=" + getMinister() +

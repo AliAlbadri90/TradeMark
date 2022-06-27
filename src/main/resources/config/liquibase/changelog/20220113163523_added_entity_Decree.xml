@@ -59,7 +59,28 @@
             <column name="word_file_url" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
+            <column name="extra_pdf_file" type="longblob">
+                <constraints nullable="true"/>
+            </column>
+            <column name="extra_pdf_file_content_type" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="extra_pdf_file_url" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
             <column name="decree_status" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="remarks" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="is_hidden" type="boolean">
+                <constraints nullable="true"/>
+            </column>
+            <column name="hide_notes" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="hide_end_date" type="date">
                 <constraints nullable="true"/>
             </column>
             <column name="decree_type_id" type="bigint">
@@ -74,6 +95,15 @@
             <column name="government_id" type="bigint">
                 <constraints nullable="true"/>
             </column>
+            <column name="created_by" type="varchar(50)" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -110,7 +140,14 @@
             <column name="word_file" type="blob"/>
             <column name="word_file_content_type" type="string"/>
             <column name="word_file_url" type="string"/>
+            <column name="extra_pdf_file" type="blob"/>
+            <column name="extra_pdf_file_content_type" type="string"/>
+            <column name="extra_pdf_file_url" type="string"/>
             <column name="decree_status" type="string"/>
+            <column name="remarks" type="string"/>
+            <column name="is_hidden" type="boolean"/>
+            <column name="hide_notes" type="string"/>
+            <column name="hide_end_date" type="date"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

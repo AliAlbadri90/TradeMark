@@ -67,7 +67,17 @@ public class DecreeCriteria implements Serializable, Criteria {
 
     private StringFilter wordFileUrl;
 
+    private StringFilter extraPdfFileUrl;
+
     private DecreeStatusFilter decreeStatus;
+
+    private StringFilter remarks;
+
+    private BooleanFilter isHidden;
+
+    private StringFilter hideNotes;
+
+    private LocalDateFilter hideEndDate;
 
     private LongFilter decreeTypeId;
 
@@ -94,7 +104,12 @@ public class DecreeCriteria implements Serializable, Criteria {
         this.notes = other.notes == null ? null : other.notes.copy();
         this.pdfFileUrl = other.pdfFileUrl == null ? null : other.pdfFileUrl.copy();
         this.wordFileUrl = other.wordFileUrl == null ? null : other.wordFileUrl.copy();
+        this.extraPdfFileUrl = other.extraPdfFileUrl == null ? null : other.extraPdfFileUrl.copy();
         this.decreeStatus = other.decreeStatus == null ? null : other.decreeStatus.copy();
+        this.remarks = other.remarks == null ? null : other.remarks.copy();
+        this.isHidden = other.isHidden == null ? null : other.isHidden.copy();
+        this.hideNotes = other.hideNotes == null ? null : other.hideNotes.copy();
+        this.hideEndDate = other.hideEndDate == null ? null : other.hideEndDate.copy();
         this.decreeTypeId = other.decreeTypeId == null ? null : other.decreeTypeId.copy();
         this.decreeCategoryId = other.decreeCategoryId == null ? null : other.decreeCategoryId.copy();
         this.ministerId = other.ministerId == null ? null : other.ministerId.copy();
@@ -287,6 +302,21 @@ public class DecreeCriteria implements Serializable, Criteria {
         this.wordFileUrl = wordFileUrl;
     }
 
+    public StringFilter getExtraPdfFileUrl() {
+        return extraPdfFileUrl;
+    }
+
+    public StringFilter extraPdfFileUrl() {
+        if (extraPdfFileUrl == null) {
+            extraPdfFileUrl = new StringFilter();
+        }
+        return extraPdfFileUrl;
+    }
+
+    public void setExtraPdfFileUrl(StringFilter extraPdfFileUrl) {
+        this.extraPdfFileUrl = extraPdfFileUrl;
+    }
+
     public DecreeStatusFilter getDecreeStatus() {
         return decreeStatus;
     }
@@ -300,6 +330,66 @@ public class DecreeCriteria implements Serializable, Criteria {
 
     public void setDecreeStatus(DecreeStatusFilter decreeStatus) {
         this.decreeStatus = decreeStatus;
+    }
+
+    public StringFilter getRemarks() {
+        return remarks;
+    }
+
+    public StringFilter remarks() {
+        if (remarks == null) {
+            remarks = new StringFilter();
+        }
+        return remarks;
+    }
+
+    public void setRemarks(StringFilter remarks) {
+        this.remarks = remarks;
+    }
+
+    public BooleanFilter getIsHidden() {
+        return isHidden;
+    }
+
+    public BooleanFilter isHidden() {
+        if (isHidden == null) {
+            isHidden = new BooleanFilter();
+        }
+        return isHidden;
+    }
+
+    public void setIsHidden(BooleanFilter isHidden) {
+        this.isHidden = isHidden;
+    }
+
+    public StringFilter getHideNotes() {
+        return hideNotes;
+    }
+
+    public StringFilter hideNotes() {
+        if (hideNotes == null) {
+            hideNotes = new StringFilter();
+        }
+        return hideNotes;
+    }
+
+    public void setHideNotes(StringFilter hideNotes) {
+        this.hideNotes = hideNotes;
+    }
+
+    public LocalDateFilter getHideEndDate() {
+        return hideEndDate;
+    }
+
+    public LocalDateFilter hideEndDate() {
+        if (hideEndDate == null) {
+            hideEndDate = new LocalDateFilter();
+        }
+        return hideEndDate;
+    }
+
+    public void setHideEndDate(LocalDateFilter hideEndDate) {
+        this.hideEndDate = hideEndDate;
     }
 
     public LongFilter getDecreeTypeId() {
@@ -392,7 +482,12 @@ public class DecreeCriteria implements Serializable, Criteria {
             Objects.equals(notes, that.notes) &&
             Objects.equals(pdfFileUrl, that.pdfFileUrl) &&
             Objects.equals(wordFileUrl, that.wordFileUrl) &&
+            Objects.equals(extraPdfFileUrl, that.extraPdfFileUrl) &&
             Objects.equals(decreeStatus, that.decreeStatus) &&
+            Objects.equals(remarks, that.remarks) &&
+            Objects.equals(isHidden, that.isHidden) &&
+            Objects.equals(hideNotes, that.hideNotes) &&
+            Objects.equals(hideEndDate, that.hideEndDate) &&
             Objects.equals(decreeTypeId, that.decreeTypeId) &&
             Objects.equals(decreeCategoryId, that.decreeCategoryId) &&
             Objects.equals(ministerId, that.ministerId) &&
@@ -416,7 +511,12 @@ public class DecreeCriteria implements Serializable, Criteria {
             notes,
             pdfFileUrl,
             wordFileUrl,
+            extraPdfFileUrl,
             decreeStatus,
+            remarks,
+            isHidden,
+            hideNotes,
+            hideEndDate,
             decreeTypeId,
             decreeCategoryId,
             ministerId,
@@ -441,7 +541,12 @@ public class DecreeCriteria implements Serializable, Criteria {
             (notes != null ? "notes=" + notes + ", " : "") +
             (pdfFileUrl != null ? "pdfFileUrl=" + pdfFileUrl + ", " : "") +
             (wordFileUrl != null ? "wordFileUrl=" + wordFileUrl + ", " : "") +
+            (extraPdfFileUrl != null ? "extraPdfFileUrl=" + extraPdfFileUrl + ", " : "") +
             (decreeStatus != null ? "decreeStatus=" + decreeStatus + ", " : "") +
+            (remarks != null ? "remarks=" + remarks + ", " : "") +
+            (isHidden != null ? "isHidden=" + isHidden + ", " : "") +
+            (hideNotes != null ? "hideNotes=" + hideNotes + ", " : "") +
+            (hideEndDate != null ? "hideEndDate=" + hideEndDate + ", " : "") +
             (decreeTypeId != null ? "decreeTypeId=" + decreeTypeId + ", " : "") +
             (decreeCategoryId != null ? "decreeCategoryId=" + decreeCategoryId + ", " : "") +
             (ministerId != null ? "ministerId=" + ministerId + ", " : "") +

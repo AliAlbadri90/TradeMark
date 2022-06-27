@@ -41,7 +41,14 @@ describe('Decree Service', () => {
       wordFileContentType: 'image/png',
       wordFile: 'AAAAAAA',
       wordFileUrl: 'AAAAAAA',
+      extraPdfFileContentType: 'image/png',
+      extraPdfFile: 'AAAAAAA',
+      extraPdfFileUrl: 'AAAAAAA',
       decreeStatus: DecreeStatus.ACTIVE,
+      remarks: 'AAAAAAA',
+      isHidden: false,
+      hideNotes: 'AAAAAAA',
+      hideEndDate: currentDate,
     };
   });
 
@@ -50,6 +57,7 @@ describe('Decree Service', () => {
       const returnedFromService = Object.assign(
         {
           decreeDate: currentDate.format(DATE_FORMAT),
+          hideEndDate: currentDate.format(DATE_FORMAT),
         },
         elemDefault
       );
@@ -66,6 +74,7 @@ describe('Decree Service', () => {
         {
           id: 0,
           decreeDate: currentDate.format(DATE_FORMAT),
+          hideEndDate: currentDate.format(DATE_FORMAT),
         },
         elemDefault
       );
@@ -73,6 +82,7 @@ describe('Decree Service', () => {
       const expected = Object.assign(
         {
           decreeDate: currentDate,
+          hideEndDate: currentDate,
         },
         returnedFromService
       );
@@ -101,7 +111,13 @@ describe('Decree Service', () => {
           pdfFileUrl: 'BBBBBB',
           wordFile: 'BBBBBB',
           wordFileUrl: 'BBBBBB',
+          extraPdfFile: 'BBBBBB',
+          extraPdfFileUrl: 'BBBBBB',
           decreeStatus: 'BBBBBB',
+          remarks: 'BBBBBB',
+          isHidden: true,
+          hideNotes: 'BBBBBB',
+          hideEndDate: currentDate.format(DATE_FORMAT),
         },
         elemDefault
       );
@@ -109,6 +125,7 @@ describe('Decree Service', () => {
       const expected = Object.assign(
         {
           decreeDate: currentDate,
+          hideEndDate: currentDate,
         },
         returnedFromService
       );
@@ -131,7 +148,10 @@ describe('Decree Service', () => {
           pdfFile: 'BBBBBB',
           pdfFileUrl: 'BBBBBB',
           wordFile: 'BBBBBB',
+          extraPdfFile: 'BBBBBB',
           decreeStatus: 'BBBBBB',
+          isHidden: true,
+          hideEndDate: currentDate.format(DATE_FORMAT),
         },
         new Decree()
       );
@@ -141,6 +161,7 @@ describe('Decree Service', () => {
       const expected = Object.assign(
         {
           decreeDate: currentDate,
+          hideEndDate: currentDate,
         },
         returnedFromService
       );
@@ -169,7 +190,13 @@ describe('Decree Service', () => {
           pdfFileUrl: 'BBBBBB',
           wordFile: 'BBBBBB',
           wordFileUrl: 'BBBBBB',
+          extraPdfFile: 'BBBBBB',
+          extraPdfFileUrl: 'BBBBBB',
           decreeStatus: 'BBBBBB',
+          remarks: 'BBBBBB',
+          isHidden: true,
+          hideNotes: 'BBBBBB',
+          hideEndDate: currentDate.format(DATE_FORMAT),
         },
         elemDefault
       );
@@ -177,6 +204,7 @@ describe('Decree Service', () => {
       const expected = Object.assign(
         {
           decreeDate: currentDate,
+          hideEndDate: currentDate,
         },
         returnedFromService
       );
@@ -226,7 +254,7 @@ describe('Decree Service', () => {
       });
 
       it('should add only unique Decree to an array', () => {
-        const decreeArray: IDecree[] = [{ id: 123 }, { id: 456 }, { id: 9104 }];
+        const decreeArray: IDecree[] = [{ id: 123 }, { id: 456 }, { id: 64600 }];
         const decreeCollection: IDecree[] = [{ id: 123 }];
         expectedResult = service.addDecreeToCollectionIfMissing(decreeCollection, ...decreeArray);
         expect(expectedResult).toHaveLength(3);

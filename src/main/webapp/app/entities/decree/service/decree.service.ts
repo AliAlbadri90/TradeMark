@@ -86,12 +86,14 @@ export class DecreeService {
   protected convertDateFromClient(decree: IDecree): IDecree {
     return Object.assign({}, decree, {
       decreeDate: decree.decreeDate?.isValid() ? decree.decreeDate.format(DATE_FORMAT) : undefined,
+      hideEndDate: decree.hideEndDate?.isValid() ? decree.hideEndDate.format(DATE_FORMAT) : undefined,
     });
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
       res.body.decreeDate = res.body.decreeDate ? dayjs(res.body.decreeDate) : undefined;
+      res.body.hideEndDate = res.body.hideEndDate ? dayjs(res.body.hideEndDate) : undefined;
     }
     return res;
   }
@@ -100,6 +102,7 @@ export class DecreeService {
     if (res.body) {
       res.body.forEach((decree: IDecree) => {
         decree.decreeDate = decree.decreeDate ? dayjs(decree.decreeDate) : undefined;
+        decree.hideEndDate = decree.hideEndDate ? dayjs(decree.hideEndDate) : undefined;
       });
     }
     return res;

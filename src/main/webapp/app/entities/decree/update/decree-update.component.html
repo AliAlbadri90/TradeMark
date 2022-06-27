@@ -162,7 +162,56 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_decreeStatus">حالة القرار</label>
+          <label class="form-control-label" for="field_extraPdfFile">Extra Pdf File</label>
+          <div>
+            <div *ngIf="editForm.get('extraPdfFile')!.value" class="form-text text-danger clearfix">
+              <a class="pull-left" (click)="openFile(editForm.get('extraPdfFile')!.value, editForm.get('extraPdfFileContentType')!.value)"
+                >open</a
+              ><br />
+              <span class="pull-left"
+                >{{ editForm.get('extraPdfFileContentType')!.value }} , {{ byteSize(editForm.get('extraPdfFile')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="editForm.patchValue({ extraPdfFile: null }); editForm.patchValue({ extraPdfFileContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_extraPdfFile" data-cy="extraPdfFile" (change)="setFileData($event, 'extraPdfFile', false)" />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="extraPdfFile"
+            id="field_extraPdfFile"
+            data-cy="extraPdfFile"
+            formControlName="extraPdfFile"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="extraPdfFileContentType"
+            id="field_extraPdfFileContentType"
+            formControlName="extraPdfFileContentType"
+          />
+        </div>
+
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_extraPdfFileUrl">Extra Pdf File Url</label>
+          <input
+            type="text"
+            class="form-control"
+            name="extraPdfFileUrl"
+            id="field_extraPdfFileUrl"
+            data-cy="extraPdfFileUrl"
+            formControlName="extraPdfFileUrl"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_decreeStatus">Decree Status</label>
           <select class="form-control" name="decreeStatus" formControlName="decreeStatus" id="field_decreeStatus" data-cy="decreeStatus">
             <option [ngValue]="null"></option>
             <option *ngFor="let decreeStatus of decreeStatusValues" [value]="decreeStatus">{{ decreeStatus }}</option>
@@ -170,7 +219,43 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_decreeType">نوع القرار</label>
+          <label class="form-control-label" for="field_remarks">Remarks</label>
+          <input type="text" class="form-control" name="remarks" id="field_remarks" data-cy="remarks" formControlName="remarks" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_isHidden">Is Hidden</label>
+          <input type="checkbox" class="form-check" name="isHidden" id="field_isHidden" data-cy="isHidden" formControlName="isHidden" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_hideNotes">Hide Notes</label>
+          <input type="text" class="form-control" name="hideNotes" id="field_hideNotes" data-cy="hideNotes" formControlName="hideNotes" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_hideEndDate">Hide End Date</label>
+          <div class="input-group">
+            <input
+              id="field_hideEndDate"
+              data-cy="hideEndDate"
+              type="text"
+              class="form-control"
+              name="hideEndDate"
+              ngbDatepicker
+              #hideEndDateDp="ngbDatepicker"
+              formControlName="hideEndDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="hideEndDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_decreeType">Decree Type</label>
           <select class="form-control" id="field_decreeType" data-cy="decreeType" name="decreeType" formControlName="decreeType">
             <option [ngValue]="null"></option>
             <option
