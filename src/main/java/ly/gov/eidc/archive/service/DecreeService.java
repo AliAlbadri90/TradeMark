@@ -53,6 +53,17 @@ public class DecreeService {
             decree.setPdfFileUrl(filePath);
         }
 
+        if (decreeDTO.getExtraPdfFile() != null) {
+            String filePath = FileTools.upload(
+                decree.getExtraPdfFile(),
+                decree.getExtraPdfFileContentType(),
+                decreeDTO.getYear() + "_" + decreeDTO.getMinister().getId() + "_" + decreeDTO.getDecreeNo() + "_AT"
+            );
+            decree.setExtraPdfFile(null);
+            decree.setExtraPdfFileContentType(decreeDTO.getExtraPdfFileContentType());
+            decree.setExtraPdfFileUrl(filePath);
+        }
+
         decree = decreeRepository.save(decree);
         return decreeMapper.toDto(decree);
     }
