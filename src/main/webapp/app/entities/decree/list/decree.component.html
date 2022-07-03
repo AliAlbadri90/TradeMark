@@ -20,6 +20,16 @@
         </button>
       </mat-form-field>
 
+      <mat-form-field appearance="standard">
+        <mat-label>الوزير</mat-label>
+        <mat-select (selectionChange)="filterByMinister($event.value)">
+          <mat-option [value]="">الكل</mat-option>
+          <mat-option *ngFor="let ministerOption of ministersSharedCollection" [value]="ministerOption.id">{{
+            ministerOption.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <mat-form-field class="mr-auto" appearance="standard">
         <mat-select (selectionChange)="filterByYear($event.value)" placeholder="السنة">
           <mat-option value="">الكل</mat-option>

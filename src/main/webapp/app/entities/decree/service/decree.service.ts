@@ -9,6 +9,7 @@ import { DATE_FORMAT } from 'app/config/input.constants';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IDecree, getDecreeIdentifier } from '../decree.model';
+import { IDecreeReport } from '../decree-report.model';
 
 export type EntityResponseType = HttpResponse<IDecree>;
 export type EntityArrayResponseType = HttpResponse<IDecree[]>;
@@ -81,6 +82,12 @@ export class DecreeService {
       return [...decreesToAdd, ...decreeCollection];
     }
     return decreeCollection;
+  }
+
+  getReport(year: string, ministerId: string): Observable<HttpResponse<IDecreeReport>> {
+    return this.http
+      .get<IDecreeReport>(`${this.resourceUrl}/report/${year}/${ministerId}`, { observe: 'response' })
+      .pipe(map((res: HttpResponse<IDecreeReport>) => res));
   }
 
   protected convertDateFromClient(decree: IDecree): IDecree {

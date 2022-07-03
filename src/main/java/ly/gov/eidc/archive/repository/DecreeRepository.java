@@ -14,4 +14,8 @@ import org.springframework.stereotype.Repository;
 public interface DecreeRepository extends JpaRepository<Decree, Long>, JpaSpecificationExecutor<Decree> {
     @Query(value = "SELECT year, " + "COUNT(id) " + "FROM decree " + "GROUP BY year", nativeQuery = true)
     List<Object[]> getDecreeYearLineChart();
+
+    List<Decree> findAllByYearOrderByMinisterId(Integer year);
+
+    List<Decree> findAllByYearAndMinisterIdOrderByDecreeNoAsc(Integer year, Long ministerId);
 }

@@ -10,6 +10,9 @@ import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants
 import { DecreeService } from '../service/decree.service';
 import { DecreeDeleteDialogComponent } from '../delete/decree-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
+import { IMinister, Minister } from '../../minister/minister.model';
+import { map } from 'rxjs/operators';
+import { MinisterService } from '../../minister/service/minister.service';
 
 @Component({
   selector: 'jhi-decree',
@@ -26,12 +29,15 @@ export class DecreeComponent implements OnInit {
   ngbPaginationPage = 0;
   currentSearch: any = '';
   year: any = '';
+  ministerId: any = '';
+  ministersSharedCollection: IMinister[] = [];
 
   constructor(
     protected decreeService: DecreeService,
     protected activatedRoute: ActivatedRoute,
     protected dataUtils: DataUtils,
     protected router: Router,
+    protected ministerService: MinisterService,
     protected modalService: NgbModal
   ) {}
 
@@ -44,6 +50,7 @@ export class DecreeComponent implements OnInit {
         'decreeNo.contains': this.currentSearch,
         'keywords.contains': this.currentSearch,
         'title.contains': this.currentSearch,
+        'ministerId.equals': this.ministerId,
         'year.equals': this.year,
         page: pageToLoad,
         size: this.itemsPerPage,
@@ -63,6 +70,10 @@ export class DecreeComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleNavigation();
+    this.ministerService
+      .query()
+      .pipe(map((res: HttpResponse<IMinister[]>) => res.body ?? []))
+      .subscribe((ministers: IMinister[]) => (this.ministersSharedCollection = ministers));
   }
 
   trackId(index: number, item: IDecree): number {
@@ -95,6 +106,7 @@ export class DecreeComponent implements OnInit {
         'decreeNo.contains': currentSearch,
         'keywords.contains': currentSearch,
         'title.contains': this.currentSearch,
+        'ministerId.equals': this.ministerId,
         'year.equals': this.year,
         page: 0,
         size: this.itemsPerPage,
@@ -114,6 +126,11 @@ export class DecreeComponent implements OnInit {
 
   filterByYear(year: any): void {
     this.year = year;
+    this.loadPage(0);
+  }
+
+  filterByMinister(minister: any): void {
+    this.ministerId = minister;
     this.loadPage(0);
   }
 
@@ -149,6 +166,7 @@ export class DecreeComponent implements OnInit {
           'decreeNo.contains': this.currentSearch,
           'keywords.contains': this.currentSearch,
           'title.contains': this.currentSearch,
+          'ministerId.equals': this.ministerId,
           'year.equals': this.year,
           page: this.page,
           size: this.itemsPerPage,

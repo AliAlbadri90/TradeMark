@@ -1,10 +1,13 @@
 package ly.gov.eidc.archive.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import ly.gov.eidc.archive.domain.Decree;
 import ly.gov.eidc.archive.repository.DecreeRepository;
 import ly.gov.eidc.archive.service.dto.DecreeDTO;
+import ly.gov.eidc.archive.service.dto.DecreeReport;
 import ly.gov.eidc.archive.service.mapper.DecreeMapper;
 import ly.gov.eidc.archive.service.util.FileTools;
 import org.slf4j.Logger;
@@ -129,5 +132,43 @@ public class DecreeService {
 
     public List<Object[]> getDecreeYearLineChart() {
         return decreeRepository.getDecreeYearLineChart();
+    }
+
+    public DecreeReport getReportByYearAndMinisterId(Integer year, Long ministerId) {
+        System.out.println(year + " " + ministerId);
+        List<Integer> decreeIntsList = new ArrayList<>();
+        List<Decree> decrees = decreeRepository.findAllByYearAndMinisterIdOrderByDecreeNoAsc(year, ministerId);
+        System.out.println("Size " + decrees.size());
+
+        for (Decree decree : decrees) {
+            decreeIntsList.add(Integer.parseInt(decree.getDecreeNo()));
+        }
+        int[] decreeInts = decreeIntsList.stream().mapToInt(i -> i).toArray();
+
+        String missingNumbers = "";
+        int missingCount = 0;
+        for (int i = decreeInts[0]; i <= decreeInts[decreeInts.length - 1]; i++) {
+            if (decreeInts[missingCount] == i) {
+                missingCount++;
+            } else {
+                missingNumbers += i + ",";
+            }
+        }
+        System.out.println("missingNumbers " + missingNumbers);
+        System.out.println("missingCount " + missingCount);
+
+        int max = Arrays.stream(decreeInts).max().getAsInt();
+
+        int min = Arrays.stream(decreeInts).min().getAsInt();
+
+        DecreeReport decreeReport = new DecreeReport();
+        decreeReport.setYear(year);
+        decreeReport.setMissingCount(missingCount);
+        decreeReport.setMissingNumbers(missingNumbers);
+        decreeReport.setTotalCount(decreeInts.length);
+        decreeReport.setFirstDecree(min);
+        decreeReport.setLastDecree(max);
+
+        return decreeReport;
     }
 }

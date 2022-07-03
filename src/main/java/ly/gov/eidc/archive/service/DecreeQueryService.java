@@ -159,7 +159,7 @@ public class DecreeQueryService extends QueryService<Decree> {
             }
             if (criteria.getMinisterId() != null) {
                 specification =
-                    specification.or(
+                    specification.and(
                         buildSpecification(criteria.getMinisterId(), root -> root.join(Decree_.minister, JoinType.LEFT).get(Minister_.id))
                     );
             }

@@ -1,0 +1,64 @@
+<div class="entity-container">
+  <div class="mat-elevation-z1 round-card white-bg p-4 mt-5">
+    <div *jhiHasAnyAuthority="'ROLE_ADMIN'">
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="mr-auto" appearance="standard">
+            <mat-select [(ngModel)]="year" placeholder="السنة">
+              <mat-option value="">الكل</mat-option>
+              <mat-option value="1999">1999</mat-option>
+              <mat-option value="2000">2000</mat-option>
+              <mat-option value="2001">2001</mat-option>
+              <mat-option value="2002">2002</mat-option>
+              <mat-option value="2003">2003</mat-option>
+              <mat-option value="2004">2004</mat-option>
+              <mat-option value="2005">2005</mat-option>
+              <mat-option value="2006">2006</mat-option>
+              <mat-option value="2007">2007</mat-option>
+              <mat-option value="2008">2008</mat-option>
+              <mat-option value="2009">2009</mat-option>
+              <mat-option value="2010">2010</mat-option>
+              <mat-option value="2011">2011</mat-option>
+              <mat-option value="2012">2012</mat-option>
+              <mat-option value="2013">2013</mat-option>
+              <mat-option value="2014">2014</mat-option>
+              <mat-option value="2015">2015</mat-option>
+              <mat-option value="2016">2016</mat-option>
+              <mat-option value="2017">2017</mat-option>
+              <mat-option value="2018">2018</mat-option>
+              <mat-option value="2019">2019</mat-option>
+              <mat-option value="2020">2020</mat-option>
+              <mat-option value="2021">2021</mat-option>
+              <mat-option value="2022">2022</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>الوزير</mat-label>
+            <mat-select [(ngModel)]="ministerId">
+              <mat-option [value]="">الكل</mat-option>
+              <mat-option *ngFor="let ministerOption of ministersSharedCollection" [value]="ministerOption.id">{{
+                ministerOption.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <button class="mr-auto mt-4" mat-raised-button color="primary" [disabled]="!year" (click)="getReport()">
+            <mat-icon>assignment</mat-icon>
+            عرض التقرير
+          </button>
+        </div>
+      </div>
+      <br />
+      <br />
+      <mat-progress-bar *ngIf="isLoading" class="round-50 mt-2 fill" mode="indeterminate"></mat-progress-bar>
+      <div *ngIf="decreeReport">
+        <h5>عدد القرارات المفقودة {{ decreeReport.missingCount }}</h5>
+      </div>
+    </div>
+  </div>
+</div>
