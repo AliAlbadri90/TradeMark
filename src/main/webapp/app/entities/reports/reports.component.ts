@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
   selector: 'jhi-reports',
   templateUrl: './reports.component.html',
 })
-export class ReportsComponent implements OnInit {
+export class ReportsComponent {
   isLoading: any;
   year: any;
   ministerId: any;
@@ -19,17 +19,18 @@ export class ReportsComponent implements OnInit {
 
   constructor(protected ministerService: MinisterService, protected decreeService: DecreeService) {}
 
-  ngOnInit(): void {
-    this.ministerService
-      .query()
-      .pipe(map((res: HttpResponse<IMinister[]>) => res.body ?? []))
-      .subscribe((ministers: IMinister[]) => (this.ministersSharedCollection = ministers));
-  }
-
   getReport(): void {
     this.decreeReport = null;
     this.decreeService.getReport(this.year, this.ministerId).subscribe((decreeReportHttpResponse: HttpResponse<DecreeReport>) => {
       this.decreeReport = decreeReportHttpResponse.body;
     });
+  }
+
+  filterByYear(year: any): void {
+    this.year = year;
+    this.decreeService
+      .getMinistersByYear(year)
+      .pipe(map((res: HttpResponse<IMinister[]>) => res.body ?? []))
+      .subscribe((ministers: IMinister[]) => (this.ministersSharedCollection = ministers));
   }
 }

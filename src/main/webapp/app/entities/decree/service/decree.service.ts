@@ -10,6 +10,7 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { createRequestOption } from 'app/core/request/request-util';
 import { IDecree, getDecreeIdentifier } from '../decree.model';
 import { IDecreeReport } from '../decree-report.model';
+import { IMinister } from '../../minister/minister.model';
 
 export type EntityResponseType = HttpResponse<IDecree>;
 export type EntityArrayResponseType = HttpResponse<IDecree[]>;
@@ -82,6 +83,10 @@ export class DecreeService {
       return [...decreesToAdd, ...decreeCollection];
     }
     return decreeCollection;
+  }
+
+  getMinistersByYear(year: string): Observable<HttpResponse<IMinister[]>> {
+    return this.http.get<IMinister[]>(`${this.resourceUrl}/ministers/${year}`, { observe: 'response' });
   }
 
   getReport(year: string, ministerId: string): Observable<HttpResponse<IDecreeReport>> {

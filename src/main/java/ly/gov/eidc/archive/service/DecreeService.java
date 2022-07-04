@@ -1,13 +1,16 @@
 package ly.gov.eidc.archive.service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import javax.validation.constraints.Min;
 import ly.gov.eidc.archive.domain.Decree;
 import ly.gov.eidc.archive.repository.DecreeRepository;
 import ly.gov.eidc.archive.service.dto.DecreeDTO;
 import ly.gov.eidc.archive.service.dto.DecreeReport;
+import ly.gov.eidc.archive.service.dto.MinisterDTO;
 import ly.gov.eidc.archive.service.mapper.DecreeMapper;
 import ly.gov.eidc.archive.service.util.FileTools;
 import org.slf4j.Logger;
@@ -170,5 +173,18 @@ public class DecreeService {
         decreeReport.setLastDecree(max);
 
         return decreeReport;
+    }
+
+    public List<MinisterDTO> findMinistersByDecreeYear(Integer year) {
+        List<MinisterDTO> ministerDTOS = new ArrayList<>();
+        decreeRepository
+            .findAllByYearGroupByMinister(year)
+            .forEach(objects -> {
+                MinisterDTO ministerDTO = new MinisterDTO();
+                ministerDTO.setId(((BigInteger) objects[0]).longValue());
+                ministerDTO.setName((String) objects[1]);
+                ministerDTOS.add(ministerDTO);
+            });
+        return ministerDTOS;
     }
 }

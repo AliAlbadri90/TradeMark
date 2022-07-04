@@ -9,8 +9,10 @@ import ly.gov.eidc.archive.repository.DecreeRepository;
 import ly.gov.eidc.archive.service.DecreeQueryService;
 import ly.gov.eidc.archive.service.DecreeService;
 import ly.gov.eidc.archive.service.criteria.DecreeCriteria;
+import ly.gov.eidc.archive.service.criteria.MinisterCriteria;
 import ly.gov.eidc.archive.service.dto.DecreeDTO;
 import ly.gov.eidc.archive.service.dto.DecreeReport;
+import ly.gov.eidc.archive.service.dto.MinisterDTO;
 import ly.gov.eidc.archive.service.util.FileTools;
 import ly.gov.eidc.archive.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
@@ -22,6 +24,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import tech.jhipster.service.filter.LongFilter;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -220,5 +223,11 @@ public class DecreeResource {
                 if (FileTools.download(decreeDTO.getPdfFileUrl()) == null) decreeDTO.setPdfFileUrl(null);
                 decreeService.save(decreeDTO);
             });
+    }
+
+    @GetMapping("/decrees/ministers/{year}")
+    public ResponseEntity<List<MinisterDTO>> getAllMinisters(@PathVariable Integer year) {
+        List<MinisterDTO> list = decreeService.findMinistersByDecreeYear(year);
+        return ResponseEntity.ok().body(list);
     }
 }
