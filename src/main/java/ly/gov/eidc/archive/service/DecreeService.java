@@ -146,7 +146,9 @@ public class DecreeService {
         for (Decree decree : decrees) {
             decreeIntsList.add(Integer.parseInt(decree.getDecreeNo()));
         }
+
         int[] decreeInts = decreeIntsList.stream().mapToInt(i -> i).toArray();
+        Arrays.sort(decreeInts);
 
         String missingNumbers = "";
         int missingCount = 0;
