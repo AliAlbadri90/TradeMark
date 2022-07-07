@@ -14,6 +14,7 @@ export interface IDecreeReport {
   noFileCount?: number | null;
   duplicate?: number | null;
   missingNumbers?: string | null;
+  noFileNumbers?: string | null;
   ministerName?: string | null;
   governmentName?: string | null;
 }
@@ -28,6 +29,7 @@ export class DecreeReport implements IDecreeReport {
     public noFileCount?: number | null,
     public duplicate?: number | null,
     public missingNumbers?: string | null,
+    public noFileNumbers?: string | null,
     public ministerName?: string | null,
     public governmentName?: string | null
   ) {}

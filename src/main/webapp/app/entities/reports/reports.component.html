@@ -67,19 +67,21 @@
       <br />
       <mat-progress-bar *ngIf="isLoading" class="round-50 mt-2 fill" mode="indeterminate"></mat-progress-bar>
       <div *ngIf="decreeReport">
-        <h5>عدد القرارات المفقودة {{ decreeReport.missingCount }}</h5>
+        <h5>عدد القرارات المفقودة بالمنظومة {{ decreeReport.missingCount }}</h5>
         <br />
-        <h5>ارقام القرارات المفقودة {{ decreeReport.missingNumbers }}</h5>
+        <h5>ارقام القرارات المفقودة بالمنظومة {{ decreeReport.missingNumbers }}</h5>
         <br />
-        <h5>اجمالي عدد القرارات {{ decreeReport.totalCount }}</h5>
+        <h5>اجمالي عدد القرارات بالمنظومة {{ decreeReport.totalCount }}</h5>
         <br />
-        <h5>رقم اول قرار {{ decreeReport.firstDecree }}</h5>
+        <h5>رقم اول قرار بالمنظومة {{ decreeReport.firstDecree }}</h5>
         <br />
-        <h5>رقم اخر قرار {{ decreeReport.lastDecree }}</h5>
+        <h5>رقم اخر قرار بالمنظومة {{ decreeReport.lastDecree }}</h5>
         <br />
-        <h5>عدد القرارات بدون ملف {{ decreeReport.noFileCount }}</h5>
+        <h5>عدد القرارات بدون ملف بالمنظومة {{ decreeReport.noFileCount }}</h5>
         <br />
-        <h5>عدد القرارات المتكررة {{ decreeReport.duplicate }}</h5>
+        <h5>ارقام القرارات بدون ملف بالمنظومة {{ decreeReport.noFileNumbers }}</h5>
+        <br />
+        <h5>عدد القرارات المتكررة بالمنظومة {{ decreeReport.duplicate }}</h5>
       </div>
     </div>
   </div>
