@@ -131,6 +131,11 @@ export class DecreeComponent implements OnInit {
         .getMinistersByYear(year)
         .pipe(map((res: HttpResponse<IMinister[]>) => res.body ?? []))
         .subscribe((ministers: IMinister[]) => (this.ministersSharedCollection = ministers));
+    } else {
+      this.ministerService
+        .query()
+        .pipe(map((res: HttpResponse<IMinister[]>) => res.body ?? []))
+        .subscribe((ministers: IMinister[]) => (this.ministersSharedCollection = ministers));
     }
     this.loadPage(0);
   }
