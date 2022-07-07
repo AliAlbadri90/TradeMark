@@ -142,11 +142,17 @@ public class DecreeService {
         List<Integer> decreeIntsList = new ArrayList<>();
         List<Decree> decrees = decreeRepository.findAllByYearAndMinisterIdOrderByDecreeNoAsc(year, ministerId);
         System.out.println("Size " + decrees.size());
-
+        int duplicate = 0;
+        int noFile = 0;
         for (Decree decree : decrees) {
             try {
                 decreeIntsList.add(Integer.parseInt(decree.getDecreeNo()));
-            } catch (Exception ignored) {}
+                if (decree.getPdfFileUrl() == null) {
+                    noFile++;
+                }
+            } catch (Exception ignored) {
+                duplicate++;
+            }
         }
 
         int[] decreeInts = decreeIntsList.stream().mapToInt(i -> i).toArray();
@@ -177,6 +183,8 @@ public class DecreeService {
         decreeReport.setTotalCount(decreeInts.length);
         decreeReport.setFirstDecree(min);
         decreeReport.setLastDecree(max);
+        decreeReport.setDuplicate(duplicate);
+        decreeReport.setNoFileCount(noFile);
 
         return decreeReport;
     }
