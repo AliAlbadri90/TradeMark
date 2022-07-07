@@ -38,7 +38,6 @@
           <mat-form-field appearance="standard">
             <mat-label>الوزير</mat-label>
             <mat-select [(ngModel)]="ministerId">
-              <mat-option [value]="">الكل</mat-option>
               <mat-option *ngFor="let ministerOption of ministersSharedCollection" [value]="ministerOption.id">{{
                 ministerOption.name
               }}</mat-option>

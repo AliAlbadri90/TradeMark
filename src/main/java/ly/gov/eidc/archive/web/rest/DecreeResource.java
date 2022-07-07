@@ -158,6 +158,15 @@ public class DecreeResource {
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
         log.debug("REST request to get Decrees by criteria: {}", criteria);
+        //        String text = criteria.getTitle().getContains();
+        //        text.replaceAll("ې" ,"ی");
+        //        text.replaceAll("أ" ,"ا");
+        //        text.replaceAll("إ" ,"ا");
+        //        text.replaceAll("آ" ,"ا");
+        //        text.replaceAll("ة" ,"ه");
+        //        text.replaceAll("ذ" ,"د");
+        //        criteria.getTitle().setContains(text);
+        //        criteria.getKeywords().setContains(text);
 
         Page<DecreeDTO> page = decreeQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
