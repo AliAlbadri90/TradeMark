@@ -144,11 +144,13 @@ public class DecreeService {
         System.out.println("Size " + decrees.size());
         int duplicate = 0;
         int noFile = 0;
+        String noFileNumbers = "";
         for (Decree decree : decrees) {
             try {
                 decreeIntsList.add(Integer.parseInt(decree.getDecreeNo()));
                 if (decree.getPdfFileUrl() == null) {
                     noFile++;
+                    noFileNumbers += decree.getDecreeNo() + ",";
                 }
             } catch (Exception ignored) {
                 duplicate++;
@@ -169,8 +171,6 @@ public class DecreeService {
                 missingNumbers += i + ",";
             }
         }
-        System.out.println("missingNumbers " + missingNumbers);
-        System.out.println("missingCount " + missingCount);
 
         int max = Arrays.stream(decreeInts).max().getAsInt();
 
@@ -185,6 +185,7 @@ public class DecreeService {
         decreeReport.setLastDecree(max);
         decreeReport.setDuplicate(duplicate);
         decreeReport.setNoFileCount(noFile);
+        decreeReport.setNoFileNumbers(noFileNumbers);
 
         return decreeReport;
     }

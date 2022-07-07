@@ -45,6 +45,17 @@
           </mat-form-field>
         </div>
 
+        <!--        <div class="col">-->
+        <!--          <mat-form-field appearance="standard">-->
+        <!--            <mat-label>الحكومة</mat-label>-->
+        <!--            <mat-select [(ngModel)]="ministerId">-->
+        <!--              <mat-option *ngFor="let ministerOption of ministersSharedCollection" [value]="ministerOption.id">{{-->
+        <!--                ministerOption.name-->
+        <!--                }}</mat-option>-->
+        <!--            </mat-select>-->
+        <!--          </mat-form-field>-->
+        <!--        </div>-->
+
         <div class="col">
           <button class="mr-auto mt-4" mat-raised-button color="primary" [disabled]="!year" (click)="getReport()">
             <mat-icon>assignment</mat-icon>
