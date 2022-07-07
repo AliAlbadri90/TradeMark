@@ -144,18 +144,22 @@ public class DecreeService {
         System.out.println("Size " + decrees.size());
 
         for (Decree decree : decrees) {
-            decreeIntsList.add(Integer.parseInt(decree.getDecreeNo()));
+            try {
+                decreeIntsList.add(Integer.parseInt(decree.getDecreeNo()));
+            } catch (Exception ignored) {}
         }
 
         int[] decreeInts = decreeIntsList.stream().mapToInt(i -> i).toArray();
         Arrays.sort(decreeInts);
 
         String missingNumbers = "";
+        int count = 0;
         int missingCount = 0;
         for (int i = decreeInts[0]; i <= decreeInts[decreeInts.length - 1]; i++) {
-            if (decreeInts[missingCount] == i) {
-                missingCount++;
+            if (decreeInts[count] == i) {
+                count++;
             } else {
+                missingCount++;
                 missingNumbers += i + ",";
             }
         }
