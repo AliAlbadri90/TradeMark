@@ -66,7 +66,7 @@
       <br />
       <br />
       <mat-progress-bar *ngIf="isLoading" class="round-50 mt-2 fill" mode="indeterminate"></mat-progress-bar>
-      <div *ngIf="decreeReport">
+      <div *ngIf="decreeReport" style="overflow: auto; word-wrap: break-word">
         <h5>عدد القرارات المفقودة بالمنظومة {{ decreeReport.missingCount }}</h5>
         <br />
         <h5>ارقام القرارات المفقودة بالمنظومة {{ decreeReport.missingNumbers }}</h5>

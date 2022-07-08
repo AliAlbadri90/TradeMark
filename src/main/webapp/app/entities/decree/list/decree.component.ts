@@ -126,7 +126,7 @@ export class DecreeComponent implements OnInit {
 
   filterByYear(year: any): void {
     this.year = year;
-    if (year != '') {
+    if (year !== '') {
       this.decreeService
         .getMinistersByYear(year)
         .pipe(map((res: HttpResponse<IMinister[]>) => res.body ?? []))
