@@ -187,6 +187,15 @@ public class DecreeService {
         decreeReport.setNoFileCount(noFile);
         decreeReport.setNoFileNumbers(noFileNumbers);
 
+        decrees.forEach(decree -> {
+            if (Integer.parseInt(decree.getDecreeNo()) == min) {
+                decreeReport.setFirstDecreeDate(decree.getDecreeDate().toString());
+            }
+            if (Integer.parseInt(decree.getDecreeNo()) == max) {
+                decreeReport.setLastDecreeDate(decree.getDecreeDate().toString());
+            }
+        });
+
         return decreeReport;
     }
 

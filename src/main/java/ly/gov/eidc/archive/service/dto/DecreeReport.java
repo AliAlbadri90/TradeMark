@@ -10,9 +10,27 @@ public class DecreeReport {
     private String noFileNumbers;
     private Integer duplicate;
     private String missingNumbers;
+    private String firstDecreeDate;
+    private String lastDecreeDate;
     private String ministerName;
     private String governmentName;
     private Integer year;
+
+    public String getFirstDecreeDate() {
+        return firstDecreeDate;
+    }
+
+    public void setFirstDecreeDate(String firstDecreeDate) {
+        this.firstDecreeDate = firstDecreeDate;
+    }
+
+    public String getLastDecreeDate() {
+        return lastDecreeDate;
+    }
+
+    public void setLastDecreeDate(String lastDecreeDate) {
+        this.lastDecreeDate = lastDecreeDate;
+    }
 
     public Integer getTotalCount() {
         return totalCount;
