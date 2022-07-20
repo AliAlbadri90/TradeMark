@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="viewLog">
+      <h2 data-cy="viewLogDetailsHeading"><span>View Log</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ viewLog.id }}</span>
+        </dd>
+        <dt><span>Action Name</span></dt>
+        <dd>
+          <span>{{ viewLog.actionName }}</span>
+        </dd>
+        <dt><span>Entity Name</span></dt>
+        <dd>
+          <span>{{ viewLog.entityName }}</span>
+        </dd>
+        <dt><span>Entity Id</span></dt>
+        <dd>
+          <span>{{ viewLog.entityId }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/view-log', viewLog.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

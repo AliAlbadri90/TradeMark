@@ -8,8 +8,8 @@ import java.util.Optional;
 import ly.gov.eidc.archive.repository.DecreeRepository;
 import ly.gov.eidc.archive.service.DecreeQueryService;
 import ly.gov.eidc.archive.service.DecreeService;
+import ly.gov.eidc.archive.service.ViewLogService;
 import ly.gov.eidc.archive.service.criteria.DecreeCriteria;
-import ly.gov.eidc.archive.service.criteria.MinisterCriteria;
 import ly.gov.eidc.archive.service.dto.DecreeDTO;
 import ly.gov.eidc.archive.service.dto.DecreeReport;
 import ly.gov.eidc.archive.service.dto.MinisterDTO;
@@ -24,7 +24,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import tech.jhipster.service.filter.LongFilter;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -49,10 +48,18 @@ public class DecreeResource {
 
     private final DecreeQueryService decreeQueryService;
 
-    public DecreeResource(DecreeService decreeService, DecreeRepository decreeRepository, DecreeQueryService decreeQueryService) {
+    private final ViewLogService viewLogService;
+
+    public DecreeResource(
+        DecreeService decreeService,
+        DecreeRepository decreeRepository,
+        DecreeQueryService decreeQueryService,
+        ViewLogService viewLogService
+    ) {
         this.decreeService = decreeService;
         this.decreeRepository = decreeRepository;
         this.decreeQueryService = decreeQueryService;
+        this.viewLogService = viewLogService;
     }
 
     /**
@@ -194,6 +201,7 @@ public class DecreeResource {
     @GetMapping("/decrees/{id}")
     public ResponseEntity<DecreeDTO> getDecree(@PathVariable Long id) {
         log.debug("REST request to get Decree : {}", id);
+        viewLogService.newLog("VIEW_DECREE", id.toString(), "Decree");
         Optional<DecreeDTO> decreeDTO = decreeService.findOne(id);
         return ResponseUtil.wrapOrNotFound(decreeDTO);
     }
@@ -221,11 +229,13 @@ public class DecreeResource {
 
     @GetMapping("/decrees/report/{year}/{ministerId}")
     public ResponseEntity<DecreeReport> getDecreeReport(@PathVariable Integer year, @PathVariable Long ministerId) {
+        viewLogService.newLog("DECREE_REPORT", "", "DecreeYearReport");
         return ResponseEntity.ok().body(decreeService.getReportByYearAndMinisterId(year, ministerId));
     }
 
     @GetMapping("/decrees/recheck-files")
     public void recheckFiles() {
+        viewLogService.newLog("FILE_CHECK", "", "files");
         decreeService
             .findAll()
             .forEach(decreeDTO -> {

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.Valid;
 import ly.gov.eidc.archive.security.jwt.JWTFilter;
 import ly.gov.eidc.archive.security.jwt.TokenProvider;
+import ly.gov.eidc.archive.service.ViewLogService;
 import ly.gov.eidc.archive.web.rest.vm.LoginVM;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,13 +26,21 @@ public class UserJWTController {
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    public UserJWTController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder) {
+    private final ViewLogService viewLogService;
+
+    public UserJWTController(
+        TokenProvider tokenProvider,
+        AuthenticationManagerBuilder authenticationManagerBuilder,
+        ViewLogService viewLogService
+    ) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
+        this.viewLogService = viewLogService;
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<JWTToken> authorize(@Valid @RequestBody LoginVM loginVM) {
+        viewLogService.newLog("LOGIN", "", loginVM.getUsername());
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
             loginVM.getUsername(),
             loginVM.getPassword()

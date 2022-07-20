@@ -1,0 +1,28 @@
+{
+  "name": "ViewLog",
+  "fields": [
+    {
+      "fieldName": "actionName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "entityName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "entityId",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "view_log",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220102184202"
+}

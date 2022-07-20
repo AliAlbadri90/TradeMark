@@ -38,6 +38,11 @@ import { RouterModule } from '@angular/router';
         path: 'reports',
         loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule),
       },
+      {
+        path: 'view-log',
+        data: { pageTitle: 'ViewLogs' },
+        loadChildren: () => import('./view-log/view-log.module').then(m => m.ViewLogModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],
