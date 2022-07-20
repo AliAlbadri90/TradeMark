@@ -188,12 +188,14 @@ public class DecreeService {
         decreeReport.setNoFileNumbers(noFileNumbers);
 
         decrees.forEach(decree -> {
-            if (Integer.parseInt(decree.getDecreeNo()) == min) {
-                decreeReport.setFirstDecreeDate(decree.getDecreeDate() != null ? decree.getDecreeDate().toString() : "");
-            }
-            if (Integer.parseInt(decree.getDecreeNo()) == max) {
-                decreeReport.setLastDecreeDate(decree.getDecreeDate() != null ? decree.getDecreeDate().toString() : "");
-            }
+            try {
+                if (Integer.parseInt(decree.getDecreeNo()) == min) {
+                    decreeReport.setFirstDecreeDate(decree.getDecreeDate() != null ? decree.getDecreeDate().toString() : "");
+                }
+                if (Integer.parseInt(decree.getDecreeNo()) == max) {
+                    decreeReport.setLastDecreeDate(decree.getDecreeDate() != null ? decree.getDecreeDate().toString() : "");
+                }
+            } catch (Exception ignored) {}
         });
 
         return decreeReport;
