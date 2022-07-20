@@ -12,7 +12,7 @@ const viewLogRoute: Routes = [
     path: '',
     component: ViewLogComponent,
     data: {
-      defaultSort: 'id,asc',
+      defaultSort: 'id,desc',
     },
     canActivate: [UserRouteAccessService],
   },

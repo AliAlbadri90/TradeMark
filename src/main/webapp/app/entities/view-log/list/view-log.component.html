@@ -1,4 +1,4 @@
-<div>
+<div class="entity-container">
   <h2 id="page-heading" data-cy="ViewLogHeading">
     <span>View Logs</span>
 
@@ -24,12 +24,8 @@
 
   <jhi-alert></jhi-alert>
 
-  <div class="alert alert-warning" id="no-result" *ngIf="viewLogs?.length === 0">
-    <span>No viewLogs found</span>
-  </div>
-
-  <div class="table-responsive" id="entities" *ngIf="viewLogs && viewLogs.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
+  <div *ngIf="viewLogs && viewLogs.length > 0; else emptyContent" class="col-12 p-0 mat-elevation-z1 mt-3" id="entities">
+    <table class="col mat-table">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id">
@@ -48,6 +44,14 @@
             <span>Entity Id</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="createdDate">
+            <span>Created Date</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="createdBy">
+            <span>Created By</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -59,6 +63,8 @@
           <td>{{ viewLog.actionName }}</td>
           <td>{{ viewLog.entityName }}</td>
           <td>{{ viewLog.entityId }}</td>
+          <td>{{ viewLog.createdDate }}</td>
+          <td>{{ viewLog.createdBy }}</td>
           <td class="text-right">
             <div class="btn-group">
               <button
@@ -90,23 +96,18 @@
         </tr>
       </tbody>
     </table>
-  </div>
-
-  <div *ngIf="viewLogs && viewLogs.length > 0">
-    <div class="row justify-content-center">
-      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
-    </div>
-
-    <div class="row justify-content-center">
-      <ngb-pagination
-        [collectionSize]="totalItems"
-        [(page)]="ngbPaginationPage"
+    <div class="col white-b">
+      <mat-divider></mat-divider>
+      <mat-paginator
+        (page)="loadPage($event.pageIndex)"
+        [length]="totalItems"
+        [pageIndex]="page"
         [pageSize]="itemsPerPage"
-        [maxSize]="5"
-        [rotate]="true"
-        [boundaryLinks]="true"
-        (pageChange)="loadPage($event)"
-      ></ngb-pagination>
+        showFirstLastButtons
+      ></mat-paginator>
     </div>
   </div>
+  <ng-template #emptyContent>
+    <jhi-empty-content [isLoading]="isLoading"></jhi-empty-content>
+  </ng-template>
 </div>

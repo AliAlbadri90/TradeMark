@@ -8,7 +8,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "view_log")
-public class ViewLog implements Serializable {
+public class ViewLog extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

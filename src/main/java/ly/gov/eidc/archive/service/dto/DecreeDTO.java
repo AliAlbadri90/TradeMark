@@ -9,7 +9,7 @@ import ly.gov.eidc.archive.domain.enumeration.DecreeStatus;
 /**
  * A DTO for the {@link ly.gov.eidc.archive.domain.Decree} entity.
  */
-public class DecreeDTO implements Serializable {
+public class DecreeDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;
 

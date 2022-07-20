@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * A DTO for the {@link ly.gov.eidc.archive.domain.ViewLog} entity.
  */
-public class ViewLogDTO implements Serializable {
+public class ViewLogDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;
 
