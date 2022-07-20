@@ -80,7 +80,6 @@
             <span>رقم القرار</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
-
           <th scope="col" jhiSortBy="title">
             <span>العنوان</span>
             <fa-icon icon="sort"></fa-icon>
@@ -99,7 +98,11 @@
             <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="pdfFileUrl">
-            <span>ملف القرار PDF</span>
+            <span>القرار</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="extraPdfFileUrl">
+            <span>المرفق</span>
             <fa-icon icon="sort"></fa-icon>
           </th>
           <!--          <th scope="col" jhiSortBy="wordFileUrl">-->
@@ -137,7 +140,19 @@
           <td>{{ decree.decreeDate | formatMediumDate }}</td>
           <td>{{ decree.notes }}</td>
           <td>
-            <button *ngIf="decree.pdfFileUrl" (click)="openFile(decree.pdfFileUrl)" color="primary" mat-raised-button type="button">
+            <button [disabled]="!decree.pdfFileUrl" (click)="openFile(decree.pdfFileUrl)" color="primary" mat-raised-button type="button">
+              <mat-icon class="ml-2">picture_as_pdf</mat-icon>
+            </button>
+          </td>
+          <td>
+            <button
+              *jhiHasAnyAuthority="['ROLE_ADMIN']"
+              [disabled]="!decree.extraPdfFileUrl"
+              (click)="openFile(decree.extraPdfFileUrl)"
+              color="primary"
+              mat-raised-button
+              type="button"
+            >
               <mat-icon class="ml-2">picture_as_pdf</mat-icon>
             </button>
           </td>

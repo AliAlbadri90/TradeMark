@@ -52,36 +52,16 @@
         </dd>
         <dt><span>Pdf File</span></dt>
         <dd>
-          <div *ngIf="decree.pdfFile">
-            <a (click)="openFile(decree.pdfFile, decree.pdfFileContentType)">open</a>
-            {{ decree.pdfFileContentType }}, {{ byteSize(decree.pdfFile) }}
-          </div>
+          <button *ngIf="decree.pdfFileUrl" (click)="openFile(decree.pdfFileUrl)" color="primary" mat-raised-button type="button">
+            <mat-icon class="ml-2">picture_as_pdf</mat-icon>
+          </button>
         </dd>
-        <dt><span>Pdf File Url</span></dt>
-        <dd>
-          <span>{{ decree.pdfFileUrl }}</span>
-        </dd>
-        <dt><span>Word File</span></dt>
-        <dd>
-          <div *ngIf="decree.wordFile">
-            <a (click)="openFile(decree.wordFile, decree.wordFileContentType)">open</a>
-            {{ decree.wordFileContentType }}, {{ byteSize(decree.wordFile) }}
-          </div>
-        </dd>
-        <dt><span>Word File Url</span></dt>
-        <dd>
-          <span>{{ decree.wordFileUrl }}</span>
-        </dd>
+
         <dt><span>Extra Pdf File</span></dt>
         <dd>
-          <div *ngIf="decree.extraPdfFile">
-            <a (click)="openFile(decree.extraPdfFile, decree.extraPdfFileContentType)">open</a>
-            {{ decree.extraPdfFileContentType }}, {{ byteSize(decree.extraPdfFile) }}
-          </div>
-        </dd>
-        <dt><span>Extra Pdf File Url</span></dt>
-        <dd>
-          <span>{{ decree.extraPdfFileUrl }}</span>
+          <button *ngIf="decree.extraPdfFileUrl" (click)="openFile(decree.extraPdfFileUrl)" color="primary" mat-raised-button type="button">
+            <mat-icon class="ml-2">picture_as_pdf</mat-icon>
+          </button>
         </dd>
         <dt><span>Decree Status</span></dt>
         <dd>
