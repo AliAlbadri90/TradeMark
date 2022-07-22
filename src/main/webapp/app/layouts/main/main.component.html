@@ -68,7 +68,10 @@
         <mat-icon mat-list-icon>receipt_long</mat-icon>
         <span>القرارات</span>
       </mat-list-item>
-
+      <mat-list-item routerLink="reports">
+        <mat-icon mat-list-icon>receipt_long</mat-icon>
+        <span>التقارير</span>
+      </mat-list-item>
       <div *jhiHasAnyAuthority="['ROLE_ADMIN']">
         <mat-list-item routerLink="decree-type">
           <mat-icon mat-list-icon>receipt_long</mat-icon>
@@ -85,10 +88,6 @@
         <mat-list-item routerLink="government">
           <mat-icon mat-list-icon>receipt_long</mat-icon>
           <span>الحكومات</span>
-        </mat-list-item>
-        <mat-list-item routerLink="reports">
-          <mat-icon mat-list-icon>receipt_long</mat-icon>
-          <span>التقارير</span>
         </mat-list-item>
       </div>
 
