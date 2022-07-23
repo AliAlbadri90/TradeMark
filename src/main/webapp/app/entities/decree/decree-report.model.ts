@@ -13,6 +13,7 @@ export interface IDecreeReport {
   year?: number | null;
   noFileCount?: number | null;
   duplicate?: number | null;
+  duplicateNumbers?: string | null;
   missingNumbers?: string | null;
   firstDecreeDate?: string | null;
   lastDecreeDate?: string | null;
@@ -29,6 +30,7 @@ export class DecreeReport implements IDecreeReport {
     public missingCount?: number | null,
     public year?: number | null,
     public noFileCount?: number | null,
+    public duplicateNumbers?: string | null,
     public duplicate?: number | null,
     public missingNumbers?: string | null,
     public firstDecreeDate?: string | null,

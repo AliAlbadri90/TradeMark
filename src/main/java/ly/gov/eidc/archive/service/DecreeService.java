@@ -142,6 +142,7 @@ public class DecreeService {
         List<Integer> decreeIntsList = new ArrayList<>();
         List<Decree> decrees = decreeRepository.findAllByYearAndMinisterIdOrderByDecreeNoAsc(year, ministerId);
         System.out.println("Size " + decrees.size());
+        String duplicateNumbers = "";
         int duplicate = 0;
         int noFile = 0;
         String noFileNumbers = "";
@@ -153,6 +154,7 @@ public class DecreeService {
                     noFileNumbers += decree.getDecreeNo() + ",";
                 }
             } catch (Exception ignored) {
+                duplicateNumbers += decree.getDecreeNo() + ",";
                 duplicate++;
             }
         }
@@ -184,6 +186,7 @@ public class DecreeService {
         decreeReport.setFirstDecree(min);
         decreeReport.setLastDecree(max);
         decreeReport.setDuplicate(duplicate);
+        decreeReport.setDuplicateNumbers(duplicateNumbers);
         decreeReport.setNoFileCount(noFile);
         decreeReport.setNoFileNumbers(noFileNumbers);
 

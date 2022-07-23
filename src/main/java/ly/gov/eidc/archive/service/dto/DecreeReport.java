@@ -9,6 +9,7 @@ public class DecreeReport {
     private Integer noFileCount;
     private String noFileNumbers;
     private Integer duplicate;
+    private String duplicateNumbers;
     private String missingNumbers;
     private String firstDecreeDate;
     private String lastDecreeDate;
@@ -118,5 +119,13 @@ public class DecreeReport {
 
     public void setNoFileNumbers(String noFileNumbers) {
         this.noFileNumbers = noFileNumbers;
+    }
+
+    public String getDuplicateNumbers() {
+        return duplicateNumbers;
+    }
+
+    public void setDuplicateNumbers(String duplicateNumbers) {
+        this.duplicateNumbers = duplicateNumbers;
     }
 }

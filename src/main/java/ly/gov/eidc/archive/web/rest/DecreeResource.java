@@ -240,6 +240,7 @@ public class DecreeResource {
             .findAll()
             .forEach(decreeDTO -> {
                 if (FileTools.download(decreeDTO.getPdfFileUrl()) == null) decreeDTO.setPdfFileUrl(null);
+                if (FileTools.download(decreeDTO.getExtraPdfFileUrl()) == null) decreeDTO.setExtraPdfFileUrl(null);
                 decreeService.save(decreeDTO);
             });
     }
