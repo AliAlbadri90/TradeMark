@@ -106,6 +106,9 @@ public class DecreeQueryService extends QueryService<Decree> {
             if (criteria.getKeywords() != null) {
                 specification = specification.or(buildStringSpecification(criteria.getKeywords(), Decree_.keywords));
             }
+            if (criteria.getNotes() != null) {
+                specification = specification.or(buildStringSpecification(criteria.getNotes(), Decree_.notes));
+            }
             if (criteria.getPages() != null) {
                 specification = specification.or(buildRangeSpecification(criteria.getPages(), Decree_.pages));
             }
@@ -115,9 +118,7 @@ public class DecreeQueryService extends QueryService<Decree> {
             if (criteria.getYear() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getYear(), Decree_.year));
             }
-            if (criteria.getNotes() != null) {
-                specification = specification.or(buildStringSpecification(criteria.getNotes(), Decree_.notes));
-            }
+
             if (criteria.getPdfFileUrl() != null) {
                 specification = specification.or(buildStringSpecification(criteria.getPdfFileUrl(), Decree_.pdfFileUrl));
             }

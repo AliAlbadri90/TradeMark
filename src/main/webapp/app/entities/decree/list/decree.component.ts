@@ -188,6 +188,7 @@ export class DecreeComponent implements OnInit {
           'keywords.contains': this.currentSearch,
           'title.contains': this.currentSearch,
           'details.contains': this.currentSearch,
+          'notes.contains': this.currentSearch,
           'ministerId.equals': this.ministerId,
           'year.equals': this.year,
           page: this.page,
