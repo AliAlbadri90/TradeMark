@@ -89,6 +89,10 @@ export class DecreeService {
     return this.http.get<IMinister[]>(`${this.resourceUrl}/ministers/${year}`, { observe: 'response' });
   }
 
+  getYears(): Observable<HttpResponse<any[]>> {
+    return this.http.get<any[]>(`${this.resourceUrl}/years/`, { observe: 'response' });
+  }
+
   getReport(year: string, ministerId: string): Observable<HttpResponse<IDecreeReport>> {
     return this.http
       .get<IDecreeReport>(`${this.resourceUrl}/report/${year}/${ministerId}`, { observe: 'response' })

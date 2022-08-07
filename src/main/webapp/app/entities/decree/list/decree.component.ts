@@ -31,6 +31,7 @@ export class DecreeComponent implements OnInit {
   year: any = '';
   ministerId: any = '';
   ministersSharedCollection: IMinister[] = [];
+  years: any[] = [];
 
   constructor(
     protected decreeService: DecreeService,
@@ -51,6 +52,7 @@ export class DecreeComponent implements OnInit {
         'keywords.contains': this.currentSearch,
         'title.contains': this.currentSearch,
         'details.contains': this.currentSearch,
+        'notes.contains': this.currentSearch,
         'ministerId.equals': this.ministerId,
         'year.equals': this.year,
         page: pageToLoad,
@@ -72,9 +74,14 @@ export class DecreeComponent implements OnInit {
   ngOnInit(): void {
     this.handleNavigation();
     this.ministerService
-      .query({ sort: ['minister.name' + ',' + 'asc'] })
+      .query({ sort: ['name' + ',' + 'asc'] })
       .pipe(map((res: HttpResponse<IMinister[]>) => res.body ?? []))
       .subscribe((ministers: IMinister[]) => (this.ministersSharedCollection = ministers));
+
+    this.decreeService
+      .getYears()
+      .pipe(map((res: HttpResponse<any[]>) => res.body as string[]))
+      .subscribe((years: any[]) => (this.years = years as string[]));
   }
 
   trackId(index: number, item: IDecree): number {
@@ -108,6 +115,7 @@ export class DecreeComponent implements OnInit {
         'keywords.contains': currentSearch,
         'title.contains': this.currentSearch,
         'details.contains': this.currentSearch,
+        'notes.contains': this.currentSearch,
         'ministerId.equals': this.ministerId,
         'year.equals': this.year,
         page: 0,
@@ -135,7 +143,7 @@ export class DecreeComponent implements OnInit {
         .subscribe((ministers: IMinister[]) => (this.ministersSharedCollection = ministers));
     } else {
       this.ministerService
-        .query({ sort: ['minister.name' + ',' + 'asc'] })
+        .query({ sort: ['name' + ',' + 'asc'] })
         .pipe(map((res: HttpResponse<IMinister[]>) => res.body ?? []))
         .subscribe((ministers: IMinister[]) => (this.ministersSharedCollection = ministers));
     }

@@ -250,4 +250,10 @@ public class DecreeResource {
         List<MinisterDTO> list = decreeService.findMinistersByDecreeYear(year);
         return ResponseEntity.ok().body(list);
     }
+
+    @GetMapping("/decrees/years")
+    public ResponseEntity<List<String>> getYears() {
+        List<String> list = decreeService.findAllYears();
+        return ResponseEntity.ok().body(list);
+    }
 }

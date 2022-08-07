@@ -4,4 +4,7 @@ export enum DecreeStatus {
   DRAWN = 'DRAWN',
 
   CANCELLED = 'CANCELLED',
+
+  CORRECTED = 'CORRECTED',
+  AMENDED = 'AMENDED',
 }

@@ -216,4 +216,8 @@ public class DecreeService {
             });
         return ministerDTOS;
     }
+
+    public List<String> findAllYears() {
+        return decreeRepository.findAllYears();
+    }
 }

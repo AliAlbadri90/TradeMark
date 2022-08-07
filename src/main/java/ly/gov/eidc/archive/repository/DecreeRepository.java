@@ -23,12 +23,15 @@ public interface DecreeRepository extends JpaRepository<Decree, Long>, JpaSpecif
 
     List<Decree> findAllByYearAndMinisterIdOrderByDecreeNoAsc(Integer year, Long ministerId);
 
+    @Query(value = "SELECT decree.year as year FROM decree " + "group by decree.year " + "order by decree.year desc ", nativeQuery = true)
+    List<String> findAllYears();
+
     @Query(
         value = "SELECT decree.minister_id as id, minister.name as name FROM decree, minister " +
         "where decree.minister_id = minister.id " +
         "and decree.year = :year " +
         "group by decree.minister_id " +
-        "order by minister.name ",
+        "order by minister.name desc ",
         nativeQuery = true
     )
     List<Object[]> findAllByYearGroupByMinister(@Param("year") Integer year);
