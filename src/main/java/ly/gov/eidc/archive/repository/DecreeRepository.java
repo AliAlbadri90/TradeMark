@@ -27,7 +27,8 @@ public interface DecreeRepository extends JpaRepository<Decree, Long>, JpaSpecif
         value = "SELECT decree.minister_id as id, minister.name as name FROM decree, minister " +
         "where decree.minister_id = minister.id " +
         "and decree.year = :year " +
-        "group by decree.minister_id ",
+        "group by decree.minister_id " +
+        "order by minister.name ",
         nativeQuery = true
     )
     List<Object[]> findAllByYearGroupByMinister(@Param("year") Integer year);
