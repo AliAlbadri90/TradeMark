@@ -18,6 +18,7 @@ export type EntityArrayResponseType = HttpResponse<IDecree[]>;
 @Injectable({ providedIn: 'root' })
 export class DecreeService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/decrees');
+  protected resourceUrlPublic = this.applicationConfigService.getEndpointFor('api/public/decrees');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -63,9 +64,18 @@ export class DecreeService {
     return this.http.get<any>(this.resourceUrl + '/decree-line-chart', { observe: 'response' });
   }
 
+  getDecreeLineChartPublic(): Observable<HttpResponse<any>> {
+    return this.http.get<any>(this.resourceUrlPublic + '/decree-line-chart', { observe: 'response' });
+  }
+
   count(req?: any): Observable<HttpResponse<any>> {
     const options = createRequestOption(req);
     return this.http.get<number>(this.resourceUrl + '/count', { params: options, observe: 'response' });
+  }
+
+  countPublic(req?: any): Observable<HttpResponse<any>> {
+    const options = createRequestOption(req);
+    return this.http.get<number>(this.resourceUrl + '/public/count', { params: options, observe: 'response' });
   }
 
   addDecreeToCollectionIfMissing(decreeCollection: IDecree[], ...decreesToCheck: (IDecree | null | undefined)[]): IDecree[] {

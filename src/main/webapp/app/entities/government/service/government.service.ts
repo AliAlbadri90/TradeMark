@@ -13,6 +13,7 @@ export type EntityArrayResponseType = HttpResponse<IGovernment[]>;
 @Injectable({ providedIn: 'root' })
 export class GovernmentService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/governments');
+  protected resourceUrlPublic = this.applicationConfigService.getEndpointFor('api/public/governments');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -39,6 +40,11 @@ export class GovernmentService {
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IGovernment[]>(this.resourceUrl, { params: options, observe: 'response' });
+  }
+
+  queryPublic(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IGovernment[]>(this.resourceUrlPublic, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

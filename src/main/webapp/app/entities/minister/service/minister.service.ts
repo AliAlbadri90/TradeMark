@@ -13,6 +13,7 @@ export type EntityArrayResponseType = HttpResponse<IMinister[]>;
 @Injectable({ providedIn: 'root' })
 export class MinisterService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/ministers');
+  protected resourceUrlPublic = this.applicationConfigService.getEndpointFor('api/public/ministers');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -37,6 +38,11 @@ export class MinisterService {
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IMinister[]>(this.resourceUrl, { params: options, observe: 'response' });
+  }
+
+  queryPublic(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IMinister[]>(this.resourceUrlPublic, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

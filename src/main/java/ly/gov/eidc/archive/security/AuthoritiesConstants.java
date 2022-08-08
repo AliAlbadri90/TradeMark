@@ -9,13 +9,15 @@ public final class AuthoritiesConstants {
 
     public static final String USER = "ROLE_USER";
 
-    public static final String EDIT_DECREE = "ROLE_EDIT";
+    public static final String EDIT_DECREE = "ROLE_EDIT_DECREE";
 
     public static final String ADD_DECREE = "ROLE_ADD_DECREE";
 
     public static final String ADD_REMARKS = "ROLE_ADD_REMARKS";
 
     public static final String VIEW_EXTRA = "ROLE_VIEW_EXTRA";
+
+    public static final String VIEW_HIDDEN = "ROLE_VIEW_HIDDEN";
 
     public static final String UPLOAD_FILES = "ROLE_UPLOAD_FILES";
 

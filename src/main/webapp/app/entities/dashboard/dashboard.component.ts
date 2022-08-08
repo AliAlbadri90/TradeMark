@@ -59,7 +59,7 @@ export class DashboardComponent {
       this.ministerCount = res.body;
     });
 
-    this.decreeService.getDecreeLineChart().subscribe((res: any) => {
+    this.decreeService.getDecreeLineChartPublic().subscribe((res: any) => {
       /*eslint-disable */
       this.companyLineChartLabels = res.body.map((it: any) => it[0]);
       this.companyLineChartData = [
@@ -71,7 +71,7 @@ export class DashboardComponent {
     });
 
     this.ministerService
-      .query({ size: 200 })
+      .queryPublic({ size: 200 })
       .pipe(map((res: HttpResponse<IMinister[]>) => res.body ?? []))
       .subscribe((ministers: IMinister[]) => {
         ministers.forEach((minister: IMinister) => {
@@ -83,7 +83,7 @@ export class DashboardComponent {
       });
 
     this.governmentService
-      .query({ size: 200 })
+      .queryPublic({ size: 200 })
       .pipe(map((res: HttpResponse<IGovernment[]>) => res.body ?? []))
       .subscribe((governments: IGovernment[]) => {
         governments.forEach((government: IGovernment) => {

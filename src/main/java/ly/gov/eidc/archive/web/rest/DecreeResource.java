@@ -256,4 +256,9 @@ public class DecreeResource {
         List<String> list = decreeService.findAllYears();
         return ResponseEntity.ok().body(list);
     }
+
+    @GetMapping("/public/decrees/decree-line-chart")
+    public ResponseEntity<List<Object[]>> getDecreeYearLineChartPublic() {
+        return ResponseEntity.ok().body(decreeRepository.getDecreeYearLineChart());
+    }
 }

@@ -217,4 +217,22 @@ public class GovernmentResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/public/governments")
+    public ResponseEntity<List<GovernmentDTO>> getAllGovernmentsPublic(
+        GovernmentCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get Governments by criteria: {}", criteria);
+        Page<GovernmentDTO> page = governmentQueryService.findByCriteria(criteria, pageable);
+        DecreeCriteria decreeCriteria = new DecreeCriteria();
+        LongFilter longFilter = new LongFilter();
+        page.forEach(governmentDTO -> {
+            longFilter.setEquals(governmentDTO.getId());
+            decreeCriteria.setGovernmentId(longFilter);
+            governmentDTO.setDecreeCount(decreeQueryService.countByCriteria(decreeCriteria));
+        });
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
 }

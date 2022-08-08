@@ -7,9 +7,7 @@ export const dashboardRoute: Routes = [
     path: '',
     component: DashboardComponent,
     data: {
-      authorities: ['ROLE_USER'],
       pageTitle: 'الرئيسية',
     },
-    canActivate: [UserRouteAccessService],
   },
 ];

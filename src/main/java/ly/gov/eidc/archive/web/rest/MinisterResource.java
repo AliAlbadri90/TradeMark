@@ -216,4 +216,21 @@ public class MinisterResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/public/ministers")
+    public ResponseEntity<List<MinisterDTO>> getAllMinistersPublic(
+        MinisterCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        Page<MinisterDTO> page = ministerQueryService.findByCriteria(criteria, pageable);
+        DecreeCriteria decreeCriteria = new DecreeCriteria();
+        LongFilter longFilter = new LongFilter();
+        page.forEach(ministerDTO -> {
+            longFilter.setEquals(ministerDTO.getId());
+            decreeCriteria.setMinisterId(longFilter);
+            ministerDTO.setDecreeCount(decreeQueryService.countByCriteria(decreeCriteria));
+        });
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
 }
