@@ -2,7 +2,9 @@
   <div>
     <div class="row white-bg">
       <div class="mat-elevation-z1 p-3 round-card col-12">
-        <h5 class="my-2">حركة تسجيل القرارات</h5>
+        <div class="text-center mr-auto">
+          <h5 class="my-2">القرارات المتوفرة الكترونيا</h5>
+        </div>
         <canvas
           *ngIf="companyLineChartData && companyLineChartLabels"
           baseChart
@@ -16,7 +18,7 @@
       </div>
     </div>
     <div class="row white-bg">
-      <div class="mat-elevation-z1 p-3 round-card col-6">
+      <div class="mat-elevation-z1 p-3 round-card col-lg-6 col-sm-12">
         <p>القرارات حسب الوزير</p>
         <canvas
           *ngIf="ministerDecreesPieChartData && ministerDecreesPieChartLabels"
@@ -27,7 +29,7 @@
         >
         </canvas>
       </div>
-      <div class="mat-elevation-z1 p-3 round-card col-6">
+      <div class="mat-elevation-z1 p-3 round-card col-lg-6 col-sm-12">
         <p>القرارات حسب الحكومة</p>
         <canvas
           *ngIf="govDecreesDoughnutChartData && govDecreesDoughnutChartLabels"
