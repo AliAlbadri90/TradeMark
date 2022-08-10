@@ -65,7 +65,7 @@ export class DashboardComponent {
       this.companyLineChartData = [
         {
           data: res.body.map((it: any) => it[1]),
-          label: 'القرارات المتوفرة الكترونيا',
+          label: 'القرارات المرقمنة',
         },
       ];
     });
