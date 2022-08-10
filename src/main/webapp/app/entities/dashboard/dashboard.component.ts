@@ -47,15 +47,15 @@ export class DashboardComponent {
   ) {}
 
   ngOnInit(): void {
-    this.decreeService.count().subscribe((res: any) => {
+    this.decreeService.countPublic().subscribe((res: any) => {
       this.decreeCount = res.body;
     });
 
-    this.governmentService.count().subscribe((res: any) => {
+    this.governmentService.countPublic().subscribe((res: any) => {
       this.govCount = res.body;
     });
 
-    this.ministerService.count().subscribe((res: any) => {
+    this.ministerService.countPublic().subscribe((res: any) => {
       this.ministerCount = res.body;
     });
 

@@ -261,4 +261,10 @@ public class DecreeResource {
     public ResponseEntity<List<Object[]>> getDecreeYearLineChartPublic() {
         return ResponseEntity.ok().body(decreeRepository.getDecreeYearLineChart());
     }
+
+    @GetMapping("/public/decrees/count")
+    public ResponseEntity<Long> countDecreesPublic(DecreeCriteria criteria) {
+        log.debug("REST request to count Decrees by criteria: {}", criteria);
+        return ResponseEntity.ok().body(decreeQueryService.countByCriteria(criteria));
+    }
 }

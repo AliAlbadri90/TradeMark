@@ -235,4 +235,10 @@ public class GovernmentResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
+    @GetMapping("/public/governments/count")
+    public ResponseEntity<Long> countGovernmentsPublic(GovernmentCriteria criteria) {
+        log.debug("REST request to count Governments by criteria: {}", criteria);
+        return ResponseEntity.ok().body(governmentQueryService.countByCriteria(criteria));
+    }
 }

@@ -49,6 +49,11 @@ export class MinisterService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  countPublic(req?: any): Observable<HttpResponse<any>> {
+    const options = createRequestOption(req);
+    return this.http.get<number>(this.resourceUrlPublic + '/count', { params: options, observe: 'response' });
+  }
+
   addMinisterToCollectionIfMissing(ministerCollection: IMinister[], ...ministersToCheck: (IMinister | null | undefined)[]): IMinister[] {
     const ministers: IMinister[] = ministersToCheck.filter(isPresent);
     if (ministers.length > 0) {

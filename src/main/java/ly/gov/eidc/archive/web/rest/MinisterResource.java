@@ -233,4 +233,10 @@ public class MinisterResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
+    @GetMapping("/public/ministers/count")
+    public ResponseEntity<Long> countMinistersPublic(MinisterCriteria criteria) {
+        log.debug("REST request to count Ministers by criteria: {}", criteria);
+        return ResponseEntity.ok().body(ministerQueryService.countByCriteria(criteria));
+    }
 }

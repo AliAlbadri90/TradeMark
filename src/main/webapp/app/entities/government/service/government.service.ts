@@ -51,6 +51,11 @@ export class GovernmentService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  countPublic(req?: any): Observable<HttpResponse<any>> {
+    const options = createRequestOption(req);
+    return this.http.get<number>(this.resourceUrlPublic + '/count', { params: options, observe: 'response' });
+  }
+
   addGovernmentToCollectionIfMissing(
     governmentCollection: IGovernment[],
     ...governmentsToCheck: (IGovernment | null | undefined)[]

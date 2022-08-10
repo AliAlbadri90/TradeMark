@@ -75,7 +75,7 @@ export class DecreeService {
 
   countPublic(req?: any): Observable<HttpResponse<any>> {
     const options = createRequestOption(req);
-    return this.http.get<number>(this.resourceUrl + '/public/count', { params: options, observe: 'response' });
+    return this.http.get<number>(this.resourceUrlPublic + '/count', { params: options, observe: 'response' });
   }
 
   addDecreeToCollectionIfMissing(decreeCollection: IDecree[], ...decreesToCheck: (IDecree | null | undefined)[]): IDecree[] {
