@@ -197,7 +197,7 @@ export class DecreeUpdateComponent implements OnInit {
 
   protected loadRelationshipsOptions(): void {
     this.decreeTypeService
-      .query()
+      .query({ size: 200 })
       .pipe(map((res: HttpResponse<IDecreeType[]>) => res.body ?? []))
       .pipe(
         map((decreeTypes: IDecreeType[]) =>
@@ -207,7 +207,7 @@ export class DecreeUpdateComponent implements OnInit {
       .subscribe((decreeTypes: IDecreeType[]) => (this.decreeTypesSharedCollection = decreeTypes));
 
     this.decreeCategoryService
-      .query()
+      .query({ size: 200 })
       .pipe(map((res: HttpResponse<IDecreeCategory[]>) => res.body ?? []))
       .pipe(
         map((decreeCategories: IDecreeCategory[]) =>
@@ -217,7 +217,7 @@ export class DecreeUpdateComponent implements OnInit {
       .subscribe((decreeCategories: IDecreeCategory[]) => (this.decreeCategoriesSharedCollection = decreeCategories));
 
     this.ministerService
-      .query()
+      .query({ size: 200 })
       .pipe(map((res: HttpResponse<IMinister[]>) => res.body ?? []))
       .pipe(
         map((ministers: IMinister[]) =>
@@ -227,7 +227,7 @@ export class DecreeUpdateComponent implements OnInit {
       .subscribe((ministers: IMinister[]) => (this.ministersSharedCollection = ministers));
 
     this.governmentService
-      .query()
+      .query({ size: 200 })
       .pipe(map((res: HttpResponse<IGovernment[]>) => res.body ?? []))
       .pipe(
         map((governments: IGovernment[]) =>

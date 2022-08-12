@@ -74,7 +74,7 @@ export class DecreeComponent implements OnInit {
   ngOnInit(): void {
     this.handleNavigation();
     this.ministerService
-      .query({ sort: ['name' + ',' + 'asc'] })
+      .query({ size: 200, sort: ['name' + ',' + 'asc'] })
       .pipe(map((res: HttpResponse<IMinister[]>) => res.body ?? []))
       .subscribe((ministers: IMinister[]) => (this.ministersSharedCollection = ministers));
 
