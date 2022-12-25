@@ -113,7 +113,29 @@
           <td>{{ decree.year }}</td>
           <td>{{ decree.decreeNo }}</td>
           <td>{{ decree.title }}</td>
-          <td>{{ decree.keywords }}</td>
+          <!--          <td>-->
+          <!--            <div-->
+          <!--              #content-->
+          <!--              class="note-field"-->
+          <!--              [class.show]="show"-->
+          <!--              [class.note-text]="content.scrollHeight > 18"-->
+          <!--            >-->
+          <!--              <span>{{ decree.keywords }}</span>-->
+          <!--            </div>-->
+          <!--            -->
+          <!--            <button-->
+          <!--              *ngIf="content.scrollHeight > 18"-->
+          <!--              class="show-button"-->
+          <!--              (click)="show = !show"-->
+          <!--            >-->
+          <!--              {{ show ? 'Show less' : 'Show more' }}-->
+          <!--            </button>-->
+          <!--          </td>-->
+          <td>
+            <span style="display: block; text-overflow: ellipsis; width: 300px; overflow: hidden; white-space: nowrap">{{
+              decree.keywords
+            }}</span>
+          </td>
           <td>{{ decree.decreeDate | formatMediumDate }}</td>
           <td>{{ decree.notes }}</td>
           <td>

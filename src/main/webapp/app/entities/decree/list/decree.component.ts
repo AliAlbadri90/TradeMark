@@ -32,6 +32,7 @@ export class DecreeComponent implements OnInit {
   ministerId: any = '';
   ministersSharedCollection: IMinister[] = [];
   years: any[] = [];
+  show = false;
 
   constructor(
     protected decreeService: DecreeService,
