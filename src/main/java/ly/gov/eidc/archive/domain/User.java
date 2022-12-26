@@ -14,12 +14,14 @@ import javax.validation.constraints.Size;
 import ly.gov.eidc.archive.config.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * A user.
  */
 @Entity
 @Table(name = "jhi_user")
+@org.springframework.data.elasticsearch.annotations.Document(indexName = "user")
 public class User extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
