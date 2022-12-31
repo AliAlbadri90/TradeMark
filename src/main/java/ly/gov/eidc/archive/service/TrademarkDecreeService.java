@@ -8,6 +8,7 @@ import ly.gov.eidc.archive.repository.TrademarkDecreeRepository;
 import ly.gov.eidc.archive.repository.search.TrademarkDecreeSearchRepository;
 import ly.gov.eidc.archive.service.dto.TrademarkDecreeDTO;
 import ly.gov.eidc.archive.service.mapper.TrademarkDecreeMapper;
+import ly.gov.eidc.archive.service.util.FileTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -49,6 +50,29 @@ public class TrademarkDecreeService {
     public TrademarkDecreeDTO save(TrademarkDecreeDTO trademarkDecreeDTO) {
         log.debug("Request to save TrademarkDecree : {}", trademarkDecreeDTO);
         TrademarkDecree trademarkDecree = trademarkDecreeMapper.toEntity(trademarkDecreeDTO);
+
+        if (trademarkDecreeDTO.getPdfFile() != null) {
+            String filePath = FileTools.upload(
+                trademarkDecree.getPdfFile(),
+                trademarkDecree.getPdfFileContentType(),
+                "TM_" + trademarkDecreeDTO.getYear() + "_" + trademarkDecreeDTO.getDecreeNo()
+            );
+            trademarkDecree.setPdfFile(null);
+            trademarkDecree.setPdfFileContentType(trademarkDecreeDTO.getPdfFileContentType());
+            trademarkDecree.setPdfFileUrl(filePath);
+        }
+
+        if (trademarkDecreeDTO.getExtraPdfFile() != null) {
+            String filePath = FileTools.upload(
+                trademarkDecree.getExtraPdfFile(),
+                trademarkDecree.getExtraPdfFileContentType(),
+                "TM_" + trademarkDecreeDTO.getYear() + "_" + trademarkDecreeDTO.getDecreeNo() + "_AT"
+            );
+            trademarkDecree.setExtraPdfFile(null);
+            trademarkDecree.setExtraPdfFileContentType(trademarkDecreeDTO.getExtraPdfFileContentType());
+            trademarkDecree.setExtraPdfFileUrl(filePath);
+        }
+
         trademarkDecree = trademarkDecreeRepository.save(trademarkDecree);
         TrademarkDecreeDTO result = trademarkDecreeMapper.toDto(trademarkDecree);
         trademarkDecreeSearchRepository.save(trademarkDecree);
