@@ -1,0 +1,222 @@
+<div>
+  <h2 id="page-heading" data-cy="TrademarkDecreeHeading">
+    <span>Trademark Decrees</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-trademark-decree"
+        [routerLink]="['/trademark-decree/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span class="hidden-sm-down"> Create a new Trademark Decree </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <form name="searchForm" class="form-inline">
+        <div class="input-group w-100 mt-3">
+          <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query" />
+
+          <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+            <fa-icon icon="search"></fa-icon>
+          </button>
+
+          <button class="input-group-append btn btn-danger" (click)="search('')" *ngIf="currentSearch">
+            <fa-icon icon="trash-alt"></fa-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="trademarkDecrees?.length === 0">
+    <span>No trademarkDecrees found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="trademarkDecrees && trademarkDecrees.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id">
+            <span>ID</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="year">
+            <span>Year</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="decreeNo">
+            <span>Decree No</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="isAccepted">
+            <span>Is Accepted</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="decreeDate">
+            <span>Decree Date</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="applicantName">
+            <span>Applicant Name</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="tradeMarkOwner">
+            <span>Trade Mark Owner</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="country">
+            <span>Country</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="applyDate">
+            <span>Apply Date</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="serialNo">
+            <span>Serial No</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="trademarkEnglish">
+            <span>Trademark English</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="trademarkArabic">
+            <span>Trademark Arabic</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="category">
+            <span>Category</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="pdfFile">
+            <span>Pdf File</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="pdfFileUrl">
+            <span>Pdf File Url</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="extraPdfFile">
+            <span>Extra Pdf File</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="extraPdfFileUrl">
+            <span>Extra Pdf File Url</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="isWithdrawal">
+            <span>Is Withdrawal</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="withdrawalDecreeNo">
+            <span>Withdrawal Decree No</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="notes">
+            <span>Notes</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trademarkDecree of trademarkDecrees; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/trademark-decree', trademarkDecree.id, 'view']">{{ trademarkDecree.id }}</a>
+          </td>
+          <td>{{ trademarkDecree.year }}</td>
+          <td>{{ trademarkDecree.decreeNo }}</td>
+          <td>{{ trademarkDecree.isAccepted }}</td>
+          <td>{{ trademarkDecree.decreeDate | formatMediumDate }}</td>
+          <td>{{ trademarkDecree.applicantName }}</td>
+          <td>{{ trademarkDecree.tradeMarkOwner }}</td>
+          <td>{{ trademarkDecree.country }}</td>
+          <td>{{ trademarkDecree.applyDate | formatMediumDate }}</td>
+          <td>{{ trademarkDecree.serialNo }}</td>
+          <td>{{ trademarkDecree.trademarkEnglish }}</td>
+          <td>{{ trademarkDecree.trademarkArabic }}</td>
+          <td>{{ trademarkDecree.category }}</td>
+          <td>
+            <a *ngIf="trademarkDecree.pdfFile" (click)="openFile(trademarkDecree.pdfFile, trademarkDecree.pdfFileContentType)">open</a>
+            <span *ngIf="trademarkDecree.pdfFile">{{ trademarkDecree.pdfFileContentType }} , {{ byteSize(trademarkDecree.pdfFile) }}</span>
+          </td>
+          <td>{{ trademarkDecree.pdfFileUrl }}</td>
+          <td>
+            <a
+              *ngIf="trademarkDecree.extraPdfFile"
+              (click)="openFile(trademarkDecree.extraPdfFile, trademarkDecree.extraPdfFileContentType)"
+              >open</a
+            >
+            <span *ngIf="trademarkDecree.extraPdfFile"
+              >{{ trademarkDecree.extraPdfFileContentType }}, {{ byteSize(trademarkDecree.extraPdfFile) }}</span
+            >
+          </td>
+          <td>{{ trademarkDecree.extraPdfFileUrl }}</td>
+          <td>{{ trademarkDecree.isWithdrawal }}</td>
+          <td>{{ trademarkDecree.withdrawalDecreeNo }}</td>
+          <td>{{ trademarkDecree.notes }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/trademark-decree', trademarkDecree.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/trademark-decree', trademarkDecree.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(trademarkDecree)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="trademarkDecrees && trademarkDecrees.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

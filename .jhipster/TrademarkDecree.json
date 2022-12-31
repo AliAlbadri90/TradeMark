@@ -1,0 +1,95 @@
+{
+  "name": "TrademarkDecree",
+  "fields": [
+    {
+      "fieldName": "year",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "decreeNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isAccepted",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "decreeDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "applicantName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tradeMarkOwner",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "country",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "applyDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "serialNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "trademarkEnglish",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "trademarkArabic",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "category",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pdfFile",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "pdfFileUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "extraPdfFile",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "extraPdfFileUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isWithdrawal",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "withdrawalDecreeNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "trademark_decree",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "searchEngine": "elasticsearch",
+  "changelogDate": "20220313163521"
+}
