@@ -5,7 +5,7 @@
   </button>
   <div class="d-flex flex-row p-3 align-items-center" dir="rtl">
     <a href="/" routerLink="/"><img alt="logo" class="img-logo-toolbar" src="../../../content/images/logo.png" /></a>
-    <span class="mr-3">ارشيف قرارات وزارة الاقتصاد</span>
+    <span class="mr-3">ارشيف قرارات العلامات التجارية</span>
     <span class="fill"></span>
   </div>
   <div class="mr-auto">
@@ -64,39 +64,43 @@
         <mat-icon mat-list-icon>dashboard</mat-icon>
         <span>الرئيسية</span>
       </mat-list-item>
-      <mat-list-item routerLink="decree">
+      <!--      <mat-list-item routerLink="decree">-->
+      <!--        <mat-icon mat-list-icon>receipt_long</mat-icon>-->
+      <!--        <span>القرارات</span>-->
+      <!--      </mat-list-item>-->
+      <!--      <mat-list-item routerLink="reports">-->
+      <!--        <mat-icon mat-list-icon>receipt_long</mat-icon>-->
+      <!--        <span>التقارير</span>-->
+      <!--      </mat-list-item>-->
+      <mat-list-item routerLink="trademark-decree">
         <mat-icon mat-list-icon>receipt_long</mat-icon>
-        <span>القرارات</span>
+        <span>قرارات العلامات التجارية</span>
       </mat-list-item>
-      <mat-list-item routerLink="reports">
-        <mat-icon mat-list-icon>receipt_long</mat-icon>
-        <span>التقارير</span>
-      </mat-list-item>
-      <div *jhiHasAnyAuthority="['ROLE_ADMIN']">
-        <mat-list-item routerLink="decree-type">
-          <mat-icon mat-list-icon>receipt_long</mat-icon>
-          <span>انواع القرارات</span>
-        </mat-list-item>
-        <mat-list-item routerLink="decree-category">
-          <mat-icon mat-list-icon>receipt_long</mat-icon>
-          <span>تصنيفات القرارات</span>
-        </mat-list-item>
-        <mat-list-item routerLink="minister">
-          <mat-icon mat-list-icon>receipt_long</mat-icon>
-          <span>الوزراء</span>
-        </mat-list-item>
-        <mat-list-item routerLink="government">
-          <mat-icon mat-list-icon>receipt_long</mat-icon>
-          <span>الحكومات</span>
-        </mat-list-item>
+      <!--      <div *jhiHasAnyAuthority="['ROLE_ADMIN']">-->
+      <!--        <mat-list-item routerLink="decree-type">-->
+      <!--          <mat-icon mat-list-icon>receipt_long</mat-icon>-->
+      <!--          <span>انواع القرارات</span>-->
+      <!--        </mat-list-item>-->
+      <!--        <mat-list-item routerLink="decree-category">-->
+      <!--          <mat-icon mat-list-icon>receipt_long</mat-icon>-->
+      <!--          <span>تصنيفات القرارات</span>-->
+      <!--        </mat-list-item>-->
+      <!--        <mat-list-item routerLink="minister">-->
+      <!--          <mat-icon mat-list-icon>receipt_long</mat-icon>-->
+      <!--          <span>الوزراء</span>-->
+      <!--        </mat-list-item>-->
+      <!--        <mat-list-item routerLink="government">-->
+      <!--          <mat-icon mat-list-icon>receipt_long</mat-icon>-->
+      <!--          <span>الحكومات</span>-->
+      <!--        </mat-list-item>-->
 
-        <mat-divider></mat-divider>
+      <!--        <mat-divider></mat-divider>-->
 
-        <mat-list-item routerLink="trademark-decree">
-          <mat-icon mat-list-icon>receipt_long</mat-icon>
-          <span>قرارات العلامات التجارية</span>
-        </mat-list-item>
-      </div>
+      <!--        <mat-list-item routerLink="trademark-decree">-->
+      <!--          <mat-icon mat-list-icon>receipt_long</mat-icon>-->
+      <!--          <span>قرارات العلامات التجارية</span>-->
+      <!--        </mat-list-item>-->
+      <!--      </div>-->
 
       <mat-expansion-panel *jhiHasAnyAuthority="'ROLE_ADMIN'" class="mat-elevation-z0">
         <mat-expansion-panel-header class="light-gray">

@@ -1,74 +1,74 @@
 <div class="entity-container">
-  <div>
-    <div class="row white-bg">
-      <div class="mat-elevation-z1 p-3 round-card col-12">
-        <div class="text-center mr-auto">
-          <h5 class="my-2">القرارات المرقمنة</h5>
-        </div>
-        <canvas
-          *ngIf="companyLineChartData && companyLineChartLabels"
-          baseChart
-          width="900"
-          height="250"
-          [datasets]="companyLineChartData"
-          [labels]="companyLineChartLabels"
-          [colors]="companyLineChartColors"
-          chartType="bar"
-        ></canvas>
-      </div>
-    </div>
-    <div class="row white-bg">
-      <div class="mat-elevation-z1 p-3 round-card col-lg-6 col-sm-12">
-        <p>القرارات حسب الوزير</p>
-        <canvas
-          *ngIf="ministerDecreesPieChartData && ministerDecreesPieChartLabels"
-          [data]="ministerDecreesPieChartData"
-          [labels]="ministerDecreesPieChartLabels"
-          chartType="pie"
-          baseChart
-        >
-        </canvas>
-      </div>
-      <div class="mat-elevation-z1 p-3 round-card col-lg-6 col-sm-12">
-        <p>القرارات حسب الحكومة</p>
-        <canvas
-          *ngIf="govDecreesDoughnutChartData && govDecreesDoughnutChartLabels"
-          [data]="govDecreesDoughnutChartData"
-          [labels]="govDecreesDoughnutChartLabels"
-          chartType="doughnut"
-          baseChart
-        >
-        </canvas>
-      </div>
-    </div>
-  </div>
+  <!--  <div>-->
+  <!--    <div class="row white-bg">-->
+  <!--      <div class="mat-elevation-z1 p-3 round-card col-12">-->
+  <!--        <div class="text-center mr-auto">-->
+  <!--          <h5 class="my-2">القرارات المرقمنة</h5>-->
+  <!--        </div>-->
+  <!--        <canvas-->
+  <!--          *ngIf="companyLineChartData && companyLineChartLabels"-->
+  <!--          baseChart-->
+  <!--          width="900"-->
+  <!--          height="250"-->
+  <!--          [datasets]="companyLineChartData"-->
+  <!--          [labels]="companyLineChartLabels"-->
+  <!--          [colors]="companyLineChartColors"-->
+  <!--          chartType="bar"-->
+  <!--        ></canvas>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--    <div class="row white-bg">-->
+  <!--      <div class="mat-elevation-z1 p-3 round-card col-lg-6 col-sm-12">-->
+  <!--        <p>القرارات حسب الوزير</p>-->
+  <!--        <canvas-->
+  <!--          *ngIf="ministerDecreesPieChartData && ministerDecreesPieChartLabels"-->
+  <!--          [data]="ministerDecreesPieChartData"-->
+  <!--          [labels]="ministerDecreesPieChartLabels"-->
+  <!--          chartType="pie"-->
+  <!--          baseChart-->
+  <!--        >-->
+  <!--        </canvas>-->
+  <!--      </div>-->
+  <!--      <div class="mat-elevation-z1 p-3 round-card col-lg-6 col-sm-12">-->
+  <!--        <p>القرارات حسب الحكومة</p>-->
+  <!--        <canvas-->
+  <!--          *ngIf="govDecreesDoughnutChartData && govDecreesDoughnutChartLabels"-->
+  <!--          [data]="govDecreesDoughnutChartData"-->
+  <!--          [labels]="govDecreesDoughnutChartLabels"-->
+  <!--          chartType="doughnut"-->
+  <!--          baseChart-->
+  <!--        >-->
+  <!--        </canvas>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
 
-  <div class="row align-items-center mt-3">
-    <div class="mat-elevation-z1 px-4 py-3 d-flex round-card col white-bg">
-      <div class="d-flex flex-column">
-        <h3 class="m-0">{{ decreeCount }}</h3>
-        <p class="m-0">عدد القرارات</p>
-      </div>
-      <mat-icon class="big-icon mr-auto" color="primary">description</mat-icon>
-    </div>
+  <!--  <div class="row align-items-center mt-3">-->
+  <!--    <div class="mat-elevation-z1 px-4 py-3 d-flex round-card col white-bg">-->
+  <!--      <div class="d-flex flex-column">-->
+  <!--        <h3 class="m-0">{{ decreeCount }}</h3>-->
+  <!--        <p class="m-0">عدد القرارات</p>-->
+  <!--      </div>-->
+  <!--      <mat-icon class="big-icon mr-auto" color="primary">description</mat-icon>-->
+  <!--    </div>-->
 
-    <span class="mx-2"></span>
+  <!--    <span class="mx-2"></span>-->
 
-    <div class="mat-elevation-z1 px-4 py-3 d-flex round-card col white-bg">
-      <div class="d-flex flex-column">
-        <h3 class="m-0">{{ ministerCount }}</h3>
-        <p class="m-0">عدد الوزراء</p>
-      </div>
-      <mat-icon class="big-icon mr-auto" color="primary">account_circle</mat-icon>
-    </div>
+  <!--    <div class="mat-elevation-z1 px-4 py-3 d-flex round-card col white-bg">-->
+  <!--      <div class="d-flex flex-column">-->
+  <!--        <h3 class="m-0">{{ ministerCount }}</h3>-->
+  <!--        <p class="m-0">عدد الوزراء</p>-->
+  <!--      </div>-->
+  <!--      <mat-icon class="big-icon mr-auto" color="primary">account_circle</mat-icon>-->
+  <!--    </div>-->
 
-    <span class="mx-2"></span>
-    <div class="mat-elevation-z1 px-4 py-3 d-flex round-card col white-bg">
-      <div class="d-flex flex-column">
-        <h3 class="m-0">{{ govCount }}</h3>
-        <p class="m-0">عدد الحكومات</p>
-      </div>
-      <mat-icon class="big-icon mr-auto" color="primary">account_balance</mat-icon>
-    </div>
-  </div>
+  <!--    <span class="mx-2"></span>-->
+  <!--    <div class="mat-elevation-z1 px-4 py-3 d-flex round-card col white-bg">-->
+  <!--      <div class="d-flex flex-column">-->
+  <!--        <h3 class="m-0">{{ govCount }}</h3>-->
+  <!--        <p class="m-0">عدد الحكومات</p>-->
+  <!--      </div>-->
+  <!--      <mat-icon class="big-icon mr-auto" color="primary">account_balance</mat-icon>-->
+  <!--    </div>-->
+  <!--  </div>-->
 </div>
