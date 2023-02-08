@@ -10,14 +10,22 @@ import { map } from 'rxjs/operators';
   selector: 'jhi-reports',
   templateUrl: './reports.component.html',
 })
-export class ReportsComponent {
+export class ReportsComponent implements OnInit {
   isLoading: any;
   year: any;
   ministerId: any;
   decreeReport: any;
   ministersSharedCollection: IMinister[] = [];
+  years: any[] = [];
 
   constructor(protected ministerService: MinisterService, protected decreeService: DecreeService) {}
+
+  ngOnInit(): void {
+    this.decreeService
+      .getYears()
+      .pipe(map((res: HttpResponse<any[]>) => res.body as string[]))
+      .subscribe((years: any[]) => (this.years = years as string[]));
+  }
 
   getReport(): void {
     this.decreeReport = null;
