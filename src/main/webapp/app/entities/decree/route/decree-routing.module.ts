@@ -12,7 +12,7 @@ const decreeRoute: Routes = [
     path: '',
     component: DecreeComponent,
     data: {
-      defaultSort: 'id,asc',
+      defaultSort: 'id,desc',
     },
     canActivate: [UserRouteAccessService],
   },

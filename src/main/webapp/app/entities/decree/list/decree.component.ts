@@ -33,6 +33,7 @@ export class DecreeComponent implements OnInit {
   ministersSharedCollection: IMinister[] = [];
   years: any[] = [];
   show = false;
+  showFullNotes = false;
 
   constructor(
     protected decreeService: DecreeService,
@@ -42,6 +43,10 @@ export class DecreeComponent implements OnInit {
     protected ministerService: MinisterService,
     protected modalService: NgbModal
   ) {}
+
+  toggleNotes(): void {
+    this.showFullNotes = !this.showFullNotes;
+  }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;

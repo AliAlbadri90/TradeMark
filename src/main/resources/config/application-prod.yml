@@ -52,10 +52,20 @@ spring:
   liquibase:
     contexts: prod
   mail:
-    host: localhost
-    port: 25
-    username:
-    password:
+    host: vweb3.lttnet.net
+    port: 465
+    username: noreply@eidc.gov.ly
+    password: zwx+ohq!QHO+
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+      starttls.required: true
+      ssl.enable: true
+      ssl.trust: vweb3.lttnet.net
+    properties.mail.smtps:
+      auth: true
   thymeleaf:
     cache: true
   sleuth:

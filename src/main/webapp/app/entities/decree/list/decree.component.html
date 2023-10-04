@@ -132,12 +132,32 @@
           <!--            </button>-->
           <!--          </td>-->
           <td>
-            <span style="display: block; text-overflow: ellipsis; width: 300px; overflow: hidden; white-space: nowrap">{{
-              decree.keywords
-            }}</span>
+            <span
+              matTooltip="{{ decree.keywords }}"
+              style="display: block; text-overflow: ellipsis; width: 200px; overflow: hidden; white-space: nowrap"
+              >{{ decree.keywords }}</span
+            >
           </td>
+
           <td>{{ decree.decreeDate | formatMediumDate }}</td>
-          <td>{{ decree.notes }}</td>
+          <!--          <td><div class="notes">-->
+          <!--            <span *ngIf="!showFullNotes">-->
+          <!--              {{decree.notes | slice:0:100}}...-->
+          <!--            </span>-->
+
+          <!--            <span *ngIf="showFullNotes">-->
+          <!--              {{decree.notes }}-->
+          <!--           </span>-->
+          <!--          </div>-->
+
+          <!--            <button *ngIf="decree.notes!.length > 100"-->
+          <!--                    (click)="toggleNotes()">-->
+          <!--              {{showFullNotes ? 'Show less' : 'Show more'}}-->
+          <!--            </button></td>-->
+          <!--          <td>-->
+          <td>
+            <span matTooltip="{{ decree.notes }}"> {{ decree.notes }}</span>
+          </td>
           <td>
             <button [disabled]="!decree.pdfFileUrl" (click)="openFile(decree.pdfFileUrl)" color="primary" mat-raised-button type="button">
               <mat-icon class="ml-2">picture_as_pdf</mat-icon>

@@ -183,7 +183,7 @@ jhipster:
   #   allow-credentials: true
   #   max-age: 1800
   mail:
-    from: archive@localhost
+    from: noreply@eidc.gov.ly
   api-docs:
     default-include-pattern: ${server.servlet.context-path:}/api/**
     management-include-pattern: ${server.servlet.context-path:}/management/**
