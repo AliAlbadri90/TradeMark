@@ -8,18 +8,39 @@
       <span jhiTranslate="eTravelApp.airline.home.createLabel"> اضافة قرار جديد </span>
     </button>
 
-    <form class="mr-4">
+    <form class="mr-4 ml-4">
       <mat-form-field appearance="standard" floatLabel="never">
-        <button (click)="search(currentSearch)" mat-icon-button matPrefix type="submit">
-          <mat-icon>search</mat-icon>
-        </button>
-        <input [(ngModel)]="currentSearch" matInput name="currentSearch" placeholder="بحث" type="text" />
+        <input [(ngModel)]="currentSearch" matInput name="currentSearch" placeholder="ابحث عن كلمة او رقم قرار" type="text" />
 
         <button (click)="search('')" *ngIf="currentSearch" color="warn" mat-icon-button matSuffix>
           <mat-icon>clear</mat-icon>
         </button>
       </mat-form-field>
+    </form>
 
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="mr-auto" appearance="standard">
+          <mat-label>اختر بداية الفترة</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="from" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field class="mr-auto" appearance="standard">
+          <mat-label>اختر نهاية الفترة</mat-label>
+          <input matInput [matDatepicker]="picker2" [(ngModel)]="to" (input)="onDateInput($event)" />
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <button class="mt-4" mat-raised-button color="primary" (click)="search(currentSearch)">
+          <mat-icon>search</mat-icon>
+          بحث
+        </button>
+      </div>
       <mat-form-field class="mr-auto" appearance="standard">
         <mat-select (selectionChange)="filterByYear($event.value)" placeholder="السنة">
           <mat-option value="">الكل</mat-option>
@@ -36,7 +57,7 @@
           }}</mat-option>
         </mat-select>
       </mat-form-field>
-    </form>
+    </div>
   </div>
   <jhi-alert-error></jhi-alert-error>
 

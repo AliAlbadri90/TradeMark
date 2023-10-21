@@ -13,6 +13,7 @@ import { DataUtils } from 'app/core/util/data-util.service';
 import { IMinister, Minister } from '../../minister/minister.model';
 import { map } from 'rxjs/operators';
 import { MinisterService } from '../../minister/service/minister.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'jhi-decree',
@@ -34,6 +35,8 @@ export class DecreeComponent implements OnInit {
   years: any[] = [];
   show = false;
   showFullNotes = false;
+  from: any;
+  to: any;
 
   constructor(
     protected decreeService: DecreeService,
@@ -41,8 +44,19 @@ export class DecreeComponent implements OnInit {
     protected dataUtils: DataUtils,
     protected router: Router,
     protected ministerService: MinisterService,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    private datePipe: DatePipe
   ) {}
+
+  onDateInput(event: any): void {
+    const inputValue: string = event.target.value;
+
+    // Check if only the year is entered (four digits)
+    const yearPattern = /^\d{4}$/;
+    if (yearPattern.test(inputValue)) {
+      this.to = new Date(`${inputValue}-12-31`);
+    }
+  }
 
   toggleNotes(): void {
     this.showFullNotes = !this.showFullNotes;
@@ -114,30 +128,41 @@ export class DecreeComponent implements OnInit {
   }
 
   search(currentSearch: any): void {
+    const queryObj: any = {
+      'decreeNo.contains': currentSearch,
+      'keywords.contains': currentSearch,
+      'title.contains': this.currentSearch,
+      'details.contains': this.currentSearch,
+      'notes.contains': this.currentSearch,
+      'ministerId.equals': this.ministerId,
+      'year.equals': this.year,
+      page: 0,
+      size: this.itemsPerPage,
+      sort: this.sort(),
+    };
+
+    // Format and include the date only if it is provided
+    if (this.from) {
+      const formattedFromDate = this.datePipe.transform(this.from, 'yyyy-MM-dd');
+      queryObj['decreeDate.greaterThanOrEqual'] = formattedFromDate;
+    }
+
+    if (this.to) {
+      const formattedToDate = this.datePipe.transform(this.to, 'yyyy-MM-dd');
+      queryObj['decreeDate.lessThanOrEqual'] = formattedToDate;
+    }
+
     this.currentSearch = currentSearch;
-    this.decreeService
-      .query({
-        'decreeNo.contains': currentSearch,
-        'keywords.contains': currentSearch,
-        'title.contains': this.currentSearch,
-        'details.contains': this.currentSearch,
-        'notes.contains': this.currentSearch,
-        'ministerId.equals': this.ministerId,
-        'year.equals': this.year,
-        page: 0,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
-      .subscribe({
-        next: (res: HttpResponse<IDecree[]>) => {
-          this.isLoading = false;
-          this.onSuccess(res.body, res.headers, 0, true);
-        },
-        error: () => {
-          this.isLoading = false;
-          this.onError();
-        },
-      });
+    this.decreeService.query(queryObj).subscribe({
+      next: (res: HttpResponse<IDecree[]>) => {
+        this.isLoading = false;
+        this.onSuccess(res.body, res.headers, 0, true);
+      },
+      error: () => {
+        this.isLoading = false;
+        this.onError();
+      },
+    });
   }
 
   filterByYear(year: any): void {

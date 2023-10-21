@@ -227,10 +227,12 @@ public class DecreeResource {
         return ResponseEntity.ok().body(decreeRepository.getDecreeYearLineChart());
     }
 
-    @GetMapping("/decrees/report/{year}/{ministerId}")
-    public ResponseEntity<DecreeReport> getDecreeReport(@PathVariable Integer year, @PathVariable Long ministerId) {
+    @GetMapping("/decrees/report/")
+    public ResponseEntity<DecreeReport> getDecreeReport(DecreeCriteria criteria) {
         viewLogService.newLog("DECREE_REPORT", "", "DecreeYearReport");
-        return ResponseEntity.ok().body(decreeService.getReportByYearAndMinisterId(year, ministerId));
+        return ResponseEntity
+            .ok()
+            .body(decreeService.getReportByYearAndMinisterId(criteria.getYear().getEquals(), criteria.getMinisterId().getEquals()));
     }
 
     @GetMapping("/decrees/recheck-files")

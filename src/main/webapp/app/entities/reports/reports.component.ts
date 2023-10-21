@@ -5,6 +5,8 @@ import { DecreeReport } from '../decree/decree-report.model';
 import { IMinister } from '../minister/minister.model';
 import { MinisterService } from '../minister/service/minister.service';
 import { map } from 'rxjs/operators';
+import { GovernmentService } from '../government/service/government.service';
+import { IGovernment } from '../government/government.model';
 
 @Component({
   selector: 'jhi-reports',
@@ -14,24 +16,40 @@ export class ReportsComponent implements OnInit {
   isLoading: any;
   year: any;
   ministerId: any;
+  governmentId: any;
   decreeReport: any;
   ministersSharedCollection: IMinister[] = [];
+  governmentsSharedCollection: IMinister[] = [];
   years: any[] = [];
 
-  constructor(protected ministerService: MinisterService, protected decreeService: DecreeService) {}
+  constructor(
+    protected ministerService: MinisterService,
+    protected governmentService: GovernmentService,
+    protected decreeService: DecreeService
+  ) {}
 
   ngOnInit(): void {
     this.decreeService
       .getYears()
       .pipe(map((res: HttpResponse<any[]>) => res.body as string[]))
       .subscribe((years: any[]) => (this.years = years as string[]));
+    this.governmentService
+      .query({ sort: ['serialNo' + ',' + 'desc'] })
+      .pipe(map((res: HttpResponse<IGovernment[]>) => res.body ?? []))
+      .subscribe((governments: IGovernment[]) => (this.governmentsSharedCollection = governments));
   }
 
   getReport(): void {
     this.decreeReport = null;
-    this.decreeService.getReport(this.year, this.ministerId).subscribe((decreeReportHttpResponse: HttpResponse<DecreeReport>) => {
-      this.decreeReport = decreeReportHttpResponse.body;
-    });
+    this.decreeService
+      .getReport({
+        'ministerId.equals': this.ministerId,
+        'governmentId.equals': this.governmentId,
+        'year.equals': this.year,
+      })
+      .subscribe((decreeReportHttpResponse: HttpResponse<DecreeReport>) => {
+        this.decreeReport = decreeReportHttpResponse.body;
+      });
   }
 
   filterByYear(year: any): void {
