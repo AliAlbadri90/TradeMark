@@ -26,6 +26,7 @@ public interface TrademarkDecreeSearchRepository
 
 interface TrademarkDecreeSearchRepositoryInternal {
     Page<TrademarkDecree> search(String query, Pageable pageable);
+    Page<TrademarkDecree> search(NativeSearchQuery query, Pageable pageable);
 }
 
 class TrademarkDecreeSearchRepositoryInternalImpl implements TrademarkDecreeSearchRepositoryInternal {
@@ -42,6 +43,18 @@ class TrademarkDecreeSearchRepositoryInternalImpl implements TrademarkDecreeSear
         nativeSearchQuery.setPageable(pageable);
         List<TrademarkDecree> hits = elasticsearchTemplate
             .search(nativeSearchQuery, TrademarkDecree.class)
+            .map(SearchHit::getContent)
+            .stream()
+            .collect(Collectors.toList());
+
+        return new PageImpl<>(hits, pageable, hits.size());
+    }
+
+    @Override
+    public Page<TrademarkDecree> search(NativeSearchQuery query, Pageable pageable) {
+        query.setPageable(pageable);
+        List<TrademarkDecree> hits = elasticsearchTemplate
+            .search(query, TrademarkDecree.class)
             .map(SearchHit::getContent)
             .stream()
             .collect(Collectors.toList());

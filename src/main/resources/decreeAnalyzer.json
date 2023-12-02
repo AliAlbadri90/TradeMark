@@ -1,0 +1,80 @@
+{
+  "analysis": {
+    "analyzer": {
+      "searchAnalyzer": {
+        "type": "custom",
+        "tokenizer": "standard",
+        "char_filter": [
+          "my_mappings_char_filter",
+          "abd_pattern_replace_filter",
+          "aldean_pattern_replace_filter",
+          "allah_pattern_replace_filter"
+        ],
+        "filter": ["trim"]
+      },
+      "indexAnalyzer": {
+        "type": "custom",
+        "tokenizer": "standard",
+        "char_filter": [
+          "my_mappings_char_filter",
+          "abd_pattern_replace_filter",
+          "allah_pattern_replace_filter",
+          "aldean_pattern_replace_filter"
+        ],
+        "filter": ["trim"]
+      },
+
+      "countryIndexAnalyzer": {
+        "type": "custom",
+        "tokenizer": "my_tokenizer",
+        "char_filter": [
+          "my_mappings_char_filter",
+          "abd_pattern_replace_filter",
+          "allah_pattern_replace_filter",
+          "aldean_pattern_replace_filter"
+        ],
+        "filter": ["trim"]
+      },
+      "countrySearchAnalyzer": {
+        "type": "custom",
+        "tokenizer": "my_tokenizer",
+        "char_filter": [
+          "my_mappings_char_filter",
+          "abd_pattern_replace_filter",
+          "allah_pattern_replace_filter",
+          "aldean_pattern_replace_filter"
+        ],
+        "filter": ["trim"]
+      }
+    },
+    "char_filter": {
+      "my_mappings_char_filter": {
+        "type": "mapping",
+        "mappings": ["أ => ا", "إ => ا", "ه => ة", "آ => ا", "ذ => د", "ى => ي"]
+      },
+      "abd_pattern_replace_filter": {
+        "type": "pattern_replace",
+        "pattern": "عبد ",
+        "replacement": "عبد"
+      },
+      "allah_pattern_replace_filter": {
+        "type": "pattern_replace",
+        "pattern": " الله",
+        "replacement": "الله"
+      },
+      "aldean_pattern_replace_filter": {
+        "type": "pattern_replace",
+        "pattern": " الدين",
+        "replacement": "الدين"
+      }
+    },
+    "tokenizer": {
+      "my_tokenizer": {
+        "type": "ngram",
+        "min_gram": 4,
+        "max_gram": 4,
+        "token_chars": ["letter", "digit"]
+      }
+    }
+  }
+}

@@ -4,12 +4,18 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.*;
 import ly.gov.eidc.archive.domain.enumeration.DecreeStatus;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.Setting;
 
 /**
  * A Decree.
  */
 @Entity
 @Table(name = "decree")
+@org.springframework.data.elasticsearch.annotations.Document(indexName = "decree")
+@Setting(settingPath = "/decreeAnalyzer.json")
 public class Decree extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,6 +32,7 @@ public class Decree extends AbstractAuditingEntity implements Serializable {
     private String decreeNo;
 
     @Column(name = "title")
+    @Field(type = FieldType.Text, searchAnalyzer = "searchAnalyzer", analyzer = "indexAnalyzer")
     private String title;
 
     @Column(name = "details")

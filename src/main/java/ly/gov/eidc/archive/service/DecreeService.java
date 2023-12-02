@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.validation.constraints.Min;
 import ly.gov.eidc.archive.domain.Decree;
 import ly.gov.eidc.archive.repository.DecreeRepository;
+import ly.gov.eidc.archive.repository.search.DecreeSearchRepository;
 import ly.gov.eidc.archive.service.dto.DecreeDTO;
 import ly.gov.eidc.archive.service.dto.DecreeReport;
 import ly.gov.eidc.archive.service.dto.MinisterDTO;
@@ -31,9 +32,12 @@ public class DecreeService {
 
     private final DecreeRepository decreeRepository;
 
+    private final DecreeSearchRepository decreeSearchRepository;
+
     private final DecreeMapper decreeMapper;
 
-    public DecreeService(DecreeRepository decreeRepository, DecreeMapper decreeMapper) {
+    public DecreeService(DecreeRepository decreeRepository, DecreeMapper decreeMapper, DecreeSearchRepository decreeSearchRepository) {
+        this.decreeSearchRepository = decreeSearchRepository;
         this.decreeRepository = decreeRepository;
         this.decreeMapper = decreeMapper;
     }
@@ -71,6 +75,7 @@ public class DecreeService {
         }
 
         decree = decreeRepository.save(decree);
+        decreeSearchRepository.save(decree);
         return decreeMapper.toDto(decree);
     }
 
@@ -131,6 +136,7 @@ public class DecreeService {
     public void delete(Long id) {
         log.debug("Request to delete Decree : {}", id);
         decreeRepository.deleteById(id);
+        decreeSearchRepository.deleteById(id);
     }
 
     public List<Object[]> getDecreeYearLineChart() {
@@ -219,5 +225,10 @@ public class DecreeService {
 
     public List<String> findAllYears() {
         return decreeRepository.findAllYears();
+    }
+
+    public void reindex() {
+        decreeSearchRepository.deleteAll();
+        decreeSearchRepository.saveAll(decreeRepository.findAll());
     }
 }

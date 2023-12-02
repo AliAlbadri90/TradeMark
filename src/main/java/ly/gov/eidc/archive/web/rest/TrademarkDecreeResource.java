@@ -225,4 +225,9 @@ public class TrademarkDecreeResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
+    @GetMapping("/public/trademark-decrees/reindex")
+    public void reindex() {
+        trademarkDecreeService.reindex();
+    }
 }
