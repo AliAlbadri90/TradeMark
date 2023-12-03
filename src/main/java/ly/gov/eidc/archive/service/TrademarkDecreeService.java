@@ -154,7 +154,12 @@ public class TrademarkDecreeService {
     public Page<TrademarkDecreeDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of TrademarkDecrees for query {}", query);
         var builder = new BoolQueryBuilder()
-            .should(QueryBuilders.multiMatchQuery(query, "tradeMarkOwner", "applicantName", "trademarkArabic", "country"));
+            .should(
+                QueryBuilders
+                    .multiMatchQuery(query, "tradeMarkOwner", "applicantName", "trademarkArabic", "trademarkEnglish")
+                    .fuzziness(Fuzziness.fromEdits(2))
+            )
+            .should(QueryBuilders.matchQuery("country", query));
 
         var Nquery = new NativeSearchQueryBuilder().withQuery(builder).withPageable(pageable).build();
 

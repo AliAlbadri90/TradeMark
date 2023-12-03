@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import ly.gov.eidc.archive.domain.Decree;
+import ly.gov.eidc.archive.domain.TrademarkDecree;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -25,6 +26,7 @@ public interface DecreeSearchRepository extends ElasticsearchRepository<Decree, 
 
 interface DecreeSearchRepositoryInternal {
     Page<Decree> search(String query, Pageable pageable);
+    Page<Decree> search(NativeSearchQuery query, Pageable pageable);
 }
 
 class DecreeSearchRepositoryInternalImpl implements DecreeSearchRepositoryInternal {
@@ -41,6 +43,18 @@ class DecreeSearchRepositoryInternalImpl implements DecreeSearchRepositoryIntern
         nativeSearchQuery.setPageable(pageable);
         List<Decree> hits = elasticsearchTemplate
             .search(nativeSearchQuery, Decree.class)
+            .map(SearchHit::getContent)
+            .stream()
+            .collect(Collectors.toList());
+
+        return new PageImpl<>(hits, pageable, hits.size());
+    }
+
+    @Override
+    public Page<Decree> search(NativeSearchQuery query, Pageable pageable) {
+        query.setPageable(pageable);
+        List<Decree> hits = elasticsearchTemplate
+            .search(query, Decree.class)
             .map(SearchHit::getContent)
             .stream()
             .collect(Collectors.toList());

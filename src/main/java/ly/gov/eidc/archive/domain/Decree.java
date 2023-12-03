@@ -4,10 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.*;
 import ly.gov.eidc.archive.domain.enumeration.DecreeStatus;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-import org.springframework.data.elasticsearch.annotations.Setting;
+import org.springframework.data.elasticsearch.annotations.*;
 
 /**
  * A Decree.
@@ -36,21 +33,25 @@ public class Decree extends AbstractAuditingEntity implements Serializable {
     private String title;
 
     @Column(name = "details")
+    @Field(type = FieldType.Text, searchAnalyzer = "searchAnalyzer", analyzer = "indexAnalyzer")
     private String details;
 
     @Column(name = "keywords")
+    @Field(type = FieldType.Text, searchAnalyzer = "searchAnalyzer", analyzer = "indexAnalyzer")
     private String keywords;
 
     @Column(name = "pages")
     private Integer pages;
 
     @Column(name = "decree_date")
+    @Field(type = FieldType.Date, format = DateFormat.basic_date)
     private LocalDate decreeDate;
 
     @Column(name = "year")
     private Integer year;
 
     @Column(name = "notes")
+    @Field(type = FieldType.Text, searchAnalyzer = "searchAnalyzer", analyzer = "indexAnalyzer")
     private String notes;
 
     @Lob
@@ -97,6 +98,7 @@ public class Decree extends AbstractAuditingEntity implements Serializable {
     private String hideNotes;
 
     @Column(name = "hide_end_date")
+    @Field(type = FieldType.Date, format = DateFormat.basic_date)
     private LocalDate hideEndDate;
 
     @ManyToOne

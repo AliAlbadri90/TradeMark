@@ -9,15 +9,21 @@ import javax.validation.constraints.Min;
 import ly.gov.eidc.archive.domain.Decree;
 import ly.gov.eidc.archive.repository.DecreeRepository;
 import ly.gov.eidc.archive.repository.search.DecreeSearchRepository;
+import ly.gov.eidc.archive.service.criteria.DecreeCriteria;
 import ly.gov.eidc.archive.service.dto.DecreeDTO;
 import ly.gov.eidc.archive.service.dto.DecreeReport;
 import ly.gov.eidc.archive.service.dto.MinisterDTO;
+import ly.gov.eidc.archive.service.dto.TrademarkDecreeDTO;
 import ly.gov.eidc.archive.service.mapper.DecreeMapper;
 import ly.gov.eidc.archive.service.util.FileTools;
+import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -96,6 +102,11 @@ public class DecreeService {
                 return existingDecree;
             })
             .map(decreeRepository::save)
+            .map(savedDecree -> {
+                decreeSearchRepository.save(savedDecree);
+
+                return savedDecree;
+            })
             .map(decreeMapper::toDto);
     }
 
@@ -230,5 +241,25 @@ public class DecreeService {
     public void reindex() {
         decreeSearchRepository.deleteAll();
         decreeSearchRepository.saveAll(decreeRepository.findAll());
+    }
+
+    @Transactional(readOnly = true)
+    public Page<DecreeDTO> search(DecreeCriteria query, Pageable pageable) {
+        log.debug("Request to search for a page of Decrees for query {}", query);
+        var builder = new BoolQueryBuilder()
+            .should(
+                QueryBuilders
+                    .multiMatchQuery(query.getDecreeNo().getContains(), "decreeNo", "keywords", "title", "details", "notes")
+                    .fuzziness(Fuzziness.fromEdits(1))
+            );
+
+        if (query.getMinisterId().getEquals() != null) builder.must(
+            QueryBuilders.termQuery("minister.id", query.getMinisterId().getEquals())
+        );
+        if (query.getYear().getEquals() != null) builder.must(QueryBuilders.termQuery("year", query.getYear().getEquals()));
+
+        var Nquery = new NativeSearchQueryBuilder().withQuery(builder).withPageable(pageable).build();
+
+        return decreeSearchRepository.search(Nquery, pageable).map(decreeMapper::toDto);
     }
 }
