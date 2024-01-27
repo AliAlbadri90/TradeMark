@@ -3,10 +3,6 @@ package ly.gov.eidc.archive.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.*;
-import org.springframework.data.elasticsearch.annotations.DateFormat;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-import org.springframework.data.elasticsearch.annotations.Setting;
 
 /**
  * A TrademarkDecree.
@@ -14,8 +10,7 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 @Entity
 @Table(name = "trademark_decree")
 @org.springframework.data.elasticsearch.annotations.Document(indexName = "trademarkdecree")
-@Setting(settingPath = "/decreeAnalyzer.json")
-public class TrademarkDecree implements Serializable {
+public class TrademarkDecree extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,38 +29,30 @@ public class TrademarkDecree implements Serializable {
     private Boolean isAccepted;
 
     @Column(name = "decree_date")
-    @Field(type = FieldType.Date, format = DateFormat.basic_date)
     private LocalDate decreeDate;
 
     @Column(name = "applicant_name")
-    @Field(type = FieldType.Text, searchAnalyzer = "searchAnalyzer", analyzer = "indexAnalyzer")
     private String applicantName;
 
     @Column(name = "trade_mark_owner")
-    @Field(type = FieldType.Text, searchAnalyzer = "searchAnalyzer", analyzer = "indexAnalyzer")
     private String tradeMarkOwner;
 
     @Column(name = "country")
-    @Field(type = FieldType.Text, searchAnalyzer = "countrySearchAnalyzer", analyzer = "countryIndexAnalyzer")
     private String country;
 
     @Column(name = "apply_date")
-    @Field(type = FieldType.Date, format = DateFormat.basic_date)
     private LocalDate applyDate;
 
     @Column(name = "serial_no")
     private String serialNo;
 
     @Column(name = "trademark_english")
-    @Field(type = FieldType.Text, searchAnalyzer = "searchAnalyzer", analyzer = "indexAnalyzer")
     private String trademarkEnglish;
 
     @Column(name = "trademark_arabic")
-    @Field(type = FieldType.Text, searchAnalyzer = "searchAnalyzer", analyzer = "indexAnalyzer")
     private String trademarkArabic;
 
     @Column(name = "category")
-    @Field(type = FieldType.Text, searchAnalyzer = "searchAnalyzer", analyzer = "indexAnalyzer")
     private String category;
 
     @Lob

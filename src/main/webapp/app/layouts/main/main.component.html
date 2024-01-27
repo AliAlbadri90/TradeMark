@@ -5,7 +5,7 @@
   </button>
   <div class="d-flex flex-row p-3 align-items-center" dir="rtl">
     <a href="/" routerLink="/"><img alt="logo" class="img-logo-toolbar" src="../../../content/images/logo.png" /></a>
-    <span class="mr-3">ارشيف قرارات وزارة الاقتصاد</span>
+    <span class="mr-3"> العلامات التجارية</span>
     <span class="fill"></span>
   </div>
   <div class="mr-auto">
@@ -33,16 +33,16 @@
       </button>
     </mat-menu>
 
-    <div *ngIf="!isAuthenticated()" class="m-4 d-flex align-items-center">
-      <button (click)="login()" mat-stroked-button>
-        <mat-icon class="">account_circle</mat-icon>
-        دخول
-      </button>
-      <!--            <button mat-stroked-button routerLink="faqs/public">-->
-      <!--                <mat-icon class="">help</mat-icon>-->
-      <!--                المساعدة-->
-      <!--            </button>-->
-    </div>
+    <!--    <div *ngIf="!isAuthenticated()" class="m-4 d-flex align-items-center">-->
+    <!--      <button (click)="login()" mat-stroked-button>-->
+    <!--        <mat-icon class="">account_circle</mat-icon>-->
+    <!--        دخول-->
+    <!--      </button>-->
+    <!--      &lt;!&ndash;            <button mat-stroked-button routerLink="faqs/public">&ndash;&gt;-->
+    <!--      &lt;!&ndash;                <mat-icon class="">help</mat-icon>&ndash;&gt;-->
+    <!--      &lt;!&ndash;                المساعدة&ndash;&gt;-->
+    <!--      &lt;!&ndash;            </button>&ndash;&gt;-->
+    <!--    </div>-->
     <button *ngIf="isAuthenticated()" [matMenuTriggerFor]="appMenu" class="ml-2" mat-button>
       <span class="white"> مرحباً! {{ getFirstName() }}</span>
       <mat-icon class="white">account_circle</mat-icon>
@@ -64,39 +64,48 @@
         <mat-icon mat-list-icon>dashboard</mat-icon>
         <span>الرئيسية</span>
       </mat-list-item>
-      <mat-list-item routerLink="decree">
-        <mat-icon mat-list-icon>receipt_long</mat-icon>
-        <span>القرارات</span>
-      </mat-list-item>
-      <mat-list-item routerLink="reports">
+      <!--      <mat-list-item routerLink="decree">-->
+      <!--        <mat-icon mat-list-icon>receipt_long</mat-icon>-->
+      <!--        <span>القرارات</span>-->
+      <!--      </mat-list-item>-->
+      <mat-list-item routerLink="reports" *jhiHasAnyAuthority="['ROLE_ADMIN']">
         <mat-icon mat-list-icon>receipt_long</mat-icon>
         <span>التقارير</span>
       </mat-list-item>
-      <div *jhiHasAnyAuthority="['ROLE_ADMIN']">
-        <mat-list-item routerLink="decree-type">
-          <mat-icon mat-list-icon>receipt_long</mat-icon>
-          <span>انواع القرارات</span>
-        </mat-list-item>
-        <mat-list-item routerLink="decree-category">
-          <mat-icon mat-list-icon>receipt_long</mat-icon>
-          <span>تصنيفات القرارات</span>
-        </mat-list-item>
-        <mat-list-item routerLink="minister">
-          <mat-icon mat-list-icon>receipt_long</mat-icon>
-          <span>الوزراء</span>
-        </mat-list-item>
-        <mat-list-item routerLink="government">
-          <mat-icon mat-list-icon>receipt_long</mat-icon>
-          <span>الحكومات</span>
-        </mat-list-item>
+      <mat-list-item routerLink="trademark-decree" *jhiHasAnyAuthority="['ROLE_ADMIN']">
+        <mat-icon mat-list-icon>receipt_long</mat-icon>
+        <span>قرارات العلامات التجارية</span>
+      </mat-list-item>
+      <mat-list-item routerLink="trademark-registered" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRADEMARK_REGISTER_VIEW']">
+        <mat-icon mat-list-icon>receipt_long</mat-icon>
+        <span>اشهارات العلامات التجارية</span>
+      </mat-list-item>
 
-        <mat-divider></mat-divider>
+      <!--      <div *jhiHasAnyAuthority="['ROLE_ADMIN']">-->
+      <!--        <mat-list-item routerLink="decree-type">-->
+      <!--          <mat-icon mat-list-icon>receipt_long</mat-icon>-->
+      <!--          <span>انواع القرارات</span>-->
+      <!--        </mat-list-item>-->
+      <!--        <mat-list-item routerLink="decree-category">-->
+      <!--          <mat-icon mat-list-icon>receipt_long</mat-icon>-->
+      <!--          <span>تصنيفات القرارات</span>-->
+      <!--        </mat-list-item>-->
+      <!--        <mat-list-item routerLink="minister">-->
+      <!--          <mat-icon mat-list-icon>receipt_long</mat-icon>-->
+      <!--          <span>الوزراء</span>-->
+      <!--        </mat-list-item>-->
+      <!--        <mat-list-item routerLink="government">-->
+      <!--          <mat-icon mat-list-icon>receipt_long</mat-icon>-->
+      <!--          <span>الحكومات</span>-->
+      <!--        </mat-list-item>-->
 
-        <mat-list-item routerLink="trademark-decree">
-          <mat-icon mat-list-icon>receipt_long</mat-icon>
-          <span>قرارات العلامات التجارية</span>
-        </mat-list-item>
-      </div>
+      <!--        <mat-divider></mat-divider>-->
+
+      <!--        <mat-list-item routerLink="trademark-decree">-->
+      <!--          <mat-icon mat-list-icon>receipt_long</mat-icon>-->
+      <!--          <span>قرارات العلامات التجارية</span>-->
+      <!--        </mat-list-item>-->
+      <!--      </div>-->
 
       <mat-expansion-panel *jhiHasAnyAuthority="'ROLE_ADMIN'" class="mat-elevation-z0">
         <mat-expansion-panel-header class="light-gray">

@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <div *ngIf="trademarkDecree">
-      <h2 data-cy="trademarkDecreeDetailsHeading"><span>Trademark Decree</span></h2>
+      <h2 data-cy="trademarkDecreeDetailsHeading"><span>تفاصيل القرار</span></h2>
 
       <hr />
 
@@ -14,96 +14,96 @@
         <dd>
           <span>{{ trademarkDecree.id }}</span>
         </dd>
-        <dt><span>Year</span></dt>
+        <dt><span>سنة القرار</span></dt>
         <dd>
           <span>{{ trademarkDecree.year }}</span>
         </dd>
-        <dt><span>Decree No</span></dt>
+        <dt><span>رقم القرار</span></dt>
         <dd>
           <span>{{ trademarkDecree.decreeNo }}</span>
         </dd>
-        <dt><span>Is Accepted</span></dt>
+        <dt><span>تم قبوله ؟</span></dt>
         <dd>
           <span>{{ trademarkDecree.isAccepted }}</span>
         </dd>
-        <dt><span>Decree Date</span></dt>
+        <dt><span>تاريخ القرار</span></dt>
         <dd>
           <span>{{ trademarkDecree.decreeDate | formatMediumDate }}</span>
         </dd>
-        <dt><span>Applicant Name</span></dt>
+        <dt><span>الوكيل (مقدم الطلب)</span></dt>
         <dd>
           <span>{{ trademarkDecree.applicantName }}</span>
         </dd>
-        <dt><span>Trade Mark Owner</span></dt>
+        <dt><span>صاحب العلامة التجارية</span></dt>
         <dd>
           <span>{{ trademarkDecree.tradeMarkOwner }}</span>
         </dd>
-        <dt><span>Country</span></dt>
+        <dt><span>الدولة</span></dt>
         <dd>
           <span>{{ trademarkDecree.country }}</span>
         </dd>
-        <dt><span>Apply Date</span></dt>
+        <dt><span>تاريخ التقديم</span></dt>
         <dd>
           <span>{{ trademarkDecree.applyDate | formatMediumDate }}</span>
         </dd>
-        <dt><span>Serial No</span></dt>
+        <dt><span>رقم الفيد</span></dt>
         <dd>
           <span>{{ trademarkDecree.serialNo }}</span>
         </dd>
-        <dt><span>Trademark English</span></dt>
+        <dt><span>العلامة التجارية انجليزي</span></dt>
         <dd>
           <span>{{ trademarkDecree.trademarkEnglish }}</span>
         </dd>
-        <dt><span>Trademark Arabic</span></dt>
+        <dt><span>العلامة التجارية عربي</span></dt>
         <dd>
           <span>{{ trademarkDecree.trademarkArabic }}</span>
         </dd>
-        <dt><span>Category</span></dt>
+        <dt><span>الفئة</span></dt>
         <dd>
           <span>{{ trademarkDecree.category }}</span>
         </dd>
-        <dt><span>Pdf File</span></dt>
-        <dd>
-          <div *ngIf="trademarkDecree.pdfFile">
-            <a (click)="openFile(trademarkDecree.pdfFile, trademarkDecree.pdfFileContentType)">open</a>
-            {{ trademarkDecree.pdfFileContentType }}, {{ byteSize(trademarkDecree.pdfFile) }}
-          </div>
-        </dd>
-        <dt><span>Pdf File Url</span></dt>
-        <dd>
-          <span>{{ trademarkDecree.pdfFileUrl }}</span>
-        </dd>
-        <dt><span>Extra Pdf File</span></dt>
-        <dd>
-          <div *ngIf="trademarkDecree.extraPdfFile">
-            <a (click)="openFile(trademarkDecree.extraPdfFile, trademarkDecree.extraPdfFileContentType)">open</a>
-            {{ trademarkDecree.extraPdfFileContentType }}, {{ byteSize(trademarkDecree.extraPdfFile) }}
-          </div>
-        </dd>
-        <dt><span>Extra Pdf File Url</span></dt>
-        <dd>
-          <span>{{ trademarkDecree.extraPdfFileUrl }}</span>
-        </dd>
-        <dt><span>Is Withdrawal</span></dt>
+        <!--        <dt><span>Pdf File</span></dt>-->
+        <!--        <dd>-->
+        <!--          <div *ngIf="trademarkDecree.pdfFile">-->
+        <!--            <a (click)="openFile(trademarkDecree.pdfFile, trademarkDecree.pdfFileContentType)">open</a>-->
+        <!--            {{ trademarkDecree.pdfFileContentType }}, {{ byteSize(trademarkDecree.pdfFile) }}-->
+        <!--          </div>-->
+        <!--        </dd>-->
+        <!--        <dt><span>Pdf File Url</span></dt>-->
+        <!--        <dd>-->
+        <!--          <span>{{ trademarkDecree.pdfFileUrl }}</span>-->
+        <!--        </dd>-->
+        <!--        <dt><span>Extra Pdf File</span></dt>-->
+        <!--        <dd>-->
+        <!--          <div *ngIf="trademarkDecree.extraPdfFile">-->
+        <!--            <a (click)="openFile(trademarkDecree.extraPdfFile, trademarkDecree.extraPdfFileContentType)">open</a>-->
+        <!--            {{ trademarkDecree.extraPdfFileContentType }}, {{ byteSize(trademarkDecree.extraPdfFile) }}-->
+        <!--          </div>-->
+        <!--        </dd>-->
+        <!--        <dt><span>Extra Pdf File Url</span></dt>-->
+        <!--        <dd>-->
+        <!--          <span>{{ trademarkDecree.extraPdfFileUrl }}</span>-->
+        <!--        </dd>-->
+        <dt><span>تم سحب القرار ؟</span></dt>
         <dd>
           <span>{{ trademarkDecree.isWithdrawal }}</span>
         </dd>
-        <dt><span>Withdrawal Decree No</span></dt>
+        <dt><span>رقم قرار السحب</span></dt>
         <dd>
           <span>{{ trademarkDecree.withdrawalDecreeNo }}</span>
         </dd>
-        <dt><span>Notes</span></dt>
+        <dt><span>ملاحظان</span></dt>
         <dd>
           <span>{{ trademarkDecree.notes }}</span>
         </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>رجوع</span>
       </button>
 
       <button type="button" [routerLink]="['/trademark-decree', trademarkDecree.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>تعديل</span>
       </button>
     </div>
   </div>

@@ -15,6 +15,8 @@ public class DecreeReport {
     private String lastDecreeDate;
     private String ministerName;
     private String governmentName;
+    private Integer textCount;
+    private Integer noTextCount;
     private Integer year;
 
     public String getFirstDecreeDate() {
@@ -127,5 +129,21 @@ public class DecreeReport {
 
     public void setDuplicateNumbers(String duplicateNumbers) {
         this.duplicateNumbers = duplicateNumbers;
+    }
+
+    public Integer getTextCount() {
+        return textCount;
+    }
+
+    public void setTextCount(Integer textCount) {
+        this.textCount = textCount;
+    }
+
+    public Integer getNoTextCount() {
+        return noTextCount;
+    }
+
+    public void setNoTextCount(Integer noTextCount) {
+        this.noTextCount = noTextCount;
     }
 }

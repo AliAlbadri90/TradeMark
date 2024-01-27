@@ -103,10 +103,9 @@ export class DecreeService {
     return this.http.get<any[]>(`${this.resourceUrl}/years/`, { observe: 'response' });
   }
 
-  getReport(req?: any): Observable<HttpResponse<IDecreeReport>> {
-    const options = createRequestOption(req);
+  getReport(year: string, ministerId: string): Observable<HttpResponse<IDecreeReport>> {
     return this.http
-      .get<IDecreeReport>(`${this.resourceUrl}/report/`, { params: options, observe: 'response' })
+      .get<IDecreeReport>(`${this.resourceUrl}/report/${year}/${ministerId}`, { observe: 'response' })
       .pipe(map((res: HttpResponse<IDecreeReport>) => res));
   }
 

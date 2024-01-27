@@ -227,7 +227,7 @@ export class DecreeUpdateComponent implements OnInit {
       .subscribe((ministers: IMinister[]) => (this.ministersSharedCollection = ministers));
 
     this.governmentService
-      .query({ size: 200, sort: ['serialNo' + ',' + 'desc'] })
+      .query({ size: 200 })
       .pipe(map((res: HttpResponse<IGovernment[]>) => res.body ?? []))
       .pipe(
         map((governments: IGovernment[]) =>

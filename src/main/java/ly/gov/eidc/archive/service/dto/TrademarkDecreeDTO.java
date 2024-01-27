@@ -8,7 +8,7 @@ import javax.persistence.Lob;
 /**
  * A DTO for the {@link ly.gov.eidc.archive.domain.TrademarkDecree} entity.
  */
-public class TrademarkDecreeDTO implements Serializable {
+public class TrademarkDecreeDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;
 

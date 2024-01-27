@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { IMinister } from '../minister/minister.model';
 import { IGovernment } from '../government/government.model';
+import { TrademarkDecreeService } from '../trademark-decree/service/trademark-decree.service';
+import { TrademarkRegisteredService } from '../trademark-registered/service/trademark-registered.service';
 
 @Component({
   selector: 'jhi-dashboard',
@@ -13,6 +15,7 @@ import { IGovernment } from '../government/government.model';
 })
 export class DashboardComponent {
   decreeCount: any = 0;
+  decreeRegisterCount: any = 0;
   ministerCount: any = 0;
   govCount: any = 0;
 
@@ -30,6 +33,9 @@ export class DashboardComponent {
     },
   ];
 
+  createLineChartData: Array<any> = [];
+  createLineChartLabels = [];
+
   ministerDecreesPieChartData: any;
   ministerDecreesPieChartLabels: any;
   public ministerDecreesData: Array<any> = [];
@@ -41,57 +47,69 @@ export class DashboardComponent {
   public govDecreesLabelsData: Array<any> = [];
 
   constructor(
-    private decreeService: DecreeService,
+    private trademarkDecreeService: TrademarkDecreeService,
+    private trademarkRegisteredService: TrademarkRegisteredService,
     private ministerService: MinisterService,
     private governmentService: GovernmentService
   ) {}
 
   ngOnInit(): void {
-    this.decreeService.countPublic().subscribe((res: any) => {
-      this.decreeCount = res.body;
+    this.trademarkRegisteredService.count().subscribe((res: any) => {
+      this.decreeRegisterCount = res.body;
     });
+    //
+    // this.governmentService.countPublic().subscribe((res: any) => {
+    //   this.govCount = res.body;
+    // });
+    //
+    // this.ministerService.countPublic().subscribe((res: any) => {
+    //   this.ministerCount = res.body;
+    // });
 
-    this.governmentService.countPublic().subscribe((res: any) => {
-      this.govCount = res.body;
-    });
-
-    this.ministerService.countPublic().subscribe((res: any) => {
-      this.ministerCount = res.body;
-    });
-
-    this.decreeService.getDecreeLineChartPublic().subscribe((res: any) => {
+    this.trademarkDecreeService.getTrademarkDecreeLineChartPublic().subscribe((res: any) => {
       /*eslint-disable */
       this.companyLineChartLabels = res.body.map((it: any) => it[0]);
       this.companyLineChartData = [
         {
           data: res.body.map((it: any) => it[1]),
-          label: 'القرارات المرقمنة',
+          label: 'القرارات ',
         },
       ];
     });
 
-    this.ministerService
-      .queryPublic({ size: 200 })
-      .pipe(map((res: HttpResponse<IMinister[]>) => res.body ?? []))
-      .subscribe((ministers: IMinister[]) => {
-        ministers.forEach((minister: IMinister) => {
-          this.ministerDecreesData.push(minister.decreeCount);
-          this.ministerDecreesLabelsData.push(minister.name);
-        });
-        this.ministerDecreesPieChartData = this.ministerDecreesData;
-        this.ministerDecreesPieChartLabels = this.ministerDecreesLabelsData;
-      });
+    this.trademarkDecreeService.getCreatedByCount().subscribe((res: any) => {
+      /*eslint-disable */
+      this.createLineChartLabels = res.body.map((it: any) => it[0]);
+      this.createLineChartData = [
+        {
+          data: res.body.map((it: any) => it[1]),
+          label: 'المستخدمين',
+        },
+      ];
+    });
 
-    this.governmentService
-      .queryPublic({ size: 200 })
-      .pipe(map((res: HttpResponse<IGovernment[]>) => res.body ?? []))
-      .subscribe((governments: IGovernment[]) => {
-        governments.forEach((government: IGovernment) => {
-          this.govDecreesData.push(government.decreeCount);
-          this.govDecreesLabelsData.push(government.name);
-        });
-        this.govDecreesDoughnutChartData = this.govDecreesData;
-        this.govDecreesDoughnutChartLabels = this.govDecreesLabelsData;
-      });
+    // this.ministerService
+    //   .queryPublic({ size: 200 })
+    //   .pipe(map((res: HttpResponse<IMinister[]>) => res.body ?? []))
+    //   .subscribe((ministers: IMinister[]) => {
+    //     ministers.forEach((minister: IMinister) => {
+    //       this.ministerDecreesData.push(minister.decreeCount);
+    //       this.ministerDecreesLabelsData.push(minister.name);
+    //     });
+    //     this.ministerDecreesPieChartData = this.ministerDecreesData;
+    //     this.ministerDecreesPieChartLabels = this.ministerDecreesLabelsData;
+    //   });
+    //
+    // this.governmentService
+    //   .queryPublic({ size: 200 })
+    //   .pipe(map((res: HttpResponse<IGovernment[]>) => res.body ?? []))
+    //   .subscribe((governments: IGovernment[]) => {
+    //     governments.forEach((government: IGovernment) => {
+    //       this.govDecreesData.push(government.decreeCount);
+    //       this.govDecreesLabelsData.push(government.name);
+    //     });
+    //     this.govDecreesDoughnutChartData = this.govDecreesData;
+    //     this.govDecreesDoughnutChartLabels = this.govDecreesLabelsData;
+    //   });
   }
 }

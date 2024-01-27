@@ -10,6 +10,7 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { createRequestOption } from 'app/core/request/request-util';
 import { SearchWithPagination } from 'app/core/request/request.model';
 import { ITrademarkDecree, getTrademarkDecreeIdentifier } from '../trademark-decree.model';
+import { IDecreeReport } from '../../decree/decree-report.model';
 
 export type EntityResponseType = HttpResponse<ITrademarkDecree>;
 export type EntityArrayResponseType = HttpResponse<ITrademarkDecree[]>;
@@ -17,6 +18,7 @@ export type EntityArrayResponseType = HttpResponse<ITrademarkDecree[]>;
 @Injectable({ providedIn: 'root' })
 export class TrademarkDecreeService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/trademark-decrees');
+  protected resourceUrlPublic = this.applicationConfigService.getEndpointFor('api/public/trademark-decrees');
   protected resourceSearchUrl = this.applicationConfigService.getEndpointFor('api/_search/trademark-decrees');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
@@ -68,6 +70,28 @@ export class TrademarkDecreeService {
     return this.http
       .get<ITrademarkDecree[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
+  getTrademarkDecreeLineChart(): Observable<HttpResponse<any>> {
+    return this.http.get<any>(this.resourceUrl + '/line-chart', { observe: 'response' });
+  }
+
+  getTrademarkDecreeLineChartPublic(): Observable<HttpResponse<any>> {
+    return this.http.get<any>(this.resourceUrlPublic + '/line-chart', { observe: 'response' });
+  }
+
+  getCreatedByCount(): Observable<HttpResponse<any>> {
+    return this.http.get<any>(this.resourceUrl + '/created-by', { observe: 'response' });
+  }
+
+  getYears(): Observable<HttpResponse<any[]>> {
+    return this.http.get<any[]>(`${this.resourceUrl}/years/`, { observe: 'response' });
+  }
+
+  getReport(year: string): Observable<HttpResponse<IDecreeReport>> {
+    return this.http
+      .get<IDecreeReport>(`${this.resourceUrl}/report/${year}`, { observe: 'response' })
+      .pipe(map((res: HttpResponse<IDecreeReport>) => res));
   }
 
   addTrademarkDecreeToCollectionIfMissing(

@@ -13,7 +13,6 @@ import ly.gov.eidc.archive.service.criteria.DecreeCriteria;
 import ly.gov.eidc.archive.service.dto.DecreeDTO;
 import ly.gov.eidc.archive.service.dto.DecreeReport;
 import ly.gov.eidc.archive.service.dto.MinisterDTO;
-import ly.gov.eidc.archive.service.dto.TrademarkDecreeDTO;
 import ly.gov.eidc.archive.service.util.FileTools;
 import ly.gov.eidc.archive.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
@@ -166,9 +165,17 @@ public class DecreeResource {
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
         log.debug("REST request to get Decrees by criteria: {}", criteria);
-        Page<DecreeDTO> page;
-        if (criteria.getYear().getEquals() == null) page = decreeQueryService.findByCriteria(criteria, pageable); else page =
-            decreeService.search(criteria, pageable);
+        String text = criteria.getTitle().getContains();
+        text = text.replaceAll("أ", "ا");
+        text = text.replaceAll("إ", "ا");
+        text = text.replaceAll("آ", "ا");
+        //        text = text.replaceAll("ې" ,"ی");
+        //        text = text.replaceAll("ة" ,"ه");
+        //        text = text.replaceAll("ذ" ,"د");
+        criteria.getTitle().setContains(text);
+        criteria.getKeywords().setContains(text);
+
+        Page<DecreeDTO> page = decreeQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -220,12 +227,10 @@ public class DecreeResource {
         return ResponseEntity.ok().body(decreeRepository.getDecreeYearLineChart());
     }
 
-    @GetMapping("/decrees/report/")
-    public ResponseEntity<DecreeReport> getDecreeReport(DecreeCriteria criteria) {
+    @GetMapping("/decrees/report/{year}/{ministerId}")
+    public ResponseEntity<DecreeReport> getDecreeReport(@PathVariable Integer year, @PathVariable Long ministerId) {
         viewLogService.newLog("DECREE_REPORT", "", "DecreeYearReport");
-        return ResponseEntity
-            .ok()
-            .body(decreeService.getReportByYearAndMinisterId(criteria.getYear().getEquals(), criteria.getMinisterId().getEquals()));
+        return ResponseEntity.ok().body(decreeService.getReportByYearAndMinisterId(year, ministerId));
     }
 
     @GetMapping("/decrees/recheck-files")
@@ -261,10 +266,5 @@ public class DecreeResource {
     public ResponseEntity<Long> countDecreesPublic(DecreeCriteria criteria) {
         log.debug("REST request to count Decrees by criteria: {}", criteria);
         return ResponseEntity.ok().body(decreeQueryService.countByCriteria(criteria));
-    }
-
-    @GetMapping("/public/decrees/reindex")
-    public void reindex() {
-        decreeService.reindex();
     }
 }

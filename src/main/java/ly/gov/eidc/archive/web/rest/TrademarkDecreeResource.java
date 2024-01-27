@@ -12,7 +12,9 @@ import ly.gov.eidc.archive.repository.TrademarkDecreeRepository;
 import ly.gov.eidc.archive.service.TrademarkDecreeQueryService;
 import ly.gov.eidc.archive.service.TrademarkDecreeService;
 import ly.gov.eidc.archive.service.criteria.TrademarkDecreeCriteria;
+import ly.gov.eidc.archive.service.dto.DecreeReport;
 import ly.gov.eidc.archive.service.dto.TrademarkDecreeDTO;
+import ly.gov.eidc.archive.service.util.FileTools;
 import ly.gov.eidc.archive.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -226,8 +228,40 @@ public class TrademarkDecreeResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
-    @GetMapping("/public/trademark-decrees/reindex")
-    public void reindex() {
-        trademarkDecreeService.reindex();
+    @GetMapping("/trademark-decrees/line-chart")
+    public ResponseEntity<List<Object[]>> getTrademarkDecreeYearLineChart() {
+        return ResponseEntity.ok().body(trademarkDecreeService.getTrademarkDecreeYearLineChart());
+    }
+
+    @GetMapping("/public/trademark-decrees/line-chart")
+    public ResponseEntity<List<Object[]>> getTrademarkDecreeYearLineChartPublic() {
+        return ResponseEntity.ok().body(trademarkDecreeService.getTrademarkDecreeYearLineChart());
+    }
+
+    @GetMapping("/trademark-decrees/created-by")
+    public ResponseEntity<List<Object[]>> getCreatedByCount() {
+        return ResponseEntity.ok().body(trademarkDecreeService.getCreatedByCount());
+    }
+
+    @GetMapping("/trademark-decrees/report/{year}")
+    public ResponseEntity<DecreeReport> getTrademarkDecreeReport(@PathVariable Integer year) {
+        return ResponseEntity.ok().body(trademarkDecreeService.getReportByYear(year));
+    }
+
+    @GetMapping("/trademark-decrees/years")
+    public ResponseEntity<List<String>> getYears() {
+        List<String> list = trademarkDecreeService.findAllYears();
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/trademark-decrees/recheck-files")
+    public void recheckFiles() {
+        trademarkDecreeService
+            .findAll()
+            .forEach(trademarkDecreeDTO -> {
+                if (FileTools.download(trademarkDecreeDTO.getPdfFileUrl()) == null) trademarkDecreeDTO.setPdfFileUrl(null);
+                if (FileTools.download(trademarkDecreeDTO.getExtraPdfFileUrl()) == null) trademarkDecreeDTO.setExtraPdfFileUrl(null);
+                trademarkDecreeService.save(trademarkDecreeDTO);
+            });
     }
 }

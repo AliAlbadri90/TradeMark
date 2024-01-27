@@ -3,44 +3,23 @@
     <span>القرارات</span>
   </h3>
   <div class="mt-1 ml-1 d-flex align-items-center">
-    <button [routerLink]="['./new']" class="ml-1" color="primary" mat-raised-button *jhiHasAnyAuthority="['ROLE_ADMIN']">
+    <button [routerLink]="['./new']" class="ml-1" color="primary" mat-raised-button *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_ADD_DECREE']">
       <mat-icon>add</mat-icon>
       <span jhiTranslate="eTravelApp.airline.home.createLabel"> اضافة قرار جديد </span>
     </button>
 
-    <form class="mr-4 ml-4">
+    <form class="mr-4">
       <mat-form-field appearance="standard" floatLabel="never">
-        <input [(ngModel)]="currentSearch" matInput name="currentSearch" placeholder="ابحث عن كلمة او رقم قرار" type="text" />
+        <button (click)="search(currentSearch)" mat-icon-button matPrefix type="submit">
+          <mat-icon>search</mat-icon>
+        </button>
+        <input [(ngModel)]="currentSearch" matInput name="currentSearch" placeholder="بحث" type="text" />
 
         <button (click)="search('')" *ngIf="currentSearch" color="warn" mat-icon-button matSuffix>
           <mat-icon>clear</mat-icon>
         </button>
       </mat-form-field>
-    </form>
 
-    <div class="row">
-      <div class="col">
-        <mat-form-field class="mr-auto" appearance="standard">
-          <mat-label>اختر بداية الفترة</mat-label>
-          <input matInput [matDatepicker]="picker" [(ngModel)]="from" />
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
-      <div class="col">
-        <mat-form-field class="mr-auto" appearance="standard">
-          <mat-label>اختر نهاية الفترة</mat-label>
-          <input matInput [matDatepicker]="picker2" [(ngModel)]="to" (input)="onDateInput($event)" />
-          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
-        </mat-form-field>
-      </div>
-      <div class="col">
-        <button class="mt-4" mat-raised-button color="primary" (click)="search(currentSearch)">
-          <mat-icon>search</mat-icon>
-          بحث
-        </button>
-      </div>
       <mat-form-field class="mr-auto" appearance="standard">
         <mat-select (selectionChange)="filterByYear($event.value)" placeholder="السنة">
           <mat-option value="">الكل</mat-option>
@@ -57,7 +36,7 @@
           }}</mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
+    </form>
   </div>
   <jhi-alert-error></jhi-alert-error>
 
@@ -153,32 +132,12 @@
           <!--            </button>-->
           <!--          </td>-->
           <td>
-            <span
-              matTooltip="{{ decree.keywords }}"
-              style="display: block; text-overflow: ellipsis; width: 200px; overflow: hidden; white-space: nowrap"
-              >{{ decree.keywords }}</span
-            >
+            <span style="display: block; text-overflow: ellipsis; width: 300px; overflow: hidden; white-space: nowrap">{{
+              decree.keywords
+            }}</span>
           </td>
-
           <td>{{ decree.decreeDate | formatMediumDate }}</td>
-          <!--          <td><div class="notes">-->
-          <!--            <span *ngIf="!showFullNotes">-->
-          <!--              {{decree.notes | slice:0:100}}...-->
-          <!--            </span>-->
-
-          <!--            <span *ngIf="showFullNotes">-->
-          <!--              {{decree.notes }}-->
-          <!--           </span>-->
-          <!--          </div>-->
-
-          <!--            <button *ngIf="decree.notes!.length > 100"-->
-          <!--                    (click)="toggleNotes()">-->
-          <!--              {{showFullNotes ? 'Show less' : 'Show more'}}-->
-          <!--            </button></td>-->
-          <!--          <td>-->
-          <td>
-            <span matTooltip="{{ decree.notes }}"> {{ decree.notes }}</span>
-          </td>
+          <td>{{ decree.notes }}</td>
           <td>
             <button [disabled]="!decree.pdfFileUrl" (click)="openFile(decree.pdfFileUrl)" color="primary" mat-raised-button type="button">
               <mat-icon class="ml-2">picture_as_pdf</mat-icon>
@@ -186,7 +145,7 @@
           </td>
           <td>
             <button
-              *jhiHasAnyAuthority="['ROLE_ADMIN']"
+              *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_EDIT_DECREE']"
               [disabled]="!decree.extraPdfFileUrl"
               (click)="openFile(decree.extraPdfFileUrl)"
               color="primary"

@@ -97,65 +97,64 @@ public class TrademarkDecreeQueryService extends QueryService<TrademarkDecree> {
         if (criteria != null) {
             // This has to be called first, because the distinct method returns null
             if (criteria.getDistinct() != null) {
-                specification = specification.and(distinct(criteria.getDistinct()));
+                specification = specification.or(distinct(criteria.getDistinct()));
             }
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), TrademarkDecree_.id));
+                specification = specification.or(buildRangeSpecification(criteria.getId(), TrademarkDecree_.id));
             }
-            if (criteria.getYear() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getYear(), TrademarkDecree_.year));
-            }
+
             if (criteria.getDecreeNo() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDecreeNo(), TrademarkDecree_.decreeNo));
+                specification = specification.or(buildStringSpecification(criteria.getDecreeNo(), TrademarkDecree_.decreeNo));
             }
             if (criteria.getIsAccepted() != null) {
-                specification = specification.and(buildSpecification(criteria.getIsAccepted(), TrademarkDecree_.isAccepted));
+                specification = specification.or(buildSpecification(criteria.getIsAccepted(), TrademarkDecree_.isAccepted));
             }
             if (criteria.getDecreeDate() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getDecreeDate(), TrademarkDecree_.decreeDate));
+                specification = specification.or(buildRangeSpecification(criteria.getDecreeDate(), TrademarkDecree_.decreeDate));
             }
             if (criteria.getApplicantName() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getApplicantName(), TrademarkDecree_.applicantName));
+                specification = specification.or(buildStringSpecification(criteria.getApplicantName(), TrademarkDecree_.applicantName));
             }
             if (criteria.getTradeMarkOwner() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getTradeMarkOwner(), TrademarkDecree_.tradeMarkOwner));
+                specification = specification.or(buildStringSpecification(criteria.getTradeMarkOwner(), TrademarkDecree_.tradeMarkOwner));
             }
             if (criteria.getCountry() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getCountry(), TrademarkDecree_.country));
+                specification = specification.or(buildStringSpecification(criteria.getCountry(), TrademarkDecree_.country));
             }
             if (criteria.getApplyDate() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getApplyDate(), TrademarkDecree_.applyDate));
+                specification = specification.or(buildRangeSpecification(criteria.getApplyDate(), TrademarkDecree_.applyDate));
             }
             if (criteria.getSerialNo() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getSerialNo(), TrademarkDecree_.serialNo));
+                specification = specification.or(buildStringSpecification(criteria.getSerialNo(), TrademarkDecree_.serialNo));
             }
             if (criteria.getTrademarkEnglish() != null) {
                 specification =
-                    specification.and(buildStringSpecification(criteria.getTrademarkEnglish(), TrademarkDecree_.trademarkEnglish));
+                    specification.or(buildStringSpecification(criteria.getTrademarkEnglish(), TrademarkDecree_.trademarkEnglish));
             }
             if (criteria.getTrademarkArabic() != null) {
-                specification =
-                    specification.and(buildStringSpecification(criteria.getTrademarkArabic(), TrademarkDecree_.trademarkArabic));
+                specification = specification.or(buildStringSpecification(criteria.getTrademarkArabic(), TrademarkDecree_.trademarkArabic));
             }
             if (criteria.getCategory() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getCategory(), TrademarkDecree_.category));
+                specification = specification.or(buildStringSpecification(criteria.getCategory(), TrademarkDecree_.category));
             }
             if (criteria.getPdfFileUrl() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getPdfFileUrl(), TrademarkDecree_.pdfFileUrl));
+                specification = specification.or(buildStringSpecification(criteria.getPdfFileUrl(), TrademarkDecree_.pdfFileUrl));
             }
             if (criteria.getExtraPdfFileUrl() != null) {
-                specification =
-                    specification.and(buildStringSpecification(criteria.getExtraPdfFileUrl(), TrademarkDecree_.extraPdfFileUrl));
+                specification = specification.or(buildStringSpecification(criteria.getExtraPdfFileUrl(), TrademarkDecree_.extraPdfFileUrl));
             }
             if (criteria.getIsWithdrawal() != null) {
-                specification = specification.and(buildSpecification(criteria.getIsWithdrawal(), TrademarkDecree_.isWithdrawal));
+                specification = specification.or(buildSpecification(criteria.getIsWithdrawal(), TrademarkDecree_.isWithdrawal));
             }
             if (criteria.getWithdrawalDecreeNo() != null) {
                 specification =
-                    specification.and(buildStringSpecification(criteria.getWithdrawalDecreeNo(), TrademarkDecree_.withdrawalDecreeNo));
+                    specification.or(buildStringSpecification(criteria.getWithdrawalDecreeNo(), TrademarkDecree_.withdrawalDecreeNo));
             }
             if (criteria.getNotes() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getNotes(), TrademarkDecree_.notes));
+                specification = specification.or(buildStringSpecification(criteria.getNotes(), TrademarkDecree_.notes));
+            }
+            if (criteria.getYear() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getYear(), TrademarkDecree_.year));
             }
         }
         return specification;

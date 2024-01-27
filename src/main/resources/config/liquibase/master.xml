@@ -43,6 +43,12 @@
              relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220313163521_added_entity_TrademarkDecree.xml"
              relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220113163524_added_entity_DecreeType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220113163525_added_entity_DecreeCategory.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220113163526_added_entity_Minister.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220113163527_added_entity_Government.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220313163521_added_entity_TrademarkDecree.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230113163521_added_entity_TrademarkRegistered.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20220113163523_added_entity_constraints_Decree.xml"
              relativeToChangelogFile="false"/>
@@ -50,6 +56,7 @@
              relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220113163523_added_entity_constraints_Decree.xml"
              relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220113163523_added_entity_constraints_Decree.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

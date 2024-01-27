@@ -21,6 +21,8 @@ public final class AuthoritiesConstants {
 
     public static final String UPLOAD_FILES = "ROLE_UPLOAD_FILES";
 
+    public static final String TRADEMARK_REGISTER_VIEW = "ROLE_TRADEMARK_REGISTER_VIEW";
+
     public static final String ANONYMOUS = "ROLE_ANONYMOUS";
 
     private AuthoritiesConstants() {}

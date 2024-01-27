@@ -113,7 +113,7 @@ public class DecreeQueryService extends QueryService<Decree> {
                 specification = specification.or(buildRangeSpecification(criteria.getPages(), Decree_.pages));
             }
             if (criteria.getDecreeDate() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getDecreeDate(), Decree_.decreeDate));
+                specification = specification.or(buildRangeSpecification(criteria.getDecreeDate(), Decree_.decreeDate));
             }
             if (criteria.getYear() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getYear(), Decree_.year));

@@ -1,0 +1,221 @@
+<div class="entity-container">
+  <div class="mat-elevation-z1 round-card white-bg p-4 mt-5">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-trademark-registered-heading" data-cy="TrademarkRegisteredCreateUpdateHeading">Create or edit a Trademark Registered</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_trademarkNo">Trademark No</label>
+          <input
+            type="text"
+            class="form-control"
+            name="trademarkNo"
+            id="field_trademarkNo"
+            data-cy="trademarkNo"
+            formControlName="trademarkNo"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_year">Year</label>
+          <input type="number" class="form-control" name="year" id="field_year" data-cy="year" formControlName="year" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_decreeNo">Decree No</label>
+          <input type="text" class="form-control" name="decreeNo" id="field_decreeNo" data-cy="decreeNo" formControlName="decreeNo" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_applicantName">Applicant Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="applicantName"
+            id="field_applicantName"
+            data-cy="applicantName"
+            formControlName="applicantName"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_tradeMarkOwner">Trade Mark Owner</label>
+          <input
+            type="text"
+            class="form-control"
+            name="tradeMarkOwner"
+            id="field_tradeMarkOwner"
+            data-cy="tradeMarkOwner"
+            formControlName="tradeMarkOwner"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_country">Country</label>
+          <input type="text" class="form-control" name="country" id="field_country" data-cy="country" formControlName="country" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_nationality">Nationality</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nationality"
+            id="field_nationality"
+            data-cy="nationality"
+            formControlName="nationality"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_address">Address</label>
+          <input type="text" class="form-control" name="address" id="field_address" data-cy="address" formControlName="address" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_applyDate">Apply Date</label>
+          <div class="input-group">
+            <input
+              id="field_applyDate"
+              data-cy="applyDate"
+              type="text"
+              class="form-control"
+              name="applyDate"
+              ngbDatepicker
+              #applyDateDp="ngbDatepicker"
+              formControlName="applyDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="applyDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_trademarkEnglish">Trademark English</label>
+          <input
+            type="text"
+            class="form-control"
+            name="trademarkEnglish"
+            id="field_trademarkEnglish"
+            data-cy="trademarkEnglish"
+            formControlName="trademarkEnglish"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_trademarkArabic">Trademark Arabic</label>
+          <input
+            type="text"
+            class="form-control"
+            name="trademarkArabic"
+            id="field_trademarkArabic"
+            data-cy="trademarkArabic"
+            formControlName="trademarkArabic"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_category">Category</label>
+          <input type="text" class="form-control" name="category" id="field_category" data-cy="category" formControlName="category" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_file">File</label>
+          <div>
+            <div *ngIf="editForm.get('file')!.value" class="form-text text-danger clearfix">
+              <a class="pull-left" (click)="openFile(editForm.get('file')!.value, editForm.get('fileContentType')!.value)">open</a><br />
+              <span class="pull-left">{{ editForm.get('fileContentType')!.value }}, {{ byteSize(editForm.get('file')!.value) }}</span>
+              <button
+                type="button"
+                (click)="editForm.patchValue({ file: null }); editForm.patchValue({ fileContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_file" data-cy="file" (change)="setFileData($event, 'file', false)" />
+          </div>
+          <input type="hidden" class="form-control" name="file" id="field_file" data-cy="file" formControlName="file" />
+          <input type="hidden" class="form-control" name="fileContentType" id="field_fileContentType" formControlName="fileContentType" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_fileUrl">File Url</label>
+          <input type="text" class="form-control" name="fileUrl" id="field_fileUrl" data-cy="fileUrl" formControlName="fileUrl" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_extraFile">Extra File</label>
+          <div>
+            <div *ngIf="editForm.get('extraFile')!.value" class="form-text text-danger clearfix">
+              <a class="pull-left" (click)="openFile(editForm.get('extraFile')!.value, editForm.get('extraFileContentType')!.value)">open</a
+              ><br />
+              <span class="pull-left"
+                >{{ editForm.get('extraFileContentType')!.value }}, {{ byteSize(editForm.get('extraFile')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="editForm.patchValue({ extraFile: null }); editForm.patchValue({ extraFileContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_extraFile" data-cy="extraFile" (change)="setFileData($event, 'extraFile', false)" />
+          </div>
+          <input type="hidden" class="form-control" name="extraFile" id="field_extraFile" data-cy="extraFile" formControlName="extraFile" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="extraFileContentType"
+            id="field_extraFileContentType"
+            formControlName="extraFileContentType"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_extraFileUrl">Extra File Url</label>
+          <input
+            type="text"
+            class="form-control"
+            name="extraFileUrl"
+            id="field_extraFileUrl"
+            data-cy="extraFileUrl"
+            formControlName="extraFileUrl"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_notes">Notes</label>
+          <input type="text" class="form-control" name="notes" id="field_notes" data-cy="notes" formControlName="notes" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

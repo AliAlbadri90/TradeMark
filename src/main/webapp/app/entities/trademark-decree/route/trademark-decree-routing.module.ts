@@ -12,7 +12,7 @@ const trademarkDecreeRoute: Routes = [
     path: '',
     component: TrademarkDecreeComponent,
     data: {
-      defaultSort: 'id,asc',
+      defaultSort: 'id,desc',
     },
     canActivate: [UserRouteAccessService],
   },

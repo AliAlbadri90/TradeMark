@@ -12,39 +12,6 @@
         </div>
 
         <div class="col">
-          <mat-form-field appearance="standard">
-            <mat-label>الوزير</mat-label>
-            <mat-select [(ngModel)]="ministerId">
-              <mat-option *ngFor="let ministerOption of ministersSharedCollection" [value]="ministerOption.id">{{
-                ministerOption.name
-              }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <div class="col">
-          <mat-form-field appearance="standard">
-            <mat-label>الحكومة</mat-label>
-            <mat-select [(ngModel)]="governmentId">
-              <mat-option *ngFor="let governmentOption of governmentsSharedCollection" [value]="governmentOption.id">{{
-                governmentOption.name
-              }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <!--        <div class="col">-->
-        <!--          <mat-form-field appearance="standard">-->
-        <!--            <mat-label>الحكومة</mat-label>-->
-        <!--            <mat-select [(ngModel)]="ministerId">-->
-        <!--              <mat-option *ngFor="let ministerOption of ministersSharedCollection" [value]="ministerOption.id">{{-->
-        <!--                ministerOption.name-->
-        <!--                }}</mat-option>-->
-        <!--            </mat-select>-->
-        <!--          </mat-form-field>-->
-        <!--        </div>-->
-
-        <div class="col">
           <button class="mr-auto mt-4" mat-raised-button color="primary" [disabled]="!year" (click)="getReport()">
             <mat-icon>assignment</mat-icon>
             عرض التقرير
@@ -78,6 +45,10 @@
         <h5>عدد القرارات المتكررة بالمنظومة {{ decreeReport.duplicate }}</h5>
         <br />
         <h5>ارقام القرارات المتكررة بالمنظومة {{ decreeReport.duplicateNumbers }}</h5>
+        <br />
+        <h5>عدد القرارات بدون بيانات {{ decreeReport.noTextCount }}</h5>
+        <br />
+        <h5>عدد القرارات التي بها بيانات {{ decreeReport.textCount }}</h5>
       </div>
     </div>
   </div>

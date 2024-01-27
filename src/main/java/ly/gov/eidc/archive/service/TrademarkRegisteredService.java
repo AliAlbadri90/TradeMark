@@ -1,0 +1,149 @@
+package ly.gov.eidc.archive.service;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
+
+import java.util.Optional;
+import ly.gov.eidc.archive.domain.TrademarkRegistered;
+import ly.gov.eidc.archive.repository.TrademarkRegisteredRepository;
+import ly.gov.eidc.archive.repository.search.TrademarkRegisteredSearchRepository;
+import ly.gov.eidc.archive.service.dto.TrademarkRegisteredDTO;
+import ly.gov.eidc.archive.service.mapper.TrademarkRegisteredMapper;
+import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.Operator;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * Service Implementation for managing {@link TrademarkRegistered}.
+ */
+@Service
+@Transactional
+public class TrademarkRegisteredService {
+
+    private final Logger log = LoggerFactory.getLogger(TrademarkRegisteredService.class);
+
+    private final TrademarkRegisteredRepository trademarkRegisteredRepository;
+
+    private final TrademarkRegisteredMapper trademarkRegisteredMapper;
+
+    private final TrademarkRegisteredSearchRepository trademarkRegisteredSearchRepository;
+
+    public TrademarkRegisteredService(
+        TrademarkRegisteredRepository trademarkRegisteredRepository,
+        TrademarkRegisteredMapper trademarkRegisteredMapper,
+        TrademarkRegisteredSearchRepository trademarkRegisteredSearchRepository
+    ) {
+        this.trademarkRegisteredRepository = trademarkRegisteredRepository;
+        this.trademarkRegisteredMapper = trademarkRegisteredMapper;
+        this.trademarkRegisteredSearchRepository = trademarkRegisteredSearchRepository;
+    }
+
+    /**
+     * Save a trademarkRegistered.
+     *
+     * @param trademarkRegisteredDTO the entity to save.
+     * @return the persisted entity.
+     */
+    public TrademarkRegisteredDTO save(TrademarkRegisteredDTO trademarkRegisteredDTO) {
+        log.debug("Request to save TrademarkRegistered : {}", trademarkRegisteredDTO);
+        TrademarkRegistered trademarkRegistered = trademarkRegisteredMapper.toEntity(trademarkRegisteredDTO);
+        trademarkRegistered = trademarkRegisteredRepository.save(trademarkRegistered);
+        TrademarkRegisteredDTO result = trademarkRegisteredMapper.toDto(trademarkRegistered);
+        trademarkRegisteredSearchRepository.save(trademarkRegistered);
+        return result;
+    }
+
+    /**
+     * Partially update a trademarkRegistered.
+     *
+     * @param trademarkRegisteredDTO the entity to update partially.
+     * @return the persisted entity.
+     */
+    public Optional<TrademarkRegisteredDTO> partialUpdate(TrademarkRegisteredDTO trademarkRegisteredDTO) {
+        log.debug("Request to partially update TrademarkRegistered : {}", trademarkRegisteredDTO);
+
+        return trademarkRegisteredRepository
+            .findById(trademarkRegisteredDTO.getId())
+            .map(existingTrademarkRegistered -> {
+                trademarkRegisteredMapper.partialUpdate(existingTrademarkRegistered, trademarkRegisteredDTO);
+
+                return existingTrademarkRegistered;
+            })
+            .map(trademarkRegisteredRepository::save)
+            .map(savedTrademarkRegistered -> {
+                trademarkRegisteredSearchRepository.save(savedTrademarkRegistered);
+
+                return savedTrademarkRegistered;
+            })
+            .map(trademarkRegisteredMapper::toDto);
+    }
+
+    /**
+     * Get all the trademarkRegistereds.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<TrademarkRegisteredDTO> findAll(Pageable pageable) {
+        log.debug("Request to get all TrademarkRegistereds");
+        return trademarkRegisteredRepository.findAll(pageable).map(trademarkRegisteredMapper::toDto);
+    }
+
+    /**
+     * Get one trademarkRegistered by id.
+     *
+     * @param id the id of the entity.
+     * @return the entity.
+     */
+    @Transactional(readOnly = true)
+    public Optional<TrademarkRegisteredDTO> findOne(Long id) {
+        log.debug("Request to get TrademarkRegistered : {}", id);
+        return trademarkRegisteredRepository.findById(id).map(trademarkRegisteredMapper::toDto);
+    }
+
+    /**
+     * Delete the trademarkRegistered by id.
+     *
+     * @param id the id of the entity.
+     */
+    public void delete(Long id) {
+        log.debug("Request to delete TrademarkRegistered : {}", id);
+        trademarkRegisteredRepository.deleteById(id);
+        trademarkRegisteredSearchRepository.deleteById(id);
+    }
+
+    /**
+     * Search for the trademarkRegistered corresponding to the query.
+     *
+     * @param query the query of the search.
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<TrademarkRegisteredDTO> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of TrademarkRegistereds for query {}", query);
+        var builder = new BoolQueryBuilder()
+            .should(QueryBuilders.matchQuery("applicantName", query).operator(Operator.AND))
+            .should(QueryBuilders.matchQuery("country", query))
+            .should(QueryBuilders.matchQuery("nationality", query))
+            .should(QueryBuilders.matchQuery("year", query))
+            .should(QueryBuilders.matchQuery("decreeNo", query));
+
+        var Nquery = new NativeSearchQueryBuilder().withQuery(builder).build();
+
+        return trademarkRegisteredSearchRepository.search(Nquery, pageable).map(trademarkRegisteredMapper::toDto);
+    }
+
+    public void reindex() {
+        trademarkRegisteredSearchRepository.deleteAll();
+        trademarkRegisteredSearchRepository.saveAll(trademarkRegisteredRepository.findAll());
+    }
+}

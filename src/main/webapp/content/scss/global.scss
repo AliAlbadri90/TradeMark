@@ -389,6 +389,10 @@ agm-map {
   grid-gap: 1rem;
 }
 
-.mat-tooltip {
-  font-size: 20px; /* Change to your desired size */
+.full-page-card {
+  width: 100%; /* Full width of the container */
+  max-width: 100%; /* Ensures it doesn't exceed the container's width */
+  height: auto; /* Adjust height automatically */
+  margin: 0; /* Remove any default margin */
+  box-shadow: none; /* Optional: removes shadow for a flat design if desired */
 }

@@ -2,21 +2,22 @@ package ly.gov.eidc.archive.service;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import ly.gov.eidc.archive.domain.Decree;
 import ly.gov.eidc.archive.domain.TrademarkDecree;
 import ly.gov.eidc.archive.repository.TrademarkDecreeRepository;
 import ly.gov.eidc.archive.repository.search.TrademarkDecreeSearchRepository;
+import ly.gov.eidc.archive.service.dto.DecreeReport;
 import ly.gov.eidc.archive.service.dto.TrademarkDecreeDTO;
 import ly.gov.eidc.archive.service.mapper.TrademarkDecreeMapper;
 import ly.gov.eidc.archive.service.util.FileTools;
-import org.elasticsearch.common.unit.Fuzziness;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -120,6 +121,12 @@ public class TrademarkDecreeService {
         return trademarkDecreeRepository.findAll(pageable).map(trademarkDecreeMapper::toDto);
     }
 
+    @Transactional(readOnly = true)
+    public List<TrademarkDecreeDTO> findAll() {
+        log.debug("Request to get all TrademarkDecrees");
+        return trademarkDecreeMapper.toDto(trademarkDecreeRepository.findAll());
+    }
+
     /**
      * Get one trademarkDecree by id.
      *
@@ -153,21 +160,95 @@ public class TrademarkDecreeService {
     @Transactional(readOnly = true)
     public Page<TrademarkDecreeDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of TrademarkDecrees for query {}", query);
-        var builder = new BoolQueryBuilder()
-            .should(
-                QueryBuilders
-                    .multiMatchQuery(query, "tradeMarkOwner", "applicantName", "trademarkArabic", "trademarkEnglish")
-                    .fuzziness(Fuzziness.fromEdits(2))
-            )
-            .should(QueryBuilders.matchQuery("country", query));
-
-        var Nquery = new NativeSearchQueryBuilder().withQuery(builder).withPageable(pageable).build();
-
-        return trademarkDecreeSearchRepository.search(Nquery, pageable).map(trademarkDecreeMapper::toDto);
+        return trademarkDecreeSearchRepository.search(query, pageable).map(trademarkDecreeMapper::toDto);
     }
 
-    public void reindex() {
-        trademarkDecreeSearchRepository.deleteAll();
-        trademarkDecreeSearchRepository.saveAll(trademarkDecreeRepository.findAll());
+    public List<Object[]> getTrademarkDecreeYearLineChart() {
+        return trademarkDecreeRepository.getTrademarkDecreeYearLineChart();
+    }
+
+    public List<Object[]> getCreatedByCount() {
+        return trademarkDecreeRepository.getCreatedByCount();
+    }
+
+    public DecreeReport getReportByYear(Integer year) {
+        List<Integer> decreeIntsList = new ArrayList<>();
+        List<TrademarkDecree> trademarkDecrees = trademarkDecreeRepository.findAllByYearOrderByDecreeNoAsc(year);
+        System.out.println("Size " + trademarkDecrees.size());
+        String duplicateNumbers = "";
+        int duplicate = 0;
+        int noFile = 0;
+
+        int text = 0;
+        int noText = 0;
+
+        String noFileNumbers = "";
+        for (TrademarkDecree trademarkDecree : trademarkDecrees) {
+            try {
+                if (trademarkDecree.getApplicantName() == null) {
+                    noText++;
+                } else {
+                    text++;
+                }
+                decreeIntsList.add(Integer.parseInt(trademarkDecree.getDecreeNo()));
+                if (trademarkDecree.getPdfFileUrl() == null) {
+                    noFile++;
+                    noFileNumbers += trademarkDecree.getDecreeNo() + ",";
+                }
+            } catch (Exception ignored) {
+                duplicateNumbers += trademarkDecree.getDecreeNo() + ",";
+                duplicate++;
+            }
+        }
+
+        int[] decreeInts = decreeIntsList.stream().mapToInt(i -> i).toArray();
+        Arrays.sort(decreeInts);
+
+        String missingNumbers = "";
+        int count = 0;
+        int missingCount = 0;
+        for (int i = decreeInts[0]; i <= decreeInts[decreeInts.length - 1]; i++) {
+            if (decreeInts[count] == i) {
+                count++;
+            } else {
+                missingCount++;
+                missingNumbers += i + ",";
+            }
+        }
+
+        int max = Arrays.stream(decreeInts).max().getAsInt();
+
+        int min = Arrays.stream(decreeInts).min().getAsInt();
+
+        DecreeReport decreeReport = new DecreeReport();
+        decreeReport.setYear(year);
+        decreeReport.setMissingCount(missingCount);
+        decreeReport.setMissingNumbers(missingNumbers);
+        decreeReport.setTotalCount(decreeInts.length);
+        decreeReport.setFirstDecree(min);
+        decreeReport.setLastDecree(max);
+        decreeReport.setDuplicate(duplicate);
+        decreeReport.setDuplicateNumbers(duplicateNumbers);
+        decreeReport.setNoFileCount(noFile);
+        decreeReport.setNoFileNumbers(noFileNumbers);
+        decreeReport.setTextCount(text);
+        decreeReport.setNoTextCount(noText);
+
+        trademarkDecrees.forEach(decree -> {
+            try {
+                if (Integer.parseInt(decree.getDecreeNo()) == min) {
+                    decreeReport.setFirstDecreeDate(decree.getDecreeDate() != null ? decree.getDecreeDate().toString() : "");
+                }
+                if (Integer.parseInt(decree.getDecreeNo()) == max) {
+                    decreeReport.setLastDecreeDate(decree.getDecreeDate() != null ? decree.getDecreeDate().toString() : "");
+                }
+            } catch (Exception ignored) {}
+        });
+
+        return decreeReport;
+    }
+
+    public List<String> findAllYears() {
+        return trademarkDecreeRepository.findAllYears();
     }
 }

@@ -10,6 +10,9 @@ import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants
 import { TrademarkDecreeService } from '../service/trademark-decree.service';
 import { TrademarkDecreeDeleteDialogComponent } from '../delete/trademark-decree-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
+import { map } from 'rxjs/operators';
+import { IMinister } from '../../minister/minister.model';
+import { IDecree } from '../../decree/decree.model';
 
 @Component({
   selector: 'jhi-trademark-decree',
@@ -17,7 +20,7 @@ import { DataUtils } from 'app/core/util/data-util.service';
 })
 export class TrademarkDecreeComponent implements OnInit {
   trademarkDecrees?: ITrademarkDecree[];
-  currentSearch: string;
+  currentSearch: any = '';
   isLoading = false;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
@@ -25,6 +28,8 @@ export class TrademarkDecreeComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  years: any[] = [];
+  year: any = '';
 
   constructor(
     protected trademarkDecreeService: TrademarkDecreeService,
@@ -32,38 +37,24 @@ export class TrademarkDecreeComponent implements OnInit {
     protected dataUtils: DataUtils,
     protected router: Router,
     protected modalService: NgbModal
-  ) {
-    this.currentSearch = this.activatedRoute.snapshot.queryParams['search'] ?? '';
-  }
+  ) {}
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
-    const pageToLoad: number = page ?? this.page ?? 1;
-
-    if (this.currentSearch) {
-      this.trademarkDecreeService
-        .search({
-          page: pageToLoad - 1,
-          query: this.currentSearch,
-          size: this.itemsPerPage,
-          sort: this.sort(),
-        })
-        .subscribe({
-          next: (res: HttpResponse<ITrademarkDecree[]>) => {
-            this.isLoading = false;
-            this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
-          },
-          error: () => {
-            this.isLoading = false;
-            this.onError();
-          },
-        });
-      return;
-    }
+    const pageToLoad: number = page ?? this.page ?? 0;
 
     this.trademarkDecreeService
       .query({
-        page: pageToLoad - 1,
+        'decreeNo.contains': this.currentSearch,
+        'tradeMarkOwner.contains': this.currentSearch,
+        'country.contains': this.currentSearch,
+        'applicantName.contains': this.currentSearch,
+        'serialNo.contains': this.currentSearch,
+        'trademarkEnglish.contains': this.currentSearch,
+        'trademarkArabic.contains': this.currentSearch,
+        'notes.contains': this.currentSearch,
+        'year.equals': this.year,
+        page: pageToLoad,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
@@ -79,34 +70,41 @@ export class TrademarkDecreeComponent implements OnInit {
       });
   }
 
-  search(query: string): void {
-    if (
-      query &&
-      [
-        'decreeNo',
-        'applicantName',
-        'tradeMarkOwner',
-        'country',
-        'serialNo',
-        'trademarkEnglish',
-        'trademarkArabic',
-        'category',
-        'pdfFile',
-        'pdfFileUrl',
-        'extraPdfFile',
-        'extraPdfFileUrl',
-        'withdrawalDecreeNo',
-        'notes',
-      ].includes(this.predicate)
-    ) {
-      this.predicate = 'id';
-      this.ascending = true;
-    }
-    this.currentSearch = query;
-    this.loadPage(1);
+  search(currentSearch: any): void {
+    this.currentSearch = currentSearch;
+    this.trademarkDecreeService
+      .query({
+        'decreeNo.contains': this.currentSearch,
+        'tradeMarkOwner.contains': this.currentSearch,
+        'country.contains': this.currentSearch,
+        'applicantName.contains': this.currentSearch,
+        'serialNo.contains': this.currentSearch,
+        'trademarkEnglish.contains': this.currentSearch,
+        'trademarkArabic.contains': this.currentSearch,
+        'notes.contains': this.currentSearch,
+        'year.equals': this.year,
+        page: 0,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      })
+      .subscribe({
+        next: (res: HttpResponse<ITrademarkDecree[]>) => {
+          this.isLoading = false;
+          this.onSuccess(res.body, res.headers, 0, true);
+        },
+        error: () => {
+          this.isLoading = false;
+          this.onError();
+        },
+      });
   }
 
   ngOnInit(): void {
+    this.trademarkDecreeService
+      .getYears()
+      .pipe(map((res: HttpResponse<any[]>) => res.body as string[]))
+      .subscribe((years: any[]) => (this.years = years as string[]));
+
     this.handleNavigation();
   }
 
@@ -131,6 +129,11 @@ export class TrademarkDecreeComponent implements OnInit {
         this.loadPage();
       }
     });
+  }
+
+  filterByYear(year: any): void {
+    this.year = year;
+    this.loadPage(0);
   }
 
   protected sort(): string[] {
@@ -159,13 +162,20 @@ export class TrademarkDecreeComponent implements OnInit {
   protected onSuccess(data: ITrademarkDecree[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
-    this.ngbPaginationPage = this.page;
     if (navigate) {
       this.router.navigate(['/trademark-decree'], {
         queryParams: {
+          'decreeNo.contains': this.currentSearch,
+          'tradeMarkOwner.contains': this.currentSearch,
+          'country.contains': this.currentSearch,
+          'applicantName.contains': this.currentSearch,
+          'serialNo.contains': this.currentSearch,
+          'trademarkEnglish.contains': this.currentSearch,
+          'trademarkArabic.contains': this.currentSearch,
+          'notes.contains': this.currentSearch,
+          'year.equals': this.year,
           page: this.page,
           size: this.itemsPerPage,
-          search: this.currentSearch,
           sort: this.predicate + ',' + (this.ascending ? ASC : DESC),
         },
       });
@@ -173,7 +183,6 @@ export class TrademarkDecreeComponent implements OnInit {
     this.trademarkDecrees = data ?? [];
     this.ngbPaginationPage = this.page;
   }
-
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
   }

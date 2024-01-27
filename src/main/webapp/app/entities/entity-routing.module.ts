@@ -48,6 +48,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'TrademarkDecrees' },
         loadChildren: () => import('./trademark-decree/trademark-decree.module').then(m => m.TrademarkDecreeModule),
       },
+      {
+        path: 'trademark-registered',
+        data: { pageTitle: 'TrademarkRegistereds' },
+        loadChildren: () => import('./trademark-registered/trademark-registered.module').then(m => m.TrademarkRegisteredModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

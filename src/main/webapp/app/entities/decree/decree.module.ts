@@ -5,10 +5,8 @@ import { DecreeDetailComponent } from './detail/decree-detail.component';
 import { DecreeUpdateComponent } from './update/decree-update.component';
 import { DecreeDeleteDialogComponent } from './delete/decree-delete-dialog.component';
 import { DecreeRoutingModule } from './route/decree-routing.module';
-import { DatePipe } from '@angular/common';
 
 @NgModule({
-  providers: [DatePipe],
   imports: [SharedModule, DecreeRoutingModule],
   declarations: [DecreeComponent, DecreeDetailComponent, DecreeUpdateComponent, DecreeDeleteDialogComponent],
   entryComponents: [DecreeDeleteDialogComponent],

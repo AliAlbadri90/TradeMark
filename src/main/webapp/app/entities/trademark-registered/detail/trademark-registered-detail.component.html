@@ -1,0 +1,85 @@
+<div class="entity-container">
+  <mat-card class="full-page-card">
+    <div *ngIf="trademarkRegistered">
+      <mat-card-title>اشهارات العلامات التجارية</mat-card-title>
+      <mat-divider></mat-divider>
+
+      <jhi-alert-error></jhi-alert-error>
+      <jhi-alert></jhi-alert>
+
+      <mat-list class="entity-details">
+        <mat-list-item>
+          <h3 mat-line>#</h3>
+          <p mat-line>{{ trademarkRegistered.id }}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>رقم التسجيل للعلامة التجارية</h3>
+          <p mat-line>{{ trademarkRegistered.trademarkNo }}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>السنة</h3>
+          <p mat-line>{{ trademarkRegistered.year }}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>رقم القرار</h3>
+          <p mat-line>{{ trademarkRegistered.decreeNo }}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>مقدم الطلب</h3>
+          <p mat-line>{{ trademarkRegistered.applicantName }}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>مالك العلامة التجارية</h3>
+          <p mat-line>{{ trademarkRegistered.tradeMarkOwner }}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>الدولة</h3>
+          <p mat-line>{{ trademarkRegistered.country }}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>الجنسية</h3>
+          <p mat-line>{{ trademarkRegistered.nationality }}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>العنوان</h3>
+          <p mat-line>{{ trademarkRegistered.address }}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>تاريخ التقديم</h3>
+          <p mat-line>{{ trademarkRegistered.applyDate | formatMediumDate }}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>العلامة انجليزي</h3>
+          <p mat-line>{{ trademarkRegistered.trademarkEnglish }}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>العلامة عربي</h3>
+          <p mat-line>{{ trademarkRegistered.trademarkArabic }}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>الفئة</h3>
+          <p mat-line>{{ trademarkRegistered.category }}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>صورة العلامة</h3>
+          <img
+            mat-card-image
+            class="m-3"
+            src="/api/public/file/download/{{ trademarkRegistered.fileUrl }}"
+            style="max-height: 160px"
+            alt="image"
+          />
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>الملاحظات</h3>
+          <p mat-line>{{ trademarkRegistered.notes }}</p>
+        </mat-list-item>
+      </mat-list>
+
+      <button mat-raised-button color="primary" (click)="previousState()">
+        <mat-icon>arrow_back</mat-icon>
+        <span>رجوع</span>
+      </button>
+    </div>
+  </mat-card>
+</div>

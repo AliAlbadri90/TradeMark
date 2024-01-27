@@ -31,7 +31,8 @@
           "my_mappings_char_filter",
           "abd_pattern_replace_filter",
           "allah_pattern_replace_filter",
-          "aldean_pattern_replace_filter"
+          "aldean_pattern_replace_filter",
+          "country2_pattern_replace_filter"
         ],
         "filter": ["trim"]
       },
@@ -42,7 +43,8 @@
           "my_mappings_char_filter",
           "abd_pattern_replace_filter",
           "allah_pattern_replace_filter",
-          "aldean_pattern_replace_filter"
+          "aldean_pattern_replace_filter",
+          "country2_pattern_replace_filter"
         ],
         "filter": ["trim"]
       }
@@ -56,6 +58,16 @@
         "type": "pattern_replace",
         "pattern": "عبد ",
         "replacement": "عبد"
+      },
+      "country_pattern_replace_filter": {
+        "type": "pattern_replace",
+        "pattern": "ية$",
+        "replacement": ""
+      },
+      "country2_pattern_replace_filter": {
+        "type": "pattern_replace",
+        "pattern": "يا$",
+        "replacement": ""
       },
       "allah_pattern_replace_filter": {
         "type": "pattern_replace",

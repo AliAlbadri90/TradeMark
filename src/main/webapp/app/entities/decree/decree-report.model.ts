@@ -20,6 +20,8 @@ export interface IDecreeReport {
   noFileNumbers?: string | null;
   ministerName?: string | null;
   governmentName?: string | null;
+  textCount?: number | null;
+  noTextCount?: number | null;
 }
 
 export class DecreeReport implements IDecreeReport {
@@ -37,6 +39,8 @@ export class DecreeReport implements IDecreeReport {
     public lastDecreeDate?: string | null,
     public noFileNumbers?: string | null,
     public ministerName?: string | null,
-    public governmentName?: string | null
+    public governmentName?: string | null,
+    public textCount?: number | null,
+    public noTextCount?: number | null
   ) {}
 }
