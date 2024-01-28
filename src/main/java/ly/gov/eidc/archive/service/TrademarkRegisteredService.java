@@ -2,10 +2,12 @@ package ly.gov.eidc.archive.service;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
+import com.google.common.primitives.Ints;
 import java.util.Optional;
 import ly.gov.eidc.archive.domain.TrademarkRegistered;
 import ly.gov.eidc.archive.repository.TrademarkRegisteredRepository;
 import ly.gov.eidc.archive.repository.search.TrademarkRegisteredSearchRepository;
+import ly.gov.eidc.archive.service.criteria.TrademarkRegisteredCriteria;
 import ly.gov.eidc.archive.service.dto.TrademarkRegisteredDTO;
 import ly.gov.eidc.archive.service.mapper.TrademarkRegisteredMapper;
 import org.elasticsearch.common.unit.Fuzziness;
@@ -16,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,15 +37,18 @@ public class TrademarkRegisteredService {
     private final TrademarkRegisteredMapper trademarkRegisteredMapper;
 
     private final TrademarkRegisteredSearchRepository trademarkRegisteredSearchRepository;
+    private final TrademarkRegisteredQueryService trademarkRegisteredQueryService;
 
     public TrademarkRegisteredService(
         TrademarkRegisteredRepository trademarkRegisteredRepository,
         TrademarkRegisteredMapper trademarkRegisteredMapper,
-        TrademarkRegisteredSearchRepository trademarkRegisteredSearchRepository
+        TrademarkRegisteredSearchRepository trademarkRegisteredSearchRepository,
+        TrademarkRegisteredQueryService trademarkRegisteredQueryService
     ) {
         this.trademarkRegisteredRepository = trademarkRegisteredRepository;
         this.trademarkRegisteredMapper = trademarkRegisteredMapper;
         this.trademarkRegisteredSearchRepository = trademarkRegisteredSearchRepository;
+        this.trademarkRegisteredQueryService = trademarkRegisteredQueryService;
     }
 
     /**
@@ -131,15 +137,53 @@ public class TrademarkRegisteredService {
     public Page<TrademarkRegisteredDTO> search(String query, String searchType, String selectedColumn, Pageable pageable) {
         //TODO IMPLEMENT searchType (match or similar) selectedColumn (ALL, applicantName, ......)
         log.debug("Request to search for a page of Trademark Registereds for query {}", query);
-        var builder = new BoolQueryBuilder()
-            .should(QueryBuilders.matchQuery("applicantName", query).operator(Operator.AND))
-            .should(QueryBuilders.matchQuery("country", query))
-            .should(QueryBuilders.matchQuery("nationality", query))
-            .should(QueryBuilders.matchQuery("year", query))
-            .should(QueryBuilders.matchQuery("decreeNo", query));
+        if (searchType.contains("matching")) {
+            TrademarkRegisteredCriteria criteria = new TrademarkRegisteredCriteria();
+            if (selectedColumn.contains("all")) {
+                criteria.applicantName().setEquals(query);
+                criteria.country().setEquals(query);
+                criteria.nationality().setEquals(query);
+                if (Ints.tryParse(query) != null) criteria.year().setEquals(Ints.tryParse(query));
+                criteria.decreeNo().setEquals(query);
+            } else {
+                switch (selectedColumn) {
+                    case "applicantName":
+                        criteria.applicantName().setEquals(query);
+                        break;
+                    case "country":
+                        criteria.country().setEquals(query);
+                        break;
+                    case "nationality":
+                        criteria.nationality().setEquals(query);
+                        break;
+                    case "year":
+                        if (Ints.tryParse(query) != null) criteria.year().setEquals(Ints.tryParse(query));
+                        break;
+                    case "decreeNo":
+                        criteria.decreeNo().setEquals(query);
+                        break;
+                }
+            }
+            return trademarkRegisteredQueryService.findByCriteria(criteria, pageable);
+        }
 
-        var Nquery = new NativeSearchQueryBuilder().withQuery(builder).build();
+        BoolQueryBuilder builder;
+        NativeSearchQuery Nquery = null;
+        if (selectedColumn.contains("all")) {
+            builder =
+                new BoolQueryBuilder()
+                    .should(QueryBuilders.matchQuery("applicantName", query).operator(Operator.AND))
+                    .should(QueryBuilders.matchQuery("country", query))
+                    .should(QueryBuilders.matchQuery("nationality", query))
+                    .should(QueryBuilders.matchQuery("year", query))
+                    .should(QueryBuilders.matchQuery("decreeNo", query));
 
+            Nquery = new NativeSearchQueryBuilder().withQuery(builder).build();
+        } else {
+            builder = new BoolQueryBuilder().should(QueryBuilders.matchQuery(selectedColumn, query).operator(Operator.AND));
+
+            Nquery = new NativeSearchQueryBuilder().withQuery(builder).build();
+        }
         return trademarkRegisteredSearchRepository.search(Nquery, pageable).map(trademarkRegisteredMapper::toDto);
     }
 

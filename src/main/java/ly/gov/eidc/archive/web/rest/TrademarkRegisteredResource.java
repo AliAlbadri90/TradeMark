@@ -258,7 +258,9 @@ public class TrademarkRegisteredResource {
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
         log.debug("REST request to search for a page of TrademarkRegistereds for query {}", query);
+
         Page<TrademarkRegisteredDTO> page = trademarkRegisteredService.search(query, searchType, selectedColumn, pageable);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
