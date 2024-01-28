@@ -19,6 +19,7 @@ export class TrademarkRegisteredService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/trademark-registereds');
   protected resourcePublicUrl = this.applicationConfigService.getEndpointFor('api/public/trademark-registereds');
   protected resourceSearchUrl = this.applicationConfigService.getEndpointFor('api/_search/trademark-registereds');
+  protected resourcePublicSearchUrl = this.applicationConfigService.getEndpointFor('api/public/_search/trademark-registereds');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -68,6 +69,13 @@ export class TrademarkRegisteredService {
     const options = createRequestOption(req);
     return this.http
       .get<ITrademarkRegistered[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
+  searchPublic(req: SearchWithPagination): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<ITrademarkRegistered[]>(this.resourcePublicSearchUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 

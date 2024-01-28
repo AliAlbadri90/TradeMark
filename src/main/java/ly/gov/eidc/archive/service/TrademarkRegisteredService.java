@@ -128,8 +128,9 @@ public class TrademarkRegisteredService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public Page<TrademarkRegisteredDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of TrademarkRegistereds for query {}", query);
+    public Page<TrademarkRegisteredDTO> search(String query, String searchType, String selectedColumn, Pageable pageable) {
+        //TODO IMPLEMENT searchType (match or similar) selectedColumn (ALL, applicantName, ......)
+        log.debug("Request to search for a page of Trademark Registereds for query {}", query);
         var builder = new BoolQueryBuilder()
             .should(QueryBuilders.matchQuery("applicantName", query).operator(Operator.AND))
             .should(QueryBuilders.matchQuery("country", query))

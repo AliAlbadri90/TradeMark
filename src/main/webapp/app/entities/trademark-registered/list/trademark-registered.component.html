@@ -19,14 +19,25 @@
           <mat-icon>clear</mat-icon>
         </button>
       </mat-form-field>
-
-      <!--      <mat-form-field class="mr-auto" appearance="standard">-->
-      <!--        <mat-select (selectionChange)="filterByYear($event.value)" placeholder="السنة">-->
-      <!--          <mat-option value="">الكل</mat-option>-->
-      <!--          <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>-->
-      <!--        </mat-select>-->
-      <!--      </mat-form-field>-->
     </form>
+
+    <!-- Radio buttons for search type -->
+    <mat-radio-group [(ngModel)]="searchType" aria-labelledby="search-type-label" class="ml-4">
+      <mat-radio-button value="matching">بحث مطابق</mat-radio-button>
+      <mat-radio-button value="similar">بحث مشابه</mat-radio-button>
+    </mat-radio-group>
+
+    <!-- Dropdown for column selection -->
+    <mat-form-field class="ml-4">
+      <mat-select [(ngModel)]="selectedColumn" name="selectedColumn">
+        <mat-option value="all">كل الحقول</mat-option>
+        <mat-option value="applicantName">مقدم الطلب</mat-option>
+        <mat-option value="country">الدولة</mat-option>
+        <mat-option value="nationality">الجنسية</mat-option>
+        <mat-option value="year">السنة</mat-option>
+        <mat-option value="decreeNo">رقم القرار</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div

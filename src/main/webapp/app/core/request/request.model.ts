@@ -6,6 +6,8 @@ export interface Pagination {
 
 export interface Search {
   query: string;
+  searchType: string;
+  selectedColumn: string;
 }
 
 export interface SearchWithPagination extends Search, Pagination {}

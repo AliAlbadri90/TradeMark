@@ -25,6 +25,8 @@ export class TrademarkRegisteredComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 0;
+  searchType = 'matching';
+  selectedColumn = 'all';
 
   constructor(
     protected trademarkRegisteredService: TrademarkRegisteredService,
@@ -42,9 +44,11 @@ export class TrademarkRegisteredComponent implements OnInit {
 
     if (this.currentSearch) {
       this.trademarkRegisteredService
-        .query({
+        .searchPublic({
           page: pageToLoad,
-          'trademarkArabic.contains': this.currentSearch,
+          query: this.currentSearch,
+          searchType: this.searchType,
+          selectedColumn: this.selectedColumn,
           size: this.itemsPerPage,
           sort: this.sort(),
         })

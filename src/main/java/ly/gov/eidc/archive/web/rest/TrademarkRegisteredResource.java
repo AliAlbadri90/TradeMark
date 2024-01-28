@@ -174,9 +174,9 @@ public class TrademarkRegisteredResource {
         log.debug("REST request to get TrademarkRegistereds by criteria: {}", criteria);
 
         Page<TrademarkRegisteredDTO> page;
-        if (criteria.getTrademarkArabic() != null) page =
-            trademarkRegisteredService.search(criteria.getTrademarkArabic().getContains(), pageable); else page =
-            trademarkRegisteredService.findAll(pageable);
+        //        if (criteria.getTrademarkArabic() != null) page =
+        //            trademarkRegisteredService.search(criteria.getTrademarkArabic().getContains(), pageable); else
+        page = trademarkRegisteredService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -240,10 +240,25 @@ public class TrademarkRegisteredResource {
     @GetMapping("/_search/trademark-registereds")
     public ResponseEntity<List<TrademarkRegisteredDTO>> searchTrademarkRegistereds(
         @RequestParam String query,
+        @RequestParam(required = false) String searchType,
+        @RequestParam(required = false) String selectedColumn,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
         log.debug("REST request to search for a page of TrademarkRegistereds for query {}", query);
-        Page<TrademarkRegisteredDTO> page = trademarkRegisteredService.search(query, pageable);
+        Page<TrademarkRegisteredDTO> page = trademarkRegisteredService.search(query, searchType, selectedColumn, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/public/_search/trademark-registereds")
+    public ResponseEntity<List<TrademarkRegisteredDTO>> searchTrademarkRegisteredsPublic(
+        @RequestParam String query,
+        @RequestParam(required = false) String searchType,
+        @RequestParam(required = false) String selectedColumn,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to search for a page of TrademarkRegistereds for query {}", query);
+        Page<TrademarkRegisteredDTO> page = trademarkRegisteredService.search(query, searchType, selectedColumn, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
