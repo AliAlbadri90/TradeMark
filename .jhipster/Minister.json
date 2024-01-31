@@ -1,5 +1,12 @@
 {
-  "name": "Minister",
+  "annotations": {
+    "changelogDate": "20220113163526"
+  },
+  "applications": "*",
+  "changelogDate": "20220113163526",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "minister",
   "fields": [
     {
       "fieldName": "name",
@@ -14,15 +21,11 @@
       "fieldType": "String"
     }
   ],
-  "relationships": [],
-  "entityTableName": "minister",
-  "dto": "mapstruct",
-  "pagination": "pagination",
-  "service": "serviceClass",
-  "jpaMetamodelFiltering": true,
   "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Minister",
+  "pagination": "pagination",
   "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220113163526"
+  "relationships": [],
+  "service": "serviceClass"
 }

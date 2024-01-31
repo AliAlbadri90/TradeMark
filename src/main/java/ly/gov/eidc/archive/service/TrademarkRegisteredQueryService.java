@@ -138,11 +138,30 @@ public class TrademarkRegisteredQueryService extends QueryService<TrademarkRegis
             if (criteria.getCategory() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getCategory(), TrademarkRegistered_.category));
             }
+            if (criteria.getImageFileUrl() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getImageFileUrl(), TrademarkRegistered_.imageFileUrl));
+            }
             if (criteria.getFileUrl() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getFileUrl(), TrademarkRegistered_.fileUrl));
             }
             if (criteria.getExtraFileUrl() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getExtraFileUrl(), TrademarkRegistered_.extraFileUrl));
+            }
+            if (criteria.getPublicationDate() != null) {
+                specification =
+                    specification.and(buildRangeSpecification(criteria.getPublicationDate(), TrademarkRegistered_.publicationDate));
+            }
+            if (criteria.getPublicationNo() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getPublicationNo(), TrademarkRegistered_.publicationNo));
+            }
+            if (criteria.getTrademarkRegisteredStatus() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getTrademarkRegisteredStatus(), TrademarkRegistered_.trademarkRegisteredStatus)
+                    );
+            }
+            if (criteria.getIsHidden() != null) {
+                specification = specification.and(buildSpecification(criteria.getIsHidden(), TrademarkRegistered_.isHidden));
             }
             if (criteria.getNotes() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getNotes(), TrademarkRegistered_.notes));

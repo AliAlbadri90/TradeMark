@@ -3,6 +3,7 @@ package ly.gov.eidc.archive.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.*;
+import ly.gov.eidc.archive.domain.enumeration.TrademarkRegisteredStatus;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -15,7 +16,7 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 @Table(name = "trademark_registered")
 @org.springframework.data.elasticsearch.annotations.Document(indexName = "trademarkregistered")
 @Setting(settingPath = "da.json")
-public class TrademarkRegistered implements Serializable {
+public class TrademarkRegistered extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -73,6 +74,16 @@ public class TrademarkRegistered implements Serializable {
     private String category;
 
     @Lob
+    @Column(name = "image_file")
+    private byte[] imageFile;
+
+    @Column(name = "image_file_content_type")
+    private String imageFileContentType;
+
+    @Column(name = "image_file_url")
+    private String imageFileUrl;
+
+    @Lob
     @Column(name = "file")
     private byte[] file;
 
@@ -91,6 +102,19 @@ public class TrademarkRegistered implements Serializable {
 
     @Column(name = "extra_file_url")
     private String extraFileUrl;
+
+    @Column(name = "publication_date")
+    private LocalDate publicationDate;
+
+    @Column(name = "publication_no")
+    private Integer publicationNo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "trademark_registered_status")
+    private TrademarkRegisteredStatus trademarkRegisteredStatus;
+
+    @Column(name = "is_hidden")
+    private Boolean isHidden;
 
     @Column(name = "notes")
     private String notes;
@@ -266,6 +290,45 @@ public class TrademarkRegistered implements Serializable {
         this.category = category;
     }
 
+    public byte[] getImageFile() {
+        return this.imageFile;
+    }
+
+    public TrademarkRegistered imageFile(byte[] imageFile) {
+        this.setImageFile(imageFile);
+        return this;
+    }
+
+    public void setImageFile(byte[] imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    public String getImageFileContentType() {
+        return this.imageFileContentType;
+    }
+
+    public TrademarkRegistered imageFileContentType(String imageFileContentType) {
+        this.imageFileContentType = imageFileContentType;
+        return this;
+    }
+
+    public void setImageFileContentType(String imageFileContentType) {
+        this.imageFileContentType = imageFileContentType;
+    }
+
+    public String getImageFileUrl() {
+        return this.imageFileUrl;
+    }
+
+    public TrademarkRegistered imageFileUrl(String imageFileUrl) {
+        this.setImageFileUrl(imageFileUrl);
+        return this;
+    }
+
+    public void setImageFileUrl(String imageFileUrl) {
+        this.imageFileUrl = imageFileUrl;
+    }
+
     public byte[] getFile() {
         return this.file;
     }
@@ -344,6 +407,58 @@ public class TrademarkRegistered implements Serializable {
         this.extraFileUrl = extraFileUrl;
     }
 
+    public LocalDate getPublicationDate() {
+        return this.publicationDate;
+    }
+
+    public TrademarkRegistered publicationDate(LocalDate publicationDate) {
+        this.setPublicationDate(publicationDate);
+        return this;
+    }
+
+    public void setPublicationDate(LocalDate publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public Integer getPublicationNo() {
+        return this.publicationNo;
+    }
+
+    public TrademarkRegistered publicationNo(Integer publicationNo) {
+        this.setPublicationNo(publicationNo);
+        return this;
+    }
+
+    public void setPublicationNo(Integer publicationNo) {
+        this.publicationNo = publicationNo;
+    }
+
+    public TrademarkRegisteredStatus getTrademarkRegisteredStatus() {
+        return this.trademarkRegisteredStatus;
+    }
+
+    public TrademarkRegistered trademarkRegisteredStatus(TrademarkRegisteredStatus trademarkRegisteredStatus) {
+        this.setTrademarkRegisteredStatus(trademarkRegisteredStatus);
+        return this;
+    }
+
+    public void setTrademarkRegisteredStatus(TrademarkRegisteredStatus trademarkRegisteredStatus) {
+        this.trademarkRegisteredStatus = trademarkRegisteredStatus;
+    }
+
+    public Boolean getIsHidden() {
+        return this.isHidden;
+    }
+
+    public TrademarkRegistered isHidden(Boolean isHidden) {
+        this.setIsHidden(isHidden);
+        return this;
+    }
+
+    public void setIsHidden(Boolean isHidden) {
+        this.isHidden = isHidden;
+    }
+
     public String getNotes() {
         return this.notes;
     }
@@ -393,12 +508,19 @@ public class TrademarkRegistered implements Serializable {
             ", trademarkEnglish='" + getTrademarkEnglish() + "'" +
             ", trademarkArabic='" + getTrademarkArabic() + "'" +
             ", category='" + getCategory() + "'" +
+            ", imageFile='" + getImageFile() + "'" +
+            ", imageFileContentType='" + getImageFileContentType() + "'" +
+            ", imageFileUrl='" + getImageFileUrl() + "'" +
             ", file='" + getFile() + "'" +
             ", fileContentType='" + getFileContentType() + "'" +
             ", fileUrl='" + getFileUrl() + "'" +
             ", extraFile='" + getExtraFile() + "'" +
             ", extraFileContentType='" + getExtraFileContentType() + "'" +
             ", extraFileUrl='" + getExtraFileUrl() + "'" +
+            ", publicationDate='" + getPublicationDate() + "'" +
+            ", publicationNo=" + getPublicationNo() +
+            ", trademarkRegisteredStatus='" + getTrademarkRegisteredStatus() + "'" +
+            ", isHidden='" + getIsHidden() + "'" +
             ", notes='" + getNotes() + "'" +
             "}";
     }

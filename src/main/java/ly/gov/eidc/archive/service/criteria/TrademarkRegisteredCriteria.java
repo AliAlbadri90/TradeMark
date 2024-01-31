@@ -2,6 +2,7 @@ package ly.gov.eidc.archive.service.criteria;
 
 import java.io.Serializable;
 import java.util.Objects;
+import ly.gov.eidc.archive.domain.enumeration.TrademarkRegisteredStatus;
 import tech.jhipster.service.Criteria;
 import tech.jhipster.service.filter.BooleanFilter;
 import tech.jhipster.service.filter.DoubleFilter;
@@ -22,6 +23,23 @@ import tech.jhipster.service.filter.StringFilter;
  * fix type specific filters.
  */
 public class TrademarkRegisteredCriteria implements Serializable, Criteria {
+
+    /**
+     * Class for filtering TrademarkRegisteredStatus
+     */
+    public static class TrademarkRegisteredStatusFilter extends Filter<TrademarkRegisteredStatus> {
+
+        public TrademarkRegisteredStatusFilter() {}
+
+        public TrademarkRegisteredStatusFilter(TrademarkRegisteredStatusFilter filter) {
+            super(filter);
+        }
+
+        @Override
+        public TrademarkRegisteredStatusFilter copy() {
+            return new TrademarkRegisteredStatusFilter(this);
+        }
+    }
 
     private static final long serialVersionUID = 1L;
 
@@ -51,9 +69,19 @@ public class TrademarkRegisteredCriteria implements Serializable, Criteria {
 
     private StringFilter category;
 
+    private StringFilter imageFileUrl;
+
     private StringFilter fileUrl;
 
     private StringFilter extraFileUrl;
+
+    private LocalDateFilter publicationDate;
+
+    private IntegerFilter publicationNo;
+
+    private TrademarkRegisteredStatusFilter trademarkRegisteredStatus;
+
+    private BooleanFilter isHidden;
 
     private StringFilter notes;
 
@@ -75,8 +103,13 @@ public class TrademarkRegisteredCriteria implements Serializable, Criteria {
         this.trademarkEnglish = other.trademarkEnglish == null ? null : other.trademarkEnglish.copy();
         this.trademarkArabic = other.trademarkArabic == null ? null : other.trademarkArabic.copy();
         this.category = other.category == null ? null : other.category.copy();
+        this.imageFileUrl = other.imageFileUrl == null ? null : other.imageFileUrl.copy();
         this.fileUrl = other.fileUrl == null ? null : other.fileUrl.copy();
         this.extraFileUrl = other.extraFileUrl == null ? null : other.extraFileUrl.copy();
+        this.publicationDate = other.publicationDate == null ? null : other.publicationDate.copy();
+        this.publicationNo = other.publicationNo == null ? null : other.publicationNo.copy();
+        this.trademarkRegisteredStatus = other.trademarkRegisteredStatus == null ? null : other.trademarkRegisteredStatus.copy();
+        this.isHidden = other.isHidden == null ? null : other.isHidden.copy();
         this.notes = other.notes == null ? null : other.notes.copy();
         this.distinct = other.distinct;
     }
@@ -281,6 +314,21 @@ public class TrademarkRegisteredCriteria implements Serializable, Criteria {
         this.category = category;
     }
 
+    public StringFilter getImageFileUrl() {
+        return imageFileUrl;
+    }
+
+    public StringFilter imageFileUrl() {
+        if (imageFileUrl == null) {
+            imageFileUrl = new StringFilter();
+        }
+        return imageFileUrl;
+    }
+
+    public void setImageFileUrl(StringFilter imageFileUrl) {
+        this.imageFileUrl = imageFileUrl;
+    }
+
     public StringFilter getFileUrl() {
         return fileUrl;
     }
@@ -309,6 +357,66 @@ public class TrademarkRegisteredCriteria implements Serializable, Criteria {
 
     public void setExtraFileUrl(StringFilter extraFileUrl) {
         this.extraFileUrl = extraFileUrl;
+    }
+
+    public LocalDateFilter getPublicationDate() {
+        return publicationDate;
+    }
+
+    public LocalDateFilter publicationDate() {
+        if (publicationDate == null) {
+            publicationDate = new LocalDateFilter();
+        }
+        return publicationDate;
+    }
+
+    public void setPublicationDate(LocalDateFilter publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public IntegerFilter getPublicationNo() {
+        return publicationNo;
+    }
+
+    public IntegerFilter publicationNo() {
+        if (publicationNo == null) {
+            publicationNo = new IntegerFilter();
+        }
+        return publicationNo;
+    }
+
+    public void setPublicationNo(IntegerFilter publicationNo) {
+        this.publicationNo = publicationNo;
+    }
+
+    public TrademarkRegisteredStatusFilter getTrademarkRegisteredStatus() {
+        return trademarkRegisteredStatus;
+    }
+
+    public TrademarkRegisteredStatusFilter trademarkRegisteredStatus() {
+        if (trademarkRegisteredStatus == null) {
+            trademarkRegisteredStatus = new TrademarkRegisteredStatusFilter();
+        }
+        return trademarkRegisteredStatus;
+    }
+
+    public void setTrademarkRegisteredStatus(TrademarkRegisteredStatusFilter trademarkRegisteredStatus) {
+        this.trademarkRegisteredStatus = trademarkRegisteredStatus;
+    }
+
+    public BooleanFilter getIsHidden() {
+        return isHidden;
+    }
+
+    public BooleanFilter isHidden() {
+        if (isHidden == null) {
+            isHidden = new BooleanFilter();
+        }
+        return isHidden;
+    }
+
+    public void setIsHidden(BooleanFilter isHidden) {
+        this.isHidden = isHidden;
     }
 
     public StringFilter getNotes() {
@@ -357,8 +465,13 @@ public class TrademarkRegisteredCriteria implements Serializable, Criteria {
             Objects.equals(trademarkEnglish, that.trademarkEnglish) &&
             Objects.equals(trademarkArabic, that.trademarkArabic) &&
             Objects.equals(category, that.category) &&
+            Objects.equals(imageFileUrl, that.imageFileUrl) &&
             Objects.equals(fileUrl, that.fileUrl) &&
             Objects.equals(extraFileUrl, that.extraFileUrl) &&
+            Objects.equals(publicationDate, that.publicationDate) &&
+            Objects.equals(publicationNo, that.publicationNo) &&
+            Objects.equals(trademarkRegisteredStatus, that.trademarkRegisteredStatus) &&
+            Objects.equals(isHidden, that.isHidden) &&
             Objects.equals(notes, that.notes) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -380,8 +493,13 @@ public class TrademarkRegisteredCriteria implements Serializable, Criteria {
             trademarkEnglish,
             trademarkArabic,
             category,
+            imageFileUrl,
             fileUrl,
             extraFileUrl,
+            publicationDate,
+            publicationNo,
+            trademarkRegisteredStatus,
+            isHidden,
             notes,
             distinct
         );
@@ -404,8 +522,13 @@ public class TrademarkRegisteredCriteria implements Serializable, Criteria {
             (trademarkEnglish != null ? "trademarkEnglish=" + trademarkEnglish + ", " : "") +
             (trademarkArabic != null ? "trademarkArabic=" + trademarkArabic + ", " : "") +
             (category != null ? "category=" + category + ", " : "") +
+            (imageFileUrl != null ? "imageFileUrl=" + imageFileUrl + ", " : "") +
             (fileUrl != null ? "fileUrl=" + fileUrl + ", " : "") +
             (extraFileUrl != null ? "extraFileUrl=" + extraFileUrl + ", " : "") +
+            (publicationDate != null ? "publicationDate=" + publicationDate + ", " : "") +
+            (publicationNo != null ? "publicationNo=" + publicationNo + ", " : "") +
+            (trademarkRegisteredStatus != null ? "trademarkRegisteredStatus=" + trademarkRegisteredStatus + ", " : "") +
+            (isHidden != null ? "isHidden=" + isHidden + ", " : "") +
             (notes != null ? "notes=" + notes + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

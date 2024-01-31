@@ -41,7 +41,17 @@
     "clientPackageManager": "npm",
     "enableGradleEnterprise": false,
     "languages": ["en", "fr"],
-    "entities": ["Decree", "DecreeType", "DecreeCategory", "Minister", "Government", "ViewLog", "TrademarkDecree", "Regulation"],
+    "entities": [
+      "Decree",
+      "DecreeType",
+      "DecreeCategory",
+      "Minister",
+      "Government",
+      "ViewLog",
+      "TrademarkDecree",
+      "Regulation",
+      "TrademarkRegistered"
+    ],
     "lastLiquibaseTimestamp": 1642091727000
   }
 }

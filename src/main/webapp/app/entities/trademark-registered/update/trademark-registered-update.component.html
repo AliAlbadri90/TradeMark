@@ -1,5 +1,5 @@
-<div class="entity-container">
-  <div class="mat-elevation-z1 round-card white-bg p-4 mt-5">
+<div class="row justify-content-center">
+  <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-trademark-registered-heading" data-cy="TrademarkRegisteredCreateUpdateHeading">Create or edit a Trademark Registered</h2>
 
@@ -130,6 +130,47 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" for="field_imageFile">Image File</label>
+          <div>
+            <div *ngIf="editForm.get('imageFile')!.value" class="form-text text-danger clearfix">
+              <a class="pull-left" (click)="openFile(editForm.get('imageFile')!.value, editForm.get('imageFileContentType')!.value)">open</a
+              ><br />
+              <span class="pull-left"
+                >{{ editForm.get('imageFileContentType')!.value }}, {{ byteSize(editForm.get('imageFile')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="editForm.patchValue({ imageFile: null }); editForm.patchValue({ imageFileContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_imageFile" data-cy="imageFile" (change)="setFileData($event, 'imageFile', false)" />
+          </div>
+          <input type="hidden" class="form-control" name="imageFile" id="field_imageFile" data-cy="imageFile" formControlName="imageFile" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imageFileContentType"
+            id="field_imageFileContentType"
+            formControlName="imageFileContentType"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_imageFileUrl">Image File Url</label>
+          <input
+            type="text"
+            class="form-control"
+            name="imageFileUrl"
+            id="field_imageFileUrl"
+            data-cy="imageFileUrl"
+            formControlName="imageFileUrl"
+          />
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label" for="field_file">File</label>
           <div>
             <div *ngIf="editForm.get('file')!.value" class="form-text text-danger clearfix">
@@ -193,6 +234,60 @@
             data-cy="extraFileUrl"
             formControlName="extraFileUrl"
           />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_publicationDate">Publication Date</label>
+          <div class="input-group">
+            <input
+              id="field_publicationDate"
+              data-cy="publicationDate"
+              type="text"
+              class="form-control"
+              name="publicationDate"
+              ngbDatepicker
+              #publicationDateDp="ngbDatepicker"
+              formControlName="publicationDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="publicationDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_publicationNo">Publication No</label>
+          <input
+            type="number"
+            class="form-control"
+            name="publicationNo"
+            id="field_publicationNo"
+            data-cy="publicationNo"
+            formControlName="publicationNo"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_trademarkRegisteredStatus">Trademark Registered Status</label>
+          <select
+            class="form-control"
+            name="trademarkRegisteredStatus"
+            formControlName="trademarkRegisteredStatus"
+            id="field_trademarkRegisteredStatus"
+            data-cy="trademarkRegisteredStatus"
+          >
+            <option [ngValue]="null"></option>
+            <option *ngFor="let trademarkRegisteredStatus of trademarkRegisteredStatusValues" [value]="trademarkRegisteredStatus">
+              trademarkRegisteredStatus
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_isHidden">Is Hidden</label>
+          <input type="checkbox" class="form-check" name="isHidden" id="field_isHidden" data-cy="isHidden" formControlName="isHidden" />
         </div>
 
         <div class="form-group">

@@ -1,5 +1,12 @@
 {
-  "name": "Decree",
+  "annotations": {
+    "changelogDate": "20220113163523"
+  },
+  "applications": "*",
+  "changelogDate": "20220113163523",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "decree",
   "fields": [
     {
       "fieldName": "documentNo",
@@ -86,44 +93,44 @@
       "fieldType": "LocalDate"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Decree",
+  "pagination": "pagination",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "name",
       "otherEntityName": "decreeType",
       "otherEntityRelationshipName": "decree",
       "relationshipName": "decreeType",
-      "otherEntityField": "name"
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "name",
       "otherEntityName": "decreeCategory",
       "otherEntityRelationshipName": "decree",
       "relationshipName": "decreeCategory",
-      "otherEntityField": "name"
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "name",
       "otherEntityName": "minister",
       "otherEntityRelationshipName": "decree",
       "relationshipName": "minister",
-      "otherEntityField": "name"
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "name",
       "otherEntityName": "government",
       "otherEntityRelationshipName": "decree",
       "relationshipName": "government",
-      "otherEntityField": "name"
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
     }
   ],
-  "entityTableName": "decree",
-  "dto": "mapstruct",
-  "pagination": "pagination",
-  "service": "serviceClass",
-  "jpaMetamodelFiltering": true,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220113163523"
+  "service": "serviceClass"
 }

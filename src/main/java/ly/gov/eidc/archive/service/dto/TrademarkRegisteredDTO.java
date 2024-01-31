@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Lob;
+import ly.gov.eidc.archive.domain.enumeration.TrademarkRegisteredStatus;
 
 /**
  * A DTO for the {@link ly.gov.eidc.archive.domain.TrademarkRegistered} entity.
  */
-public class TrademarkRegisteredDTO implements Serializable {
+public class TrademarkRegisteredDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;
 
@@ -37,6 +38,12 @@ public class TrademarkRegisteredDTO implements Serializable {
     private String category;
 
     @Lob
+    private byte[] imageFile;
+
+    private String imageFileContentType;
+    private String imageFileUrl;
+
+    @Lob
     private byte[] file;
 
     private String fileContentType;
@@ -47,6 +54,14 @@ public class TrademarkRegisteredDTO implements Serializable {
 
     private String extraFileContentType;
     private String extraFileUrl;
+
+    private LocalDate publicationDate;
+
+    private Integer publicationNo;
+
+    private TrademarkRegisteredStatus trademarkRegisteredStatus;
+
+    private Boolean isHidden;
 
     private String notes;
 
@@ -154,6 +169,30 @@ public class TrademarkRegisteredDTO implements Serializable {
         this.category = category;
     }
 
+    public byte[] getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(byte[] imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    public String getImageFileContentType() {
+        return imageFileContentType;
+    }
+
+    public void setImageFileContentType(String imageFileContentType) {
+        this.imageFileContentType = imageFileContentType;
+    }
+
+    public String getImageFileUrl() {
+        return imageFileUrl;
+    }
+
+    public void setImageFileUrl(String imageFileUrl) {
+        this.imageFileUrl = imageFileUrl;
+    }
+
     public byte[] getFile() {
         return file;
     }
@@ -202,6 +241,38 @@ public class TrademarkRegisteredDTO implements Serializable {
         this.extraFileUrl = extraFileUrl;
     }
 
+    public LocalDate getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(LocalDate publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public Integer getPublicationNo() {
+        return publicationNo;
+    }
+
+    public void setPublicationNo(Integer publicationNo) {
+        this.publicationNo = publicationNo;
+    }
+
+    public TrademarkRegisteredStatus getTrademarkRegisteredStatus() {
+        return trademarkRegisteredStatus;
+    }
+
+    public void setTrademarkRegisteredStatus(TrademarkRegisteredStatus trademarkRegisteredStatus) {
+        this.trademarkRegisteredStatus = trademarkRegisteredStatus;
+    }
+
+    public Boolean getIsHidden() {
+        return isHidden;
+    }
+
+    public void setIsHidden(Boolean isHidden) {
+        this.isHidden = isHidden;
+    }
+
     public String getNotes() {
         return notes;
     }
@@ -248,10 +319,16 @@ public class TrademarkRegisteredDTO implements Serializable {
             ", trademarkEnglish='" + getTrademarkEnglish() + "'" +
             ", trademarkArabic='" + getTrademarkArabic() + "'" +
             ", category='" + getCategory() + "'" +
+            ", imageFile='" + getImageFile() + "'" +
+            ", imageFileUrl='" + getImageFileUrl() + "'" +
             ", file='" + getFile() + "'" +
             ", fileUrl='" + getFileUrl() + "'" +
             ", extraFile='" + getExtraFile() + "'" +
             ", extraFileUrl='" + getExtraFileUrl() + "'" +
+            ", publicationDate='" + getPublicationDate() + "'" +
+            ", publicationNo=" + getPublicationNo() +
+            ", trademarkRegisteredStatus='" + getTrademarkRegisteredStatus() + "'" +
+            ", isHidden='" + getIsHidden() + "'" +
             ", notes='" + getNotes() + "'" +
             "}";
     }

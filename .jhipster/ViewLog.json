@@ -1,5 +1,12 @@
 {
-  "name": "ViewLog",
+  "annotations": {
+    "changelogDate": "20220102184202"
+  },
+  "applications": "*",
+  "changelogDate": "20220102184202",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "view_log",
   "fields": [
     {
       "fieldName": "actionName",
@@ -14,15 +21,11 @@
       "fieldType": "String"
     }
   ],
-  "relationships": [],
-  "entityTableName": "view_log",
-  "dto": "mapstruct",
-  "pagination": "pagination",
-  "service": "serviceClass",
-  "jpaMetamodelFiltering": true,
   "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "ViewLog",
+  "pagination": "pagination",
   "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220102184202"
+  "relationships": [],
+  "service": "serviceClass"
 }

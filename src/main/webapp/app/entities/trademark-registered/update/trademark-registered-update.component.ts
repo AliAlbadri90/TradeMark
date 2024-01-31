@@ -10,6 +10,7 @@ import { TrademarkRegisteredService } from '../service/trademark-registered.serv
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
+import { TrademarkRegisteredStatus } from 'app/entities/enumerations/trademark-registered-status.model';
 
 @Component({
   selector: 'jhi-trademark-registered-update',
@@ -17,6 +18,7 @@ import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 })
 export class TrademarkRegisteredUpdateComponent implements OnInit {
   isSaving = false;
+  trademarkRegisteredStatusValues = Object.keys(TrademarkRegisteredStatus);
 
   editForm = this.fb.group({
     id: [],
@@ -32,12 +34,19 @@ export class TrademarkRegisteredUpdateComponent implements OnInit {
     trademarkEnglish: [],
     trademarkArabic: [],
     category: [],
+    imageFile: [],
+    imageFileContentType: [],
+    imageFileUrl: [],
     file: [],
     fileContentType: [],
     fileUrl: [],
     extraFile: [],
     extraFileContentType: [],
     extraFileUrl: [],
+    publicationDate: [],
+    publicationNo: [],
+    trademarkRegisteredStatus: [],
+    isHidden: [],
     notes: [],
   });
 
@@ -118,12 +127,19 @@ export class TrademarkRegisteredUpdateComponent implements OnInit {
       trademarkEnglish: trademarkRegistered.trademarkEnglish,
       trademarkArabic: trademarkRegistered.trademarkArabic,
       category: trademarkRegistered.category,
+      imageFile: trademarkRegistered.imageFile,
+      imageFileContentType: trademarkRegistered.imageFileContentType,
+      imageFileUrl: trademarkRegistered.imageFileUrl,
       file: trademarkRegistered.file,
       fileContentType: trademarkRegistered.fileContentType,
       fileUrl: trademarkRegistered.fileUrl,
       extraFile: trademarkRegistered.extraFile,
       extraFileContentType: trademarkRegistered.extraFileContentType,
       extraFileUrl: trademarkRegistered.extraFileUrl,
+      publicationDate: trademarkRegistered.publicationDate,
+      publicationNo: trademarkRegistered.publicationNo,
+      trademarkRegisteredStatus: trademarkRegistered.trademarkRegisteredStatus,
+      isHidden: trademarkRegistered.isHidden,
       notes: trademarkRegistered.notes,
     });
   }
@@ -144,12 +160,19 @@ export class TrademarkRegisteredUpdateComponent implements OnInit {
       trademarkEnglish: this.editForm.get(['trademarkEnglish'])!.value,
       trademarkArabic: this.editForm.get(['trademarkArabic'])!.value,
       category: this.editForm.get(['category'])!.value,
+      imageFileContentType: this.editForm.get(['imageFileContentType'])!.value,
+      imageFile: this.editForm.get(['imageFile'])!.value,
+      imageFileUrl: this.editForm.get(['imageFileUrl'])!.value,
       fileContentType: this.editForm.get(['fileContentType'])!.value,
       file: this.editForm.get(['file'])!.value,
       fileUrl: this.editForm.get(['fileUrl'])!.value,
       extraFileContentType: this.editForm.get(['extraFileContentType'])!.value,
       extraFile: this.editForm.get(['extraFile'])!.value,
       extraFileUrl: this.editForm.get(['extraFileUrl'])!.value,
+      publicationDate: this.editForm.get(['publicationDate'])!.value,
+      publicationNo: this.editForm.get(['publicationNo'])!.value,
+      trademarkRegisteredStatus: this.editForm.get(['trademarkRegisteredStatus'])!.value,
+      isHidden: this.editForm.get(['isHidden'])!.value,
       notes: this.editForm.get(['notes'])!.value,
     };
   }

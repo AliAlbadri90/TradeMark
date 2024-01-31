@@ -1,5 +1,12 @@
 {
-  "name": "DecreeType",
+  "annotations": {
+    "changelogDate": "20220113163524"
+  },
+  "applications": "*",
+  "changelogDate": "20220113163524",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "decree_type",
   "fields": [
     {
       "fieldName": "name",
@@ -10,15 +17,11 @@
       "fieldType": "String"
     }
   ],
-  "relationships": [],
-  "entityTableName": "decree_type",
-  "dto": "mapstruct",
-  "pagination": "pagination",
-  "service": "serviceClass",
-  "jpaMetamodelFiltering": true,
   "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "DecreeType",
+  "pagination": "pagination",
   "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220113163524"
+  "relationships": [],
+  "service": "serviceClass"
 }

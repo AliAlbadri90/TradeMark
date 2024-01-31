@@ -1,13 +1,17 @@
 {
   "annotations": {
-    "changelogDate": "20220313163521"
+    "changelogDate": "20230113163521"
   },
   "applications": "*",
-  "changelogDate": "20220313163521",
+  "changelogDate": "20230113163521",
   "dto": "mapstruct",
   "embedded": false,
-  "entityTableName": "trademark_decree",
+  "entityTableName": "trademark_registered",
   "fields": [
+    {
+      "fieldName": "trademarkNo",
+      "fieldType": "String"
+    },
     {
       "fieldName": "year",
       "fieldType": "Integer"
@@ -15,14 +19,6 @@
     {
       "fieldName": "decreeNo",
       "fieldType": "String"
-    },
-    {
-      "fieldName": "isAccepted",
-      "fieldType": "Boolean"
-    },
-    {
-      "fieldName": "decreeDate",
-      "fieldType": "LocalDate"
     },
     {
       "fieldName": "applicantName",
@@ -37,12 +33,16 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "applyDate",
-      "fieldType": "LocalDate"
+      "fieldName": "nationality",
+      "fieldType": "String"
     },
     {
-      "fieldName": "serialNo",
+      "fieldName": "address",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "applyDate",
+      "fieldType": "LocalDate"
     },
     {
       "fieldName": "trademarkEnglish",
@@ -57,30 +57,48 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "pdfFile",
+      "fieldName": "imageFile",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "any"
     },
     {
-      "fieldName": "pdfFileUrl",
+      "fieldName": "imageFileUrl",
       "fieldType": "String"
     },
     {
-      "fieldName": "extraPdfFile",
+      "fieldName": "file",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "any"
     },
     {
-      "fieldName": "extraPdfFileUrl",
+      "fieldName": "fileUrl",
       "fieldType": "String"
     },
     {
-      "fieldName": "isWithdrawal",
+      "fieldName": "extraFile",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "extraFileUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "publicationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "publicationNo",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "trademarkRegisteredStatus",
+      "fieldType": "TrademarkRegisteredStatus",
+      "fieldValues": "INITIAL_PUBLICATION,FINAL_PUBLICATION,CONTESTED"
+    },
+    {
+      "fieldName": "isHidden",
       "fieldType": "Boolean"
-    },
-    {
-      "fieldName": "withdrawalDecreeNo",
-      "fieldType": "String"
     },
     {
       "fieldName": "notes",
@@ -89,7 +107,7 @@
   ],
   "fluentMethods": true,
   "jpaMetamodelFiltering": true,
-  "name": "TrademarkDecree",
+  "name": "TrademarkRegistered",
   "pagination": "pagination",
   "readOnly": false,
   "relationships": [],

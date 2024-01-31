@@ -1,5 +1,12 @@
 {
-  "name": "Government",
+  "annotations": {
+    "changelogDate": "20220113163527"
+  },
+  "applications": "*",
+  "changelogDate": "20220113163527",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "government",
   "fields": [
     {
       "fieldName": "name",
@@ -10,15 +17,11 @@
       "fieldType": "String"
     }
   ],
-  "relationships": [],
-  "entityTableName": "government",
-  "dto": "mapstruct",
-  "pagination": "pagination",
-  "service": "serviceClass",
-  "jpaMetamodelFiltering": true,
   "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Government",
+  "pagination": "pagination",
   "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220113163527"
+  "relationships": [],
+  "service": "serviceClass"
 }
