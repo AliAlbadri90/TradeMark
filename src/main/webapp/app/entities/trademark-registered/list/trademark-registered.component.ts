@@ -127,6 +127,10 @@ export class TrademarkRegisteredComponent implements OnInit {
     return this.dataUtils.openFile(base64String, contentType);
   }
 
+  openPdfFile(trademarkNo: any): void {
+    window.open('/api/public/file/download/' + String(trademarkNo) + '.pdf#zoom=85&scrollbar=0&toolbar=0&navpanes=0', '_blank');
+  }
+
   delete(trademarkRegistered: ITrademarkRegistered): void {
     const modalRef = this.modalService.open(TrademarkRegisteredDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.trademarkRegistered = trademarkRegistered;

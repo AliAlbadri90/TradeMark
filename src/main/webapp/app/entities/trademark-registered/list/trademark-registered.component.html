@@ -23,8 +23,8 @@
 
     <!-- Radio buttons for search type -->
     <mat-radio-group [(ngModel)]="searchType" aria-labelledby="search-type-label" class="ml-4">
-      <mat-radio-button value="matching">بحث مطابق</mat-radio-button>
-      <mat-radio-button value="similar">بحث مشابه</mat-radio-button>
+      <mat-radio-button value="matching">بحث حرفي</mat-radio-button>
+      <mat-radio-button value="similar">بحث تقريبي</mat-radio-button>
     </mat-radio-group>
 
     <!-- Dropdown for column selection -->
@@ -34,6 +34,8 @@
         <mat-option value="applicantName">مقدم الطلب</mat-option>
         <mat-option value="country">الدولة</mat-option>
         <mat-option value="nationality">الجنسية</mat-option>
+        <mat-option value="trademarkEnglish">العلامة التجارية بالانجليزي</mat-option>
+        <mat-option value="trademarkArabic">العلامة التجارية بالعربي</mat-option>
         <mat-option value="year">السنة</mat-option>
         <mat-option value="decreeNo">رقم القرار</mat-option>
       </mat-select>
@@ -60,10 +62,8 @@
           <th scope="col" jhiSortBy="nationality"><span>الجنسية</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="address"><span>العنوان</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="applyDate"><span>تاريخ التقديم</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="trademarkEnglish">
-            <span>العلامة انجليزي</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="trademarkArabic"><span>العلامة عربي</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
+          <!--          <th scope="col" jhiSortBy="trademarkEnglish"><span>العلامة انجليزي</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
+          <!--          <th scope="col" jhiSortBy="trademarkArabic"><span>العلامة عربي</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
           <th scope="col" jhiSortBy="category"><span>الفئة</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
           <!--          <th scope="col" jhiSortBy="file"><span>File</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
           <th scope="col" jhiSortBy="fileUrl"><span>الصورة</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
@@ -86,9 +86,9 @@
           <!--          <td>{{ trademarkRegistered.country }}</td>-->
           <td>{{ trademarkRegistered.nationality }}</td>
           <td>{{ trademarkRegistered.address }}</td>
-          <td>{{ trademarkRegistered.applyDate | formatMediumDate }}</td>
-          <td>{{ trademarkRegistered.trademarkEnglish }}</td>
-          <td>{{ trademarkRegistered.trademarkArabic }}</td>
+          <td>{{ trademarkRegistered.applyDate | arabicDate }}</td>
+          <!--          <td>{{ trademarkRegistered.trademarkEnglish }}</td>-->
+          <!--          <td>{{ trademarkRegistered.trademarkArabic }}</td>-->
           <td>{{ trademarkRegistered.category }}</td>
 
           <td>
@@ -104,6 +104,11 @@
                 <button [routerLink]="['./', trademarkRegistered.id, 'view']" mat-menu-item>
                   <mat-icon>remove_red_eye</mat-icon>
                   <span class="d-none d-md-inline">عرض</span>
+                </button>
+
+                <button (click)="openPdfFile(trademarkRegistered.trademarkNo)" mat-menu-item>
+                  <mat-icon class="ml-2">picture_as_pdf</mat-icon>
+                  <span class="d-none d-md-inline">طباعة</span>
                 </button>
 
                 <button [routerLink]="['./', trademarkRegistered.id, 'edit']" *jhiHasAnyAuthority="['ROLE_ADMIN']" mat-menu-item>

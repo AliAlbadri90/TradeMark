@@ -1,20 +1,10 @@
-/* ==========================================================================
-Main page styles
-========================================================================== */
-
-.hipster {
-  display: inline-block;
-  width: 347px;
-  height: 497px;
-  background-size: contain;
+.timer {
+  text-align: center;
+  font-size: 2.4em;
+  letter-spacing: -1px;
 }
 
-/* wait autoprefixer update to allow simple generation of high pixel density media query */
-@media only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (-o-min-device-pixel-ratio: 2/1),
-  only screen and (min-resolution: 192dpi),
-  only screen and (min-resolution: 2dppx) {
-  .hipster {
-    background-size: contain;
-  }
+.timer span {
+  font-size: 2.5em;
+  margin: 13px 0px 15px 0;
 }

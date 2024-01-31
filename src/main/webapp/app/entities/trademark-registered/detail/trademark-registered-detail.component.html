@@ -46,34 +46,32 @@
         </mat-list-item>
         <mat-list-item>
           <h3 mat-line>تاريخ التقديم</h3>
-          <p mat-line>{{ trademarkRegistered.applyDate | formatMediumDate }}</p>
+          <p mat-line>{{ trademarkRegistered.applyDate | arabicDate }}</p>
         </mat-list-item>
-        <mat-list-item>
-          <h3 mat-line>العلامة انجليزي</h3>
-          <p mat-line>{{ trademarkRegistered.trademarkEnglish }}</p>
-        </mat-list-item>
-        <mat-list-item>
-          <h3 mat-line>العلامة عربي</h3>
-          <p mat-line>{{ trademarkRegistered.trademarkArabic }}</p>
-        </mat-list-item>
+        <!--        <mat-list-item>-->
+        <!--          <h3 mat-line>العلامة انجليزي</h3>-->
+        <!--          <p mat-line>{{ trademarkRegistered.trademarkEnglish }}</p>-->
+        <!--        </mat-list-item>-->
+        <!--        <mat-list-item>-->
+        <!--          <h3 mat-line>العلامة عربي</h3>-->
+        <!--          <p mat-line>{{ trademarkRegistered.trademarkArabic }}</p>-->
+        <!--        </mat-list-item>-->
         <mat-list-item>
           <h3 mat-line>الفئة</h3>
           <p mat-line>{{ trademarkRegistered.category }}</p>
         </mat-list-item>
-        <mat-list-item>
-          <h3 mat-line>صورة العلامة</h3>
-          <img
-            mat-card-image
-            class="m-3"
-            src="/api/public/file/download/{{ trademarkRegistered.fileUrl }}"
-            style="max-height: 160px"
-            alt="image"
-          />
-        </mat-list-item>
+
         <mat-list-item>
           <h3 mat-line>الملاحظات</h3>
           <p mat-line>{{ trademarkRegistered.notes }}</p>
         </mat-list-item>
+
+        <div>
+          <h3 mat-line>صورة العلامة</h3>
+          <a href="/api/public/file/download/{{ trademarkRegistered.fileUrl }}" target="_blank">
+            <img class="m-3" src="/api/public/file/download/{{ trademarkRegistered.fileUrl }}" style="max-height: 1200px" alt="image" />
+          </a>
+        </div>
       </mat-list>
 
       <button mat-raised-button color="primary" (click)="previousState()">

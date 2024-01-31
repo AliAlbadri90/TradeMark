@@ -140,21 +140,27 @@ public class TrademarkRegisteredService {
         if (searchType.contains("matching")) {
             TrademarkRegisteredCriteria criteria = new TrademarkRegisteredCriteria();
             if (selectedColumn.contains("all")) {
-                criteria.applicantName().setEquals(query);
-                criteria.country().setEquals(query);
-                criteria.nationality().setEquals(query);
+                criteria.applicantName().setContains(query);
+                criteria.trademarkArabic().setContains(query);
+                criteria.trademarkEnglish().setContains(query);
+                criteria.country().setContains(query);
+                criteria.nationality().setContains(query);
                 if (Ints.tryParse(query) != null) criteria.year().setEquals(Ints.tryParse(query));
                 criteria.decreeNo().setEquals(query);
             } else {
                 switch (selectedColumn) {
                     case "applicantName":
-                        criteria.applicantName().setEquals(query);
+                        criteria.applicantName().setContains(query);
                         break;
                     case "country":
-                        criteria.country().setEquals(query);
+                        criteria.country().setContains(query);
                         break;
                     case "nationality":
-                        criteria.nationality().setEquals(query);
+                        criteria.nationality().setContains(query);
+                    case "trademarkArabic":
+                        criteria.trademarkArabic().setContains(query);
+                    case "trademarkEnglish":
+                        criteria.trademarkEnglish().setContains(query);
                         break;
                     case "year":
                         if (Ints.tryParse(query) != null) criteria.year().setEquals(Ints.tryParse(query));
@@ -175,6 +181,8 @@ public class TrademarkRegisteredService {
                     .should(QueryBuilders.matchQuery("applicantName", query).operator(Operator.AND))
                     .should(QueryBuilders.matchQuery("country", query))
                     .should(QueryBuilders.matchQuery("nationality", query))
+                    .should(QueryBuilders.matchQuery("trademarkArabic", query))
+                    .should(QueryBuilders.matchQuery("trademarkEnglish", query))
                     .should(QueryBuilders.matchQuery("year", query))
                     .should(QueryBuilders.matchQuery("decreeNo", query));
 

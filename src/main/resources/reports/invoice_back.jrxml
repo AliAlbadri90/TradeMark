@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="invoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20"
+              topMargin="20" bottomMargin="20" uuid="c6185b02-e9a8-4636-aea0-6bb04101c813">
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql"/>
+    <parameter name="flight_booking_id" class="java.lang.Long"/>
+    <queryString language="SQL">
+        <![CDATA[SELECT
+			flight_booking.id as 'bookingId',
+			flight_booking.passenger_first_name as 'firstName',
+			flight_booking.passenger_last_name as 'lastName',
+			flight_booking.passenger_passport_no as 'passportNo',
+			flight_booking.passenger_mobile_no as 'mobileNo',
+			flight_booking.email_address as 'email',
+			REPLACE(flight_booking.booking_type, '_', ' ') as 'bookingType',
+			flight_booking.pax_no as 'paxNo',
+			flight_booking.pnr as 'pnr',
+			flight_booking.e_ticket_no as 'eTicket',
+			cast(flight_booking.total as decimal(10,2)) as 'total',
+			IFNULL(flight_booking.fare_rules, '--') as 'fareRules',
+			flight_booking.issued_at as 'issuedAt',
+			ticket_itinerary.flight_no as 'flightNo',
+			ticket_itinerary.airline_text as 'AirlineName',
+			ticket_itinerary.departure_airport_text as 'departureAirport',
+			ticket_itinerary.departure_date_time as 'departureTime',
+			ticket_itinerary.arrival_airport_text as 'arrivalAirport',
+			ticket_itinerary.arrival_date_time as 'arrivalDate',
+			ticket_itinerary.cabin_class as 'cabinClass',
+			ticket_itinerary.ticket_class as 'ticketClass',
+			IFNULL(ticket_itinerary.bags, '--') as 'bags',
+			IFNULL(ticket_itinerary.terminal, '--') as 'terminal',
+			IFNULL(ticket_itinerary.gate, '--') as 'gate',
+			IFNULL(ticket_itinerary.duration, '--') as 'duration'
+			FROM flight_booking, ticket_itinerary
+			WHERE flight_booking.id = ticket_itinerary.flight_booking_id
+			and flight_booking.id = $P{flight_booking_id}]]>
+    </queryString>
+    <field name="bookingId" class="java.lang.Long"/>
+    <field name="firstName" class="java.lang.String"/>
+    <field name="lastName" class="java.lang.String"/>
+    <field name="fareRules" class="java.lang.String"/>
+    <field name="passportNo" class="java.lang.String"/>
+    <field name="mobileNo" class="java.lang.String"/>
+    <field name="email" class="java.lang.String"/>
+    <field name="total" class="java.lang.Double"/>
+    <field name="bookingType" class="java.lang.String"/>
+    <field name="paxNo" class="java.lang.Long"/>
+    <field name="pnr" class="java.lang.String"/>
+    <field name="eTicket" class="java.lang.String"/>
+    <field name="issued_at" class="java.lang.String"/>
+    <field name="flightNo" class="java.lang.String"/>
+    <field name="AirlineName" class="java.lang.String"/>
+    <field name="departureAirport" class="java.lang.String"/>
+    <field name="departureTime" class="java.lang.String"/>
+    <field name="arrivalAirport" class="java.lang.String"/>
+    <field name="arrivalDate" class="java.lang.String"/>
+    <field name="cabinClass" class="java.lang.String"/>
+    <field name="duration" class="java.lang.String"/>
+    <field name="gate" class="java.lang.String"/>
+    <field name="terminal" class="java.lang.String"/>
+    <field name="ticketClass" class="java.lang.String"/>
+    <field name="bags" class="java.lang.String"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band splitType="Stretch"/>
+    </title>
+    <pageHeader>
+        <band height="171" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="90" width="170" height="19" uuid="d825f642-2316-42fd-b268-7fc441094be7"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Passenger & Ticket Information:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="110" width="100" height="14" uuid="e09b8547-bfb5-41f3-b04a-670fb1a5372f"/>
+                <text><![CDATA[Passenger Name:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="140" width="100" height="14" uuid="f44cc687-3171-4055-b209-457cf4f39d6a"/>
+                <text><![CDATA[Mobile:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="125" width="100" height="14" uuid="b6977042-acbc-4b22-b73a-a949c04d7f22"/>
+                <text><![CDATA[Passport number:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="155" width="100" height="14" uuid="7e9820cd-aae9-4ab1-b7bf-eee1e2592aba"/>
+                <text><![CDATA[Email:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="300" y="110" width="120" height="14" uuid="df7a3450-dce0-4374-ad4f-3c68f97c2701"/>
+                <text><![CDATA[Issue date:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="300" y="125" width="120" height="14" uuid="e809d86e-dc1f-4541-a408-32cd9697fa2b"/>
+                <text><![CDATA[Booking Reference (PNR):]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="300" y="140" width="120" height="14" uuid="baad41e0-0eb3-4c37-b305-b1e2dd35ff82"/>
+                <text><![CDATA[Ticket number:]]></text>
+            </staticText>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="120" y="109" width="120" height="16" uuid="81952d59-420c-42f2-806b-8cf4bd219bcd">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{firstName} +" "+ $F{lastName}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="120" y="140" width="120" height="15" uuid="2fde397b-1cff-4b4b-a948-e9ff6995a94c">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{mobileNo}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="120" y="125" width="120" height="15" uuid="19471a92-dcd8-45fd-8303-134407193329">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{passportNo}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="120" y="155" width="120" height="15" uuid="484a08fc-c0fe-4eb4-bff0-3b83576a3e7c"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="440" y="110" width="120" height="15" uuid="4eb7fb9f-c793-47f5-8d8c-578bf9ed4ef7">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{issued_at}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="440" y="140" width="120" height="14" uuid="272f6259-4c39-4f2a-8125-a131a884e59e">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="10" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{eTicket}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="440" y="125" width="120" height="15" uuid="2aac69fc-5685-4e3b-9c4f-13ad8e5ee6f6">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="10" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{pnr}]]></textFieldExpression>
+            </textField>
+            <image hAlign="Right" vAlign="Middle" onErrorType="Blank">
+                <reportElement x="400" y="0" width="154" height="80" uuid="9e428791-da62-40ea-855d-7c35061e032b"/>
+                <imageExpression><![CDATA["images/1.png"]]></imageExpression>
+            </image>
+            <image vAlign="Middle" onErrorType="Blank">
+                <reportElement x="0" y="0" width="154" height="80" uuid="594fa40f-b7cf-4e39-b0a6-43243d68748d"/>
+                <imageExpression><![CDATA["images/2.png"]]></imageExpression>
+            </image>
+        </band>
+    </pageHeader>
+    <columnHeader>
+        <band height="42" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="11" width="181" height="20" forecolor="#FF0905"
+                               uuid="bc690d76-6aec-40bd-953c-8fe6e32e36d2"/>
+                <text><![CDATA[LEGAL AND PASSENGER NOTICES]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="234" splitType="Stretch">
+            <textField textAdjust="StretchHeight">
+                <reportElement x="-1" y="20" width="556" height="200" uuid="09397ddb-9251-4063-afb3-3eb4206b8263">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Left">
+                    <font fontName="Times New Roman" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{fareRules}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <pageFooter>
+        <band height="134" splitType="Stretch">
+            <image hAlign="Right" vAlign="Middle" onErrorType="Blank">
+                <reportElement x="380" y="10" width="174" height="80" uuid="6a77a472-b5d4-40f1-89f4-de6a9735d478"/>
+                <imageExpression><![CDATA["images/4.png"]]></imageExpression>
+            </image>
+            <image vAlign="Middle" onErrorType="Blank">
+                <reportElement x="0" y="10" width="180" height="80" uuid="01452a04-e654-4466-83f4-248a41bcad6c"/>
+                <imageExpression><![CDATA["images/5.png"]]></imageExpression>
+            </image>
+            <line>
+                <reportElement x="0" y="103" width="555" height="1" forecolor="#2E3092"
+                               uuid="0518c5b7-881e-4ae5-882f-d52f6ebf8bbf">
+                    <property name="local_mesure_unitheight" value="pixel"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+            </line>
+            <line>
+                <reportElement x="0" y="123" width="555" height="1" forecolor="#2E3092"
+                               uuid="00cb3647-ccec-4a6e-8acb-4741f1210128">
+                    <property name="local_mesure_unitheight" value="pixel"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+            </line>
+            <staticText>
+                <reportElement x="0" y="106" width="554" height="14" forecolor="#2E3092"
+                               uuid="e2db1945-944a-4a19-84ef-06ff7103fbce"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <text>
+                    <![CDATA[This ticket was issued through By eTravel for booking & issuing travel tickets, download the application & register, to Book your Ticket in Moments]]></text>
+            </staticText>
+        </band>
+    </pageFooter>
+    <summary>
+        <band splitType="Stretch"/>
+    </summary>
+</jasperReport>
