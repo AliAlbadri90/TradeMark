@@ -50,7 +50,8 @@
       "ViewLog",
       "TrademarkDecree",
       "Regulation",
-      "TrademarkRegistered"
+      "TrademarkRegistered",
+      "Complaint"
     ],
     "lastLiquibaseTimestamp": 1642091727000
   }

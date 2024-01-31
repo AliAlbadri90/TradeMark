@@ -9,6 +9,10 @@
   "entityTableName": "trademark_registered",
   "fields": [
     {
+      "fieldName": "trademarkUUID",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "trademarkNo",
       "fieldType": "String"
     },

@@ -1,0 +1,106 @@
+{
+  "annotations": {
+    "changelogDate": "20220313163531"
+  },
+  "applications": "*",
+  "changelogDate": "20220313163531",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "complaint",
+  "fields": [
+    {
+      "fieldName": "complaintUUID",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complaintNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "trademarkNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complaintDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "complaintOfficeReceivedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "complaintPaymentReceipt",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complaintYear",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "complainerPersonFullName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complainerPersonJob",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complainerPersonNationality",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complainerPersonAddress",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complainerCompanyName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complainerCompanyAddress",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complainerCompanyPurpose",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complainerCompanyHeadQuarterAddress",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complainerCompanyLibyaAddress",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pdfFile",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "pdfFileUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complaintStatus",
+      "fieldType": "ComplaintStatus",
+      "fieldValues": "PENDING,ACCEPTED,REFUSED"
+    },
+    {
+      "fieldName": "complaintDetails",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Complaint",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "searchEngine": "elasticsearch",
+  "service": "serviceClass"
+}

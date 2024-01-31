@@ -1,0 +1,115 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="complaint">
+      <h2 data-cy="complaintDetailsHeading"><span>Complaint</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ complaint.id }}</span>
+        </dd>
+        <dt><span>Complaint UUID</span></dt>
+        <dd>
+          <span>{{ complaint.complaintUUID }}</span>
+        </dd>
+        <dt><span>Complaint No</span></dt>
+        <dd>
+          <span>{{ complaint.complaintNo }}</span>
+        </dd>
+        <dt><span>Trademark No</span></dt>
+        <dd>
+          <span>{{ complaint.trademarkNo }}</span>
+        </dd>
+        <dt><span>Complaint Date</span></dt>
+        <dd>
+          <span>{{ complaint.complaintDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Complaint Office Received Date</span></dt>
+        <dd>
+          <span>{{ complaint.complaintOfficeReceivedDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Complaint Payment Receipt</span></dt>
+        <dd>
+          <span>{{ complaint.complaintPaymentReceipt }}</span>
+        </dd>
+        <dt><span>Complaint Year</span></dt>
+        <dd>
+          <span>{{ complaint.complaintYear }}</span>
+        </dd>
+        <dt><span>Complainer Person Full Name</span></dt>
+        <dd>
+          <span>{{ complaint.complainerPersonFullName }}</span>
+        </dd>
+        <dt><span>Complainer Person Job</span></dt>
+        <dd>
+          <span>{{ complaint.complainerPersonJob }}</span>
+        </dd>
+        <dt><span>Complainer Person Nationality</span></dt>
+        <dd>
+          <span>{{ complaint.complainerPersonNationality }}</span>
+        </dd>
+        <dt><span>Complainer Person Address</span></dt>
+        <dd>
+          <span>{{ complaint.complainerPersonAddress }}</span>
+        </dd>
+        <dt><span>Complainer Company Name</span></dt>
+        <dd>
+          <span>{{ complaint.complainerCompanyName }}</span>
+        </dd>
+        <dt><span>Complainer Company Address</span></dt>
+        <dd>
+          <span>{{ complaint.complainerCompanyAddress }}</span>
+        </dd>
+        <dt><span>Complainer Company Purpose</span></dt>
+        <dd>
+          <span>{{ complaint.complainerCompanyPurpose }}</span>
+        </dd>
+        <dt><span>Complainer Company Head Quarter Address</span></dt>
+        <dd>
+          <span>{{ complaint.complainerCompanyHeadQuarterAddress }}</span>
+        </dd>
+        <dt><span>Complainer Company Libya Address</span></dt>
+        <dd>
+          <span>{{ complaint.complainerCompanyLibyaAddress }}</span>
+        </dd>
+        <dt><span>Pdf File</span></dt>
+        <dd>
+          <div *ngIf="complaint.pdfFile">
+            <a (click)="openFile(complaint.pdfFile, complaint.pdfFileContentType)">open</a>
+            {{ complaint.pdfFileContentType }}, {{ byteSize(complaint.pdfFile) }}
+          </div>
+        </dd>
+        <dt><span>Pdf File Url</span></dt>
+        <dd>
+          <span>{{ complaint.pdfFileUrl }}</span>
+        </dd>
+        <dt><span>Complaint Status</span></dt>
+        <dd>
+          <span>{{ complaint.complaintStatus }}</span>
+        </dd>
+        <dt><span>Complaint Details</span></dt>
+        <dd>
+          <span>{{ complaint.complaintDetails }}</span>
+        </dd>
+        <dt><span>Notes</span></dt>
+        <dd>
+          <span>{{ complaint.notes }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/complaint', complaint.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

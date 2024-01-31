@@ -1,0 +1,183 @@
+<div>
+  <h2 id="page-heading" data-cy="ComplaintHeading">
+    <span>Complaints</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-complaint"
+        [routerLink]="['/complaint/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span class="hidden-sm-down"> Create a new Complaint </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <form name="searchForm" class="form-inline">
+        <div class="input-group w-100 mt-3">
+          <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query" />
+
+          <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+            <fa-icon icon="search"></fa-icon>
+          </button>
+
+          <button class="input-group-append btn btn-danger" (click)="search('')" *ngIf="currentSearch">
+            <fa-icon icon="trash-alt"></fa-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="complaints?.length === 0">
+    <span>No complaints found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="complaints && complaints.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="complaintUUID"><span>Complaint UUID</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="complaintNo"><span>Complaint No</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="trademarkNo"><span>Trademark No</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="complaintDate"><span>Complaint Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="complaintOfficeReceivedDate">
+            <span>Complaint Office Received Date</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="complaintPaymentReceipt">
+            <span>Complaint Payment Receipt</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="complaintYear"><span>Complaint Year</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="complainerPersonFullName">
+            <span>Complainer Person Full Name</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="complainerPersonJob">
+            <span>Complainer Person Job</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="complainerPersonNationality">
+            <span>Complainer Person Nationality</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="complainerPersonAddress">
+            <span>Complainer Person Address</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="complainerCompanyName">
+            <span>Complainer Company Name</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="complainerCompanyAddress">
+            <span>Complainer Company Address</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="complainerCompanyPurpose">
+            <span>Complainer Company Purpose</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="complainerCompanyHeadQuarterAddress">
+            <span>Complainer Company Head Quarter Address</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="complainerCompanyLibyaAddress">
+            <span>Complainer Company Libya Address</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="pdfFile"><span>Pdf File</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="pdfFileUrl"><span>Pdf File Url</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="complaintStatus">
+            <span>Complaint Status</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="complaintDetails">
+            <span>Complaint Details</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="notes"><span>Notes</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let complaint of complaints; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/complaint', complaint.id, 'view']">{{ complaint.id }}</a>
+          </td>
+          <td>{{ complaint.complaintUUID }}</td>
+          <td>{{ complaint.complaintNo }}</td>
+          <td>{{ complaint.trademarkNo }}</td>
+          <td>{{ complaint.complaintDate | formatMediumDate }}</td>
+          <td>{{ complaint.complaintOfficeReceivedDate | formatMediumDate }}</td>
+          <td>{{ complaint.complaintPaymentReceipt }}</td>
+          <td>{{ complaint.complaintYear }}</td>
+          <td>{{ complaint.complainerPersonFullName }}</td>
+          <td>{{ complaint.complainerPersonJob }}</td>
+          <td>{{ complaint.complainerPersonNationality }}</td>
+          <td>{{ complaint.complainerPersonAddress }}</td>
+          <td>{{ complaint.complainerCompanyName }}</td>
+          <td>{{ complaint.complainerCompanyAddress }}</td>
+          <td>{{ complaint.complainerCompanyPurpose }}</td>
+          <td>{{ complaint.complainerCompanyHeadQuarterAddress }}</td>
+          <td>{{ complaint.complainerCompanyLibyaAddress }}</td>
+          <td>
+            <a *ngIf="complaint.pdfFile" (click)="openFile(complaint.pdfFile, complaint.pdfFileContentType)">open</a>
+            <span *ngIf="complaint.pdfFile">{{ complaint.pdfFileContentType }}, {{ byteSize(complaint.pdfFile) }}</span>
+          </td>
+          <td>{{ complaint.pdfFileUrl }}</td>
+          <td>{{ complaint.complaintStatus }}</td>
+          <td>{{ complaint.complaintDetails }}</td>
+          <td>{{ complaint.notes }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/complaint', complaint.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/complaint', complaint.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(complaint)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="complaints && complaints.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
