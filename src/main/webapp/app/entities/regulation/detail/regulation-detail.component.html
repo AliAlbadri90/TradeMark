@@ -1,0 +1,46 @@
+<div class="entity-container">
+  <div class="mat-elevation-z1 py-4 round-card white-bg p-3">
+    <div *ngIf="regulation">
+      <h2><span>قرار او نموذج رقم </span> {{ regulation.id }}</h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>العنوان</span></dt>
+        <dd>
+          <span>{{ regulation.title }}</span>
+        </dd>
+        <dt><span>التفاصيل</span></dt>
+        <dd>
+          <span>{{ regulation.description }}</span>
+        </dd>
+        <dt><span>النوع</span></dt>
+        <dd>
+          <span>{{ regulation.type }}</span>
+        </dd>
+        <dt><span>السنة</span></dt>
+        <dd>
+          <span>{{ regulation.year }}</span>
+        </dd>
+        <dt><span>ملف pdf</span></dt>
+        <dd>
+          <span>{{ regulation.filePdfUrl }}</span>
+        </dd>
+        <dt><span>ملف word</span></dt>
+        <dd>
+          <span>{{ regulation.fileWordUrl }}</span>
+        </dd>
+        <dt><span>مفعل</span></dt>
+        <dd>
+          <span>{{ regulation.isActive }}</span>
+        </dd>
+      </dl>
+
+      <button (click)="previousState()" class="btn btn-info" type="submit">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>رجوع</span>
+      </button>
+    </div>
+  </div>
+</div>

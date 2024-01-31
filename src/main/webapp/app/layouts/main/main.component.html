@@ -80,6 +80,10 @@
         <mat-icon mat-list-icon>receipt_long</mat-icon>
         <span>اشهارات العلامات التجارية</span>
       </mat-list-item>
+      <mat-list-item routerLink="regulation" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_TRADEMARK_REGISTER_VIEW']">
+        <mat-icon mat-list-icon>receipt_long</mat-icon>
+        <span>القرارات والنماذج</span>
+      </mat-list-item>
 
       <!--      <div *jhiHasAnyAuthority="['ROLE_ADMIN']">-->
       <!--        <mat-list-item routerLink="decree-type">-->

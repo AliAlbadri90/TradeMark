@@ -1,0 +1,122 @@
+<div class="entity-container">
+  <div class="mat-elevation-z1 py-4 round-card white-bg p-3">
+    <form (ngSubmit)="save()" [formGroup]="editForm" name="editForm" novalidate role="form">
+      <h2 id="jhi-regulation-heading">اضافة او تعديل قرار / نموذج</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div [hidden]="!editForm.get('id')!.value" class="form-group">
+          <label for="id">ID</label>
+          <input class="form-control" formControlName="id" id="id" name="id" readonly type="text" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_title">العنوان</label>
+          <input class="form-control" formControlName="title" id="field_title" name="title" type="text" />
+          <div *ngIf="editForm.get('title')!.invalid && (editForm.get('title')!.dirty || editForm.get('title')!.touched)">
+            <small *ngIf="editForm.get('title')?.errors?.required" class="form-text text-danger"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_description">التفاصيل</label>
+          <input class="form-control" formControlName="description" id="field_description" name="description" type="text" />
+          <div *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
+            <small *ngIf="editForm.get('description')?.errors?.required" class="form-text text-danger"> This field is required. </small>
+          </div>
+        </div>
+
+        <mat-form-field appearance="standard" class="col">
+          <mat-label>النوع</mat-label>
+          <mat-select formControlName="type" name="type">
+            <mat-option value="قانون">قانون</mat-option>
+            <mat-option value="قرار">قرار</mat-option>
+            <mat-option value="لائحة">لائحة</mat-option>
+            <mat-option value="نموذج">نموذج</mat-option>
+            <mat-option value="دليل">دليل</mat-option>
+            <mat-option value="استمارة">استمارة</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_year">السنة</label>
+          <input class="form-control" formControlName="year" id="field_year" name="year" type="number" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_file"> PDF الملف</label>
+          <div>
+            <div *ngIf="editForm.get('filePdf')!.value" class="form-text text-danger clearfix">
+              <a (click)="openFile(editForm.get('filePdfContentType')!.value, editForm.get('filePdf')!.value)" class="pull-left">open</a
+              ><br />
+              <span class="pull-left"
+                >{{ editForm.get('filePdfContentType')!.value }} , {{ byteSize(editForm.get('filePdf')!.value) }}</span
+              >
+              <button
+                (click)="editForm.patchValue({ filePdf: null }); editForm.patchValue({ filePdfContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+                type="button"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input (change)="setFileData($event, 'filePdf', false)" id="file_file" type="file" />
+          </div>
+          <input class="form-control" formControlName="filePdf" id="field_file" name="filePdf" type="hidden" />
+          <input
+            class="form-control"
+            formControlName="filePdfContentType"
+            id="field_fileContentType"
+            name="filePdfContentType"
+            type="hidden"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_fileWord">WORD الملف</label>
+          <div>
+            <div *ngIf="editForm.get('fileWord')!.value" class="form-text text-danger clearfix">
+              <a class="pull-left" (click)="openFile(editForm.get('fileWordContentType')!.value, editForm.get('fileWord')!.value)">open</a
+              ><br />
+              <span class="pull-left"
+                >{{ editForm.get('fileWordContentType')!.value }} , {{ byteSize(editForm.get('fileWord')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="editForm.patchValue({ fileWord: null }); editForm.patchValue({ fileWordContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_fileWord" (change)="setFileData($event, 'fileWord', false)" />
+          </div>
+          <input type="hidden" class="form-control" name="fileWord" id="field_fileWord" formControlName="fileWord" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="fileWordContentType"
+            id="field_fileWordContentType"
+            formControlName="fileWordContentType"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_isActive">تفعيل</label>
+          <input type="checkbox" class="form-check" name="isActive" id="field_isActive" data-cy="isActive" formControlName="isActive" />
+        </div>
+      </div>
+
+      <div>
+        <button (click)="previousState()" class="btn btn-secondary" id="cancel-save" type="button">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>الغاء</span>
+        </button>
+
+        <button [disabled]="editForm.invalid || isSaving" class="btn btn-primary" id="save-entity" type="submit">
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>حفظ</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

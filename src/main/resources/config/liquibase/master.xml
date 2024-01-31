@@ -49,6 +49,7 @@
     <include file="config/liquibase/changelog/20220113163527_added_entity_Government.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220313163521_added_entity_TrademarkDecree.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230113163521_added_entity_TrademarkRegistered.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231013144710_added_entity_Regulation.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20220113163523_added_entity_constraints_Decree.xml"
              relativeToChangelogFile="false"/>

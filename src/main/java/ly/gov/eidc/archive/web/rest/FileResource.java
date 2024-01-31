@@ -21,7 +21,7 @@ public class FileResource {
 
     //TODO:: FILE UUID
     @GetMapping("/public/file/download/{fileName}")
-    public ResponseEntity<byte[]> downloadImage(@PathVariable String fileName) {
+    public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
         viewLogService.newLog("VIEW_FILE", fileName, "Files");
 
         if (fileName.endsWith(".png")) {
@@ -34,6 +34,13 @@ public class FileResource {
             return ResponseEntity.ok().contentType(MediaType.valueOf("image/svg+xml")).body(FileTools.download(fileName));
         } else if (fileName.endsWith(".pdf")) {
             return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(FileTools.download(fileName));
+        } else if (fileName.endsWith(".doc")) {
+            return ResponseEntity.ok().contentType(MediaType.valueOf("application/msword")).body(FileTools.download(fileName));
+        } else if (fileName.endsWith(".docx")) {
+            return ResponseEntity
+                .ok()
+                .contentType(MediaType.valueOf("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
+                .body(FileTools.download(fileName));
         } else {
             return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).body(FileTools.download(fileName));
         }

@@ -1,0 +1,127 @@
+<div class="entity-container">
+  <h3 id="page-heading">
+    <span>النماذج والقرارات</span>
+  </h3>
+
+  <div class="mt-1 ml-1 d-flex align-items-center">
+    <button *jhiHasAnyAuthority="['ROLE_ADMIN']" [routerLink]="['./new']" class="ml-1" color="primary" mat-raised-button>
+      <mat-icon>add</mat-icon>
+      إضافة قرار او نموذج
+    </button>
+    <form class="mr-4">
+      <mat-form-field appearance="standard" floatLabel="never">
+        <button (click)="search(currentSearch)" mat-icon-button matPrefix type="submit">
+          <mat-icon>search</mat-icon>
+        </button>
+        <input [(ngModel)]="currentSearch" matInput name="currentSearch" placeholder="بحث" type="text" />
+
+        <button (click)="search('')" *ngIf="currentSearch" color="warn" mat-icon-button matSuffix>
+          <mat-icon>clear</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div *ngIf="regulations && regulations.length > 0; else emptyContent" class="col-12 p-0 mat-elevation-z1 mt-3" id="entities">
+    <table class="col mat-table" matSort>
+      <thead>
+        <tr [(ascending)]="ascending" [(predicate)]="predicate" jhiSort>
+          <th jhiSortBy="id" scope="col">
+            <span>#</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th jhiSortBy="title" scope="col">
+            <span>العنوان</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th jhiSortBy="type" scope="col">
+            <span>النوع</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th jhiSortBy="description" scope="col">
+            <span>التفاصيل</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+
+          <th jhiSortBy="year" scope="col">
+            <span>السنة</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"><span> PDF الملف</span></th>
+          <th scope="col"><span> WORD الملف</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let regulation of regulations; trackBy: trackId">
+          <td>{{ regulation.id }}</td>
+          <td>{{ regulation.title }}</td>
+          <td>{{ regulation.type }}</td>
+          <td>{{ regulation.description }}</td>
+          <td>{{ regulation.year }}</td>
+          <td>
+            <button
+              *ngIf="regulation.filePdfUrl"
+              (click)="openFileUrl(regulation.filePdfUrl)"
+              color="primary"
+              mat-raised-button
+              type="button"
+            >
+              <mat-icon class="ml-2">picture_as_pdf</mat-icon>
+            </button>
+          </td>
+          <td>
+            <button
+              *ngIf="regulation.fileWordUrl"
+              (click)="openFileUrl(regulation.fileWordUrl)"
+              color="primary"
+              mat-raised-button
+              type="button"
+            >
+              <mat-icon class="ml-2">text_snippet</mat-icon>
+            </button>
+          </td>
+          <td class="text-left">
+            <div class="btn-group flex-btn-group-container">
+              <mat-menu #appMenu="matMenu">
+                <button [routerLink]="['./', regulation.id, 'view']" mat-menu-item>
+                  <mat-icon>remove_red_eye</mat-icon>
+                  عرض
+                </button>
+                <button *jhiHasAnyAuthority="['ROLE_ADMIN']" [routerLink]="['./', regulation.id, 'edit']" mat-menu-item>
+                  <mat-icon>edit</mat-icon>
+                  تعديل
+                </button>
+                <button *jhiHasAnyAuthority="['ROLE_ADMIN']" (click)="delete(regulation)" mat-menu-item>
+                  <mat-icon>delete</mat-icon>
+                  حذف
+                </button>
+              </mat-menu>
+              <button [matMenuTriggerFor]="appMenu" class="mr-2" mat-icon-button>
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="col white-b">
+      <mat-divider></mat-divider>
+      <mat-paginator
+        (page)="loadPage($event.pageIndex)"
+        [length]="totalItems"
+        [pageIndex]="page"
+        [pageSize]="itemsPerPage"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+  </div>
+  <ng-template #emptyContent>
+    <jhi-empty-content [isLoading]="isLoading"></jhi-empty-content>
+  </ng-template>
+</div>

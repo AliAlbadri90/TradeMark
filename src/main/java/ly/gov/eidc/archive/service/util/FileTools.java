@@ -17,24 +17,29 @@ public class FileTools {
 
     private static final String uploadsDir = "uploads/archive/";
 
-    public static String upload(byte[] imageBytes, String fileContentType, String name) {
+    public static String upload(byte[] fileBytes, String fileContentType, String name) {
         String generatedName = "";
 
-        if (imageBytes != null) {
+        if (fileBytes != null) {
             try {
-                if (fileContentType.equals(MediaType.IMAGE_PNG_VALUE)) generatedName =
-                    name + "_" + System.currentTimeMillis() + new Random().nextInt(100) + ".png"; else if (
-                    fileContentType.equals(MediaType.IMAGE_JPEG_VALUE)
-                ) generatedName = name + "_" + new Random().nextInt(100) + ".jpeg"; else if (
-                    fileContentType.equals(MediaType.IMAGE_GIF_VALUE)
-                ) generatedName = name + "_" + new Random().nextInt(100) + ".gif"; else if (
-                    fileContentType.equals(MediaType.APPLICATION_PDF_VALUE)
-                ) generatedName = name + "_U" + ".pdf"; else {
-                    generatedName = name + "_" + new Random().nextInt(100) + "." + fileContentType;
+                if (fileContentType.equals(MediaType.IMAGE_PNG_VALUE)) {
+                    generatedName = name + "_" + System.currentTimeMillis() + new Random().nextInt(100) + ".png";
+                } else if (fileContentType.equals(MediaType.IMAGE_JPEG_VALUE)) {
+                    generatedName = name + "_" + System.currentTimeMillis() + new Random().nextInt(100) + ".jpeg";
+                } else if (fileContentType.equals(MediaType.IMAGE_GIF_VALUE)) {
+                    generatedName = name + "_" + System.currentTimeMillis() + new Random().nextInt(100) + ".gif";
+                } else if (fileContentType.equals(MediaType.APPLICATION_PDF_VALUE)) {
+                    generatedName = name + "_U" + ".pdf";
+                } else if (fileContentType.equals("application/msword")) {
+                    generatedName = name + "_" + System.currentTimeMillis() + new Random().nextInt(100) + ".doc";
+                } else if (fileContentType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
+                    generatedName = name + "_" + System.currentTimeMillis() + new Random().nextInt(100) + ".docx";
+                } else {
+                    generatedName = name + "_" + System.currentTimeMillis() + new Random().nextInt(100) + "." + fileContentType;
                 }
 
                 String path = uploadsDir + generatedName;
-                FileUtils.writeByteArrayToFile(new File(path), imageBytes);
+                FileUtils.writeByteArrayToFile(new File(path), fileBytes);
             } catch (IOException e) {
                 e.printStackTrace();
             }
