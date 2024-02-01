@@ -103,7 +103,7 @@ export class TrademarkRegisteredService {
 
   count(req?: any): Observable<HttpResponse<any>> {
     const options = createRequestOption(req);
-    return this.http.get<number>(this.resourceUrl + '/count', { params: options, observe: 'response' });
+    return this.http.get<number>(this.resourcePublicUrl + '/count', { params: options, observe: 'response' });
   }
 
   protected convertDateFromClient(trademarkRegistered: ITrademarkRegistered): ITrademarkRegistered {

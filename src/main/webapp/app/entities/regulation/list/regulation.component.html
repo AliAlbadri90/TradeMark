@@ -85,7 +85,7 @@
               <mat-icon class="ml-2">text_snippet</mat-icon>
             </button>
           </td>
-          <td class="text-left">
+          <td class="text-left" *jhiHasAnyAuthority="['ROLE_ADMIN']">
             <div class="btn-group flex-btn-group-container">
               <mat-menu #appMenu="matMenu">
                 <button [routerLink]="['./', regulation.id, 'view']" mat-menu-item>

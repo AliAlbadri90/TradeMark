@@ -8,3 +8,17 @@
   font-size: 2.5em;
   margin: 13px 0px 15px 0;
 }
+
+.video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; // 100% of the viewport height
+  width: 100%; // 100% of the viewport width
+}
+
+.centered-video {
+  max-width: 80%; // Adjust this value as needed
+  max-height: 80vh; // Adjust this value as needed
+  object-fit: contain; // Ensures the video maintains its aspect ratio
+}

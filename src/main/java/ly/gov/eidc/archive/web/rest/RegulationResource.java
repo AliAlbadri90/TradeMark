@@ -165,6 +165,17 @@ public class RegulationResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/public/regulations")
+    public ResponseEntity<List<RegulationDTO>> getAllRegulationsPublic(
+        RegulationCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get Regulations by criteria: {}", criteria);
+        Page<RegulationDTO> page = regulationQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
     /**
      * {@code GET  /regulations/count} : count all the regulations.
      *

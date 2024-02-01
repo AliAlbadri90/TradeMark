@@ -12,9 +12,9 @@ const regulationRoute: Routes = [
     path: '',
     component: RegulationComponent,
     data: {
-      defaultSort: 'id,asc',
+      defaultSort: 'id,desc',
     },
-    canActivate: [UserRouteAccessService],
+    // canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',

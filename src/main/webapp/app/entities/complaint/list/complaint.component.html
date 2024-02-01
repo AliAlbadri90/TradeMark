@@ -5,7 +5,7 @@
   <div class="mt-1 ml-1 d-flex align-items-center">
     <button [routerLink]="['./new']" class="ml-1" color="primary" mat-raised-button *jhiHasAnyAuthority="['ROLE_ADMIN']">
       <mat-icon>add</mat-icon>
-      <span jhiTranslate="eTravelApp.airline.home.createLabel"> اضافة اشهار جديد </span>
+      <span jhiTranslate="eTravelApp.airline.home.createLabel"> اضافة اعتراض جديد </span>
     </button>
 
     <form class="mr-4">
@@ -26,54 +26,54 @@
     <table class="col mat-table">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="complaintUUID"><span>Complaint UUID</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="complaintNo"><span>Complaint No</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="trademarkNo"><span>Trademark No</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="complaintDate"><span>Complaint Date</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="complaintOfficeReceivedDate">
-            <span>Complaint Office Received Date</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="complaintPaymentReceipt">
-            <span>Complaint Payment Receipt</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="complaintYear"><span>Complaint Year</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="id"><span>#</span> <fa-icon icon="sort"></fa-icon></th>
+          <!--          <th scope="col" jhiSortBy="complaintUUID"><span>Complaint UUID</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
+          <th scope="col" jhiSortBy="complaintNo"><span>رقم الاعتراض</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="trademarkNo"><span>رقم تسجيل العلامة</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="complaintDate"><span>تاريخ الاعتراض</span> <fa-icon icon="sort"></fa-icon></th>
+          <!--          <th scope="col" jhiSortBy="complaintOfficeReceivedDate">-->
+          <!--            <span>Complaint Office Received Date</span> <fa-icon icon="sort"></fa-icon>-->
+          <!--          </th>-->
+          <!--          <th scope="col" jhiSortBy="complaintPaymentReceipt">-->
+          <!--            <span>Complaint Payment Receipt</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>-->
+          <!--          </th>-->
+          <!--          <th scope="col" jhiSortBy="complaintYear"><span>Complaint Year</span> <fa-icon icon="sort"></fa-icon></th>-->
           <th scope="col" jhiSortBy="complainerPersonFullName">
-            <span>Complainer Person Full Name</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+            <span>اسم المعترض</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="complainerPersonJob">
-            <span>Complainer Person Job</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="complainerPersonNationality">
-            <span>Complainer Person Nationality</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="complainerPersonAddress">
-            <span>Complainer Person Address</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="complainerCompanyName">
-            <span>Complainer Company Name</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="complainerCompanyAddress">
-            <span>Complainer Company Address</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="complainerCompanyPurpose">
-            <span>Complainer Company Purpose</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="complainerCompanyHeadQuarterAddress">
-            <span>Complainer Company Head Quarter Address</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="complainerCompanyLibyaAddress">
-            <span>Complainer Company Libya Address</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="pdfFile"><span>Pdf File</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="pdfFileUrl"><span>Pdf File Url</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="complaintStatus">
-            <span>Complaint Status</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="complaintDetails">
-            <span>Complaint Details</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="notes"><span>Notes</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
+          <!--          <th scope="col" jhiSortBy="complainerPersonJob">-->
+          <!--            <span>Complainer Person Job</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>-->
+          <!--          </th>-->
+          <!--          <th scope="col" jhiSortBy="complainerPersonNationality">-->
+          <!--            <span>Complainer Person Nationality</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>-->
+          <!--          </th>-->
+          <!--          <th scope="col" jhiSortBy="complainerPersonAddress">-->
+          <!--            <span>Complainer Person Address</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>-->
+          <!--          </th>-->
+          <!--          <th scope="col" jhiSortBy="complainerCompanyName">-->
+          <!--            <span>Complainer Company Name</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>-->
+          <!--          </th>-->
+          <!--          <th scope="col" jhiSortBy="complainerCompanyAddress">-->
+          <!--            <span>Complainer Company Address</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>-->
+          <!--          </th>-->
+          <!--          <th scope="col" jhiSortBy="complainerCompanyPurpose">-->
+          <!--            <span>Complainer Company Purpose</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>-->
+          <!--          </th>-->
+          <!--          <th scope="col" jhiSortBy="complainerCompanyHeadQuarterAddress">-->
+          <!--            <span>Complainer Company Head Quarter Address</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>-->
+          <!--          </th>-->
+          <!--          <th scope="col" jhiSortBy="complainerCompanyLibyaAddress">-->
+          <!--            <span>Complainer Company Libya Address</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>-->
+          <!--          </th>-->
+          <!--          <th scope="col" jhiSortBy="pdfFile"><span>Pdf File</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
+          <!--          <th scope="col" jhiSortBy="pdfFileUrl"><span>Pdf File Url</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
+          <!--          <th scope="col" jhiSortBy="complaintStatus">-->
+          <!--            <span>Complaint Status</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>-->
+          <!--          </th>-->
+          <!--          <th scope="col" jhiSortBy="complaintDetails">-->
+          <!--            <span>Complaint Details</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>-->
+          <!--          </th>-->
+          <!--          <th scope="col" jhiSortBy="notes"><span>Notes</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
           <th scope="col"></th>
         </tr>
       </thead>
@@ -82,30 +82,30 @@
           <td>
             <a [routerLink]="['/complaint', complaint.id, 'view']">{{ complaint.id }}</a>
           </td>
-          <td>{{ complaint.complaintUUID }}</td>
+          <!--          <td>{{ complaint.complaintUUID }}</td>-->
           <td>{{ complaint.complaintNo }}</td>
           <td>{{ complaint.trademarkNo }}</td>
           <td>{{ complaint.complaintDate | formatMediumDate }}</td>
-          <td>{{ complaint.complaintOfficeReceivedDate | formatMediumDate }}</td>
-          <td>{{ complaint.complaintPaymentReceipt }}</td>
-          <td>{{ complaint.complaintYear }}</td>
+          <!--          <td>{{ complaint.complaintOfficeReceivedDate | formatMediumDate }}</td>-->
+          <!--          <td>{{ complaint.complaintPaymentReceipt }}</td>-->
+          <!--          <td>{{ complaint.complaintYear }}</td>-->
           <td>{{ complaint.complainerPersonFullName }}</td>
-          <td>{{ complaint.complainerPersonJob }}</td>
-          <td>{{ complaint.complainerPersonNationality }}</td>
-          <td>{{ complaint.complainerPersonAddress }}</td>
-          <td>{{ complaint.complainerCompanyName }}</td>
-          <td>{{ complaint.complainerCompanyAddress }}</td>
-          <td>{{ complaint.complainerCompanyPurpose }}</td>
-          <td>{{ complaint.complainerCompanyHeadQuarterAddress }}</td>
-          <td>{{ complaint.complainerCompanyLibyaAddress }}</td>
-          <td>
-            <a *ngIf="complaint.pdfFile" (click)="openFile(complaint.pdfFile, complaint.pdfFileContentType)">open</a>
-            <span *ngIf="complaint.pdfFile">{{ complaint.pdfFileContentType }}, {{ byteSize(complaint.pdfFile) }}</span>
-          </td>
-          <td>{{ complaint.pdfFileUrl }}</td>
-          <td>{{ complaint.complaintStatus }}</td>
-          <td>{{ complaint.complaintDetails }}</td>
-          <td>{{ complaint.notes }}</td>
+          <!--          <td>{{ complaint.complainerPersonJob }}</td>-->
+          <!--          <td>{{ complaint.complainerPersonNationality }}</td>-->
+          <!--          <td>{{ complaint.complainerPersonAddress }}</td>-->
+          <!--          <td>{{ complaint.complainerCompanyName }}</td>-->
+          <!--          <td>{{ complaint.complainerCompanyAddress }}</td>-->
+          <!--          <td>{{ complaint.complainerCompanyPurpose }}</td>-->
+          <!--          <td>{{ complaint.complainerCompanyHeadQuarterAddress }}</td>-->
+          <!--          <td>{{ complaint.complainerCompanyLibyaAddress }}</td>-->
+          <!--          <td>-->
+          <!--            <a *ngIf="complaint.pdfFile" (click)="openFile(complaint.pdfFile, complaint.pdfFileContentType)">open</a>-->
+          <!--            <span *ngIf="complaint.pdfFile">{{ complaint.pdfFileContentType }}, {{ byteSize(complaint.pdfFile) }}</span>-->
+          <!--          </td>-->
+          <!--          <td>{{ complaint.pdfFileUrl }}</td>-->
+          <!--          <td>{{ complaint.complaintStatus }}</td>-->
+          <!--          <td>{{ complaint.complaintDetails }}</td>-->
+          <!--          <td>{{ complaint.notes }}</td>-->
           <td class="text-left">
             <div class="btn-group flex-btn-group-container">
               <mat-menu #appMenu="matMenu">

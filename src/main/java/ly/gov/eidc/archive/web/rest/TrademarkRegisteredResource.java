@@ -198,6 +198,12 @@ public class TrademarkRegisteredResource {
         return ResponseEntity.ok().body(trademarkRegisteredQueryService.countByCriteria(criteria));
     }
 
+    @GetMapping("/public/trademark-registereds/count")
+    public ResponseEntity<Long> countTrademarkRegisteredsPublic(TrademarkRegisteredCriteria criteria) {
+        log.debug("REST request to count TrademarkRegistereds by criteria: {}", criteria);
+        return ResponseEntity.ok().body(trademarkRegisteredQueryService.countByCriteria(criteria));
+    }
+
     /**
      * {@code GET  /trademark-registereds/:id} : get the "id" trademarkRegistered.
      *

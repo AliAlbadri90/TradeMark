@@ -14,6 +14,7 @@ export type EntityArrayResponseType = HttpResponse<IRegulation[]>;
 @Injectable({ providedIn: 'root' })
 export class RegulationService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/regulations');
+  protected resourcePublicUrl = this.applicationConfigService.getEndpointFor('api/public/regulations');
   protected resourceSearchUrl = this.applicationConfigService.getEndpointFor('api/_search/regulations');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
@@ -40,7 +41,7 @@ export class RegulationService {
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IRegulation[]>(this.resourceUrl, { params: options, observe: 'response' });
+    return this.http.get<IRegulation[]>(this.resourcePublicUrl, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

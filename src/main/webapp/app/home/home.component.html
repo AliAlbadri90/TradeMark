@@ -1,45 +1,92 @@
 <div class="wide-container">
-  <!--  <div style="min-height: 400px">-->
-  <!--    <div class="row d-flex p-5 align-items-center main-container mx-auto">-->
-  <!--      <div class="col-12 text-sm-right col-sm-6 text-center">-->
-  <!--        <h3 class="primary">اشهارات العلامات التجارية</h3>-->
-  <!--      </div>-->
-  <!--    </div>-->
-
-  <!--    <div class="card-container m-5">-->
-  <!--      <mat-card class="example-ripple mat-elevation-z1 round-card d-flex flex-column" matRipple routerLink="/trademark-registered">-->
-  <!--        <strong>اشهارات العلامات التجارية</strong>-->
-  <!--        <br />-->
-  <!--        <p>البحث في قائمة العلامات التجارية المشهرة</p>-->
-  <!--        <div class="text-left">-->
-  <!--          <button mat-mini-fab class="mat-elevation-z0" color="primary" matRipple routerLink="trademark-registered">-->
-  <!--            <mat-icon>chevron_left</mat-icon>-->
-  <!--          </button>-->
-  <!--        </div>-->
-  <!--      </mat-card>-->
-  <!--    </div>-->
+  <!--  <div *ngIf="isCountdownFinished && !isVideoEnded" class="video-container">-->
+  <!--    <video #videoPlayer autoplay muted controls class="centered-video" (ended)="onVideoEnded()">-->
+  <!--      <source src="content/images/vid.mp4" type="video/mp4">-->
+  <!--      Your browser does not support the video tag.-->
+  <!--    </video>-->
   <!--  </div>-->
 
+  <div *ngIf="isCountdownFinished">
+    <div class="col text-center">
+      <h3 class="primary">اشهارات العلامات التجارية</h3>
+    </div>
+    <div style="min-height: 300px">
+      <div class="row d-flex p-5 align-items-center main-container mx-auto">
+        <div class="card-container m-5">
+          <mat-card class="example-ripple mat-elevation-z1 round-card d-flex flex-column" matRipple routerLink="/trademark-registered">
+            <strong>اشهارات العلامات التجارية</strong>
+            <br />
+            <p>البحث في قائمة العلامات التجارية المشهرة</p>
+            <div class="text-left">
+              <button mat-mini-fab class="mat-elevation-z0" color="primary" matRipple routerLink="trademark-registered">
+                <mat-icon>chevron_left</mat-icon>
+              </button>
+            </div>
+          </mat-card>
+        </div>
+
+        <div class="card-container m-5">
+          <mat-card class="example-ripple mat-elevation-z1 round-card d-flex flex-column" matRipple routerLink="/regulation">
+            <strong>القرارات والنماذج</strong>
+            <br />
+            <p>البحث في قائمة القرارات والنماذج</p>
+            <div class="text-left">
+              <button mat-mini-fab class="mat-elevation-z0" color="primary" matRipple routerLink="regulation">
+                <mat-icon>chevron_left</mat-icon>
+              </button>
+            </div>
+          </mat-card>
+        </div>
+
+        <div class="card-container m-5">
+          <mat-card class="example-ripple mat-elevation-z1 round-card d-flex flex-column" matRipple>
+            <strong> تقديم معارضة (قريبا)</strong>
+            <br />
+            <p>تقديم معارضة على الاستمارة رقم 4</p>
+            <div class="text-left">
+              <button mat-mini-fab class="mat-elevation-z0" color="primary" matRipple>
+                <mat-icon>chevron_left</mat-icon>
+              </button>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div style="min-height: 300px">
+      <div class="row d-flex p-5 align-items-center main-container mx-auto">
+        <div class="mat-elevation-z1 px-4 py-3 d-flex round-card col white-bg">
+          <div class="d-flex flex-column">
+            <h3 class="m-0">{{ decreeRegisterCount }}</h3>
+            <p class="m-0">عدد العلامات المشهرة</p>
+          </div>
+          <mat-icon class="big-icon mr-auto" color="primary">description</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <br />
   <br />
 
-  <div *ngIf="secondsToDday >= 0 || hoursToDday >= 0 || minutesToDday >= 0" class="timer">
-    <img alt="logo" class="img-logo" src="../../../content/images/logo.png" />
+  <div *ngIf="!isCountdownFinished">
+    <div *ngIf="secondsToDday >= 0 || hoursToDday >= 0 || minutesToDday >= 0" class="timer">
+      <img alt="logo" class="img-logo" src="../../../content/images/logo.png" />
 
-    <h3>حكومة الوحدة الوطنية</h3>
-    <h3>وزارة الاقتصاد و التجارة</h3>
-    <h4>مكتب العلامات التجارية</h4>
+      <h3>حكومة الوحدة الوطنية</h3>
+      <h3>وزارة الاقتصاد و التجارة</h3>
+      <h4>مكتب العلامات التجارية</h4>
 
-    <br />
-    <span id="days"> {{ daysToDday }} </span>يوم <span id="hours"> {{ hoursToDday }} </span>ساعة
-    <span id="minutes"> {{ minutesToDday }} </span>دقيقة <span id="seconds"> {{ secondsToDday }} </span>ثانية
-    <br />
-    <h4>العد التنازلي لاطلاق موقع الاشهار الالكتروني للعلامات التجارية</h4>
-    <h4>الخميس 1-2-2024م الساعة 12 ظهرا</h4>
-    <br />
-    <h4>تنفيذ مركز المعلومات و التوثيق الاقتصادي</h4>
+      <br />
+      <span id="days"> {{ daysToDday }} </span>يوم <span id="hours"> {{ hoursToDday }} </span>ساعة
+      <span id="minutes"> {{ minutesToDday }} </span>دقيقة <span id="seconds"> {{ secondsToDday }} </span>ثانية
+      <br />
+      <h4>العد التنازلي لاطلاق موقع الاشهار الالكتروني للعلامات التجارية</h4>
+      <h4>الخميس 1-2-2024م الساعة 12 ظهرا</h4>
+      <br />
+      <h4>تنفيذ مركز المعلومات و التوثيق الاقتصادي</h4>
 
-    <br />
+      <br />
+    </div>
   </div>
 
   <br />

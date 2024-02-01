@@ -70,6 +70,8 @@
           <!--          <th scope="col" jhiSortBy="extraFile"><span>Extra File</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
           <!--          <th scope="col" jhiSortBy="extraFileUrl"><span>Extra File Url</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
           <!--          <th scope="col" jhiSortBy="notes"><span>Notes</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
+          <th scope="col" jhiSortBy="publicationDate"><span>تاريخ النشرية</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="publicationNo"><span>رقم النشرية</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -92,10 +94,13 @@
           <td>{{ trademarkRegistered.category }}</td>
 
           <td>
-            <a href="/api/public/file/download/{{ trademarkRegistered.fileUrl }}" target="_blank">
-              <img class="m-3" src="/api/public/file/download/{{ trademarkRegistered.fileUrl }}" style="max-height: 60px" alt="image" />
+            <a href="/api/public/file/download/{{ trademarkRegistered.imageFile }}" target="_blank">
+              <img class="m-3" src="/api/public/file/download/{{ trademarkRegistered.imageFile }}" style="max-height: 60px" alt="image" />
             </a>
           </td>
+          <td>{{ trademarkRegistered.publicationDate | arabicDate }}</td>
+          <td>{{ trademarkRegistered.publicationNo }}</td>
+
           <!--          <td>{{ trademarkRegistered.extraFileUrl }}</td>-->
           <!--          <td>{{ trademarkRegistered.notes }}</td>-->
           <td class="text-left">
