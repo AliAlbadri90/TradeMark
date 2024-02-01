@@ -11,6 +11,7 @@ import { SortDirective } from './sort/sort.directive';
 import { ItemCountComponent } from './pagination/item-count.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ArabicDatePipe } from './pipes/arabic-date.pipe';
+import { TranslateMePipe } from './pipes/mapper.pip';
 
 @NgModule({
   imports: [SharedLibsModule, SweetAlert2Module.forRoot()],
@@ -25,6 +26,7 @@ import { ArabicDatePipe } from './pipes/arabic-date.pipe';
     SortDirective,
     ItemCountComponent,
     ArabicDatePipe,
+    TranslateMePipe,
   ],
   exports: [
     SharedLibsModule,
@@ -38,6 +40,7 @@ import { ArabicDatePipe } from './pipes/arabic-date.pipe';
     SortDirective,
     ItemCountComponent,
     ArabicDatePipe,
+    TranslateMePipe,
   ],
 })
 export class SharedModule {}

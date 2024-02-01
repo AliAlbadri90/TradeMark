@@ -26,6 +26,9 @@ public class TrademarkRegistered extends AbstractAuditingEntity implements Seria
     @Field
     private Long id;
 
+    @Column(name = "trademark_uuid")
+    private String trademarkUUID;
+
     @Column(name = "trademark_no")
     @Field(type = FieldType.Text, searchAnalyzer = "searchAnalyzer", analyzer = "indexAnalyzer")
     private String trademarkNo;
@@ -132,6 +135,19 @@ public class TrademarkRegistered extends AbstractAuditingEntity implements Seria
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTrademarkUUID() {
+        return this.trademarkUUID;
+    }
+
+    public TrademarkRegistered trademarkUUID(String trademarkUUID) {
+        this.setTrademarkUUID(trademarkUUID);
+        return this;
+    }
+
+    public void setTrademarkUUID(String trademarkUUID) {
+        this.trademarkUUID = trademarkUUID;
     }
 
     public String getTrademarkNo() {
@@ -496,6 +512,7 @@ public class TrademarkRegistered extends AbstractAuditingEntity implements Seria
     public String toString() {
         return "TrademarkRegistered{" +
             "id=" + getId() +
+            ", trademarkUUID='" + getTrademarkUUID() + "'" +
             ", trademarkNo='" + getTrademarkNo() + "'" +
             ", year=" + getYear() +
             ", decreeNo='" + getDecreeNo() + "'" +

@@ -3,6 +3,7 @@ import { TrademarkRegisteredStatus } from 'app/entities/enumerations/trademark-r
 
 export interface ITrademarkRegistered {
   id?: number;
+  trademarkUUID?: string | null;
   trademarkNo?: string | null;
   year?: number | null;
   decreeNo?: string | null;
@@ -34,6 +35,7 @@ export interface ITrademarkRegistered {
 export class TrademarkRegistered implements ITrademarkRegistered {
   constructor(
     public id?: number,
+    public trademarkUUID?: string | null,
     public trademarkNo?: string | null,
     public year?: number | null,
     public decreeNo?: string | null,

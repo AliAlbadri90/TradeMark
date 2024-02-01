@@ -1,17 +1,17 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-complaint-heading" data-cy="ComplaintCreateUpdateHeading">Create or edit a Complaint</h2>
+      <h2 id="jhi-complaint-heading" data-cy="ComplaintCreateUpdateHeading">انشاء اعتراض</h2>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
 
         <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" for="field_id">ID</label>
+          <label class="form-control-label" for="field_id">#</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="form-group">
+        <div class="form-group" hidden>
           <label class="form-control-label" for="field_complaintUUID">Complaint UUID</label>
           <input
             type="text"
@@ -23,7 +23,7 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="form-group" hidden>
           <label class="form-control-label" for="field_complaintNo">Complaint No</label>
           <input
             type="text"
@@ -35,7 +35,7 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="form-group" hidden>
           <label class="form-control-label" for="field_trademarkNo">Trademark No</label>
           <input
             type="text"
@@ -47,7 +47,7 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="form-group" hidden>
           <label class="form-control-label" for="field_complaintDate">Complaint Date</label>
           <div class="input-group">
             <input
@@ -68,7 +68,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" hidden>
           <label class="form-control-label" for="field_complaintOfficeReceivedDate">Complaint Office Received Date</label>
           <div class="input-group">
             <input
@@ -89,7 +89,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" hidden>
           <label class="form-control-label" for="field_complaintPaymentReceipt">Complaint Payment Receipt</label>
           <input
             type="text"
@@ -101,7 +101,7 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="form-group" hidden>
           <label class="form-control-label" for="field_complaintYear">Complaint Year</label>
           <input
             type="number"
@@ -114,7 +114,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_complainerPersonFullName">Complainer Person Full Name</label>
+          <label class="form-control-label" for="field_complainerPersonFullName">الاسم واللقب لمقدم الشكوى</label>
           <input
             type="text"
             class="form-control"
@@ -126,7 +126,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_complainerPersonJob">Complainer Person Job</label>
+          <label class="form-control-label" for="field_complainerPersonJob">المهنة</label>
           <input
             type="text"
             class="form-control"
@@ -138,7 +138,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_complainerPersonNationality">Complainer Person Nationality</label>
+          <label class="form-control-label" for="field_complainerPersonNationality">الجنسية</label>
           <input
             type="text"
             class="form-control"
@@ -150,7 +150,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_complainerPersonAddress">Complainer Person Address</label>
+          <label class="form-control-label" for="field_complainerPersonAddress">محل الاقامة</label>
           <input
             type="text"
             class="form-control"
@@ -162,7 +162,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_complainerCompanyName">Complainer Company Name</label>
+          <label class="form-control-label" for="field_complainerCompanyName">اسم الشركة المقدمة للشكوى </label>
           <input
             type="text"
             class="form-control"
@@ -174,7 +174,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_complainerCompanyAddress">Complainer Company Address</label>
+          <label class="form-control-label" for="field_complainerCompanyAddress">عنوان الشركة</label>
           <input
             type="text"
             class="form-control"
@@ -186,7 +186,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_complainerCompanyPurpose">Complainer Company Purpose</label>
+          <label class="form-control-label" for="field_complainerCompanyPurpose">غرض الشركة</label>
           <input
             type="text"
             class="form-control"
@@ -198,7 +198,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_complainerCompanyHeadQuarterAddress">Complainer Company Head Quarter Address</label>
+          <label class="form-control-label" for="field_complainerCompanyHeadQuarterAddress">عنوان المقر الرئيسي للشركة</label>
           <input
             type="text"
             class="form-control"
@@ -210,7 +210,9 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_complainerCompanyLibyaAddress">Complainer Company Libya Address</label>
+          <label class="form-control-label" for="field_complainerCompanyLibyaAddress"
+            >المحل المختار بليبيا الذي ترسل اليه المكاتبات و المستندات المتعلقة بالمعارضة</label
+          >
           <input
             type="text"
             class="form-control"
@@ -221,7 +223,7 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="form-group" hidden>
           <label class="form-control-label" for="field_pdfFile">Pdf File</label>
           <div>
             <div *ngIf="editForm.get('pdfFile')!.value" class="form-text text-danger clearfix">
@@ -248,7 +250,7 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="form-group" hidden>
           <label class="form-control-label" for="field_pdfFileUrl">Pdf File Url</label>
           <input
             type="text"
@@ -260,7 +262,7 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="form-group" hidden>
           <label class="form-control-label" for="field_complaintStatus">Complaint Status</label>
           <select
             class="form-control"
@@ -275,7 +277,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_complaintDetails">Complaint Details</label>
+          <label class="form-control-label" for="field_complaintDetails">تفاصيل عن المعارضة</label>
           <input
             type="text"
             class="form-control"
@@ -286,7 +288,7 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="form-group" hidden>
           <label class="form-control-label" for="field_notes">Notes</label>
           <input type="text" class="form-control" name="notes" id="field_notes" data-cy="notes" formControlName="notes" />
         </div>
@@ -294,7 +296,7 @@
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>الغاء</span>
         </button>
 
         <button
@@ -304,7 +306,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>حفظ</span>
         </button>
       </div>
     </form>

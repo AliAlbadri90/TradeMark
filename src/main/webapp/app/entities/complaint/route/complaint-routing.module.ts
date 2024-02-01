@@ -40,6 +40,14 @@ const complaintRoute: Routes = [
     },
     canActivate: [UserRouteAccessService],
   },
+  {
+    path: ':trademarkNo/trademark',
+    component: ComplaintUpdateComponent,
+    resolve: {
+      complaint: ComplaintRoutingResolveService,
+    },
+    canActivate: [UserRouteAccessService],
+  },
 ];
 
 @NgModule({

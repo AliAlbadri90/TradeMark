@@ -3,6 +3,7 @@ package ly.gov.eidc.archive.service;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 import com.google.common.primitives.Ints;
+import java.util.List;
 import java.util.Optional;
 import ly.gov.eidc.archive.domain.TrademarkRegistered;
 import ly.gov.eidc.archive.repository.TrademarkRegisteredRepository;
@@ -103,6 +104,11 @@ public class TrademarkRegisteredService {
         return trademarkRegisteredRepository.findAll(pageable).map(trademarkRegisteredMapper::toDto);
     }
 
+    @Transactional(readOnly = true)
+    public List<TrademarkRegisteredDTO> findAll() {
+        return trademarkRegisteredMapper.toDto(trademarkRegisteredRepository.findAll());
+    }
+
     /**
      * Get one trademarkRegistered by id.
      *
@@ -140,6 +146,7 @@ public class TrademarkRegisteredService {
         if (searchType.contains("matching")) {
             TrademarkRegisteredCriteria criteria = new TrademarkRegisteredCriteria();
             if (selectedColumn.contains("all")) {
+                criteria.setOr(true);
                 criteria.applicantName().setContains(query);
                 criteria.trademarkArabic().setContains(query);
                 criteria.trademarkEnglish().setContains(query);

@@ -9,9 +9,11 @@ import ly.gov.eidc.archive.domain.enumeration.TrademarkRegisteredStatus;
 /**
  * A DTO for the {@link ly.gov.eidc.archive.domain.TrademarkRegistered} entity.
  */
-public class TrademarkRegisteredDTO extends AbstractAuditingDTO implements Serializable {
+public class TrademarkRegisteredDTO implements Serializable {
 
     private Long id;
+
+    private String trademarkUUID;
 
     private String trademarkNo;
 
@@ -71,6 +73,14 @@ public class TrademarkRegisteredDTO extends AbstractAuditingDTO implements Seria
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTrademarkUUID() {
+        return trademarkUUID;
+    }
+
+    public void setTrademarkUUID(String trademarkUUID) {
+        this.trademarkUUID = trademarkUUID;
     }
 
     public String getTrademarkNo() {
@@ -307,6 +317,7 @@ public class TrademarkRegisteredDTO extends AbstractAuditingDTO implements Seria
     public String toString() {
         return "TrademarkRegisteredDTO{" +
             "id=" + getId() +
+            ", trademarkUUID='" + getTrademarkUUID() + "'" +
             ", trademarkNo='" + getTrademarkNo() + "'" +
             ", year=" + getYear() +
             ", decreeNo='" + getDecreeNo() + "'" +

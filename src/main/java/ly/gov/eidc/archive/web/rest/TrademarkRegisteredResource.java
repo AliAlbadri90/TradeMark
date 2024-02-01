@@ -4,22 +4,24 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.StreamSupport;
 import ly.gov.eidc.archive.repository.TrademarkRegisteredRepository;
 import ly.gov.eidc.archive.service.TrademarkRegisteredQueryService;
 import ly.gov.eidc.archive.service.TrademarkRegisteredService;
 import ly.gov.eidc.archive.service.criteria.TrademarkRegisteredCriteria;
 import ly.gov.eidc.archive.service.dto.TrademarkRegisteredDTO;
+import ly.gov.eidc.archive.service.util.FileTools;
+import ly.gov.eidc.archive.service.util.JasperReportsUtil;
 import ly.gov.eidc.archive.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -46,6 +48,9 @@ public class TrademarkRegisteredResource {
     private final TrademarkRegisteredRepository trademarkRegisteredRepository;
 
     private final TrademarkRegisteredQueryService trademarkRegisteredQueryService;
+
+    @Autowired
+    JasperReportsUtil jasperReportsUtil;
 
     public TrademarkRegisteredResource(
         TrademarkRegisteredService trademarkRegisteredService,
@@ -268,5 +273,29 @@ public class TrademarkRegisteredResource {
     @GetMapping("/public/trademark-registereds/reindex")
     public void reindex() {
         trademarkRegisteredService.reindex();
+    }
+
+    @GetMapping("/trademark-registereds/recheck-files")
+    public void recheckFiles() {
+        trademarkRegisteredService
+            .findAll()
+            .forEach(trademarkRegisteredDTO -> {
+                if (FileTools.download(trademarkRegisteredDTO.getFileUrl()) == null) trademarkRegisteredDTO.setFileUrl(null);
+                if (FileTools.download(trademarkRegisteredDTO.getImageFileUrl()) == null) trademarkRegisteredDTO.setImageFileUrl(null);
+                trademarkRegisteredService.save(trademarkRegisteredDTO);
+            });
+    }
+
+    @GetMapping(value = "/public/trademark-registereds/print/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<byte[]> printBusinessNameRequestPDF(@PathVariable Long id) {
+        log.debug("REST request to get report");
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("trademark_registered_id", id);
+        byte[] fileBytes = jasperReportsUtil.getReportAsPDF(parameters, "trademark_registered");
+        HttpHeaders header = new HttpHeaders();
+        header.setContentType(MediaType.APPLICATION_PDF);
+        header.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=Name_" + System.currentTimeMillis() + ".pdf");
+        header.setContentLength(fileBytes.length);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(fileBytes), header);
     }
 }

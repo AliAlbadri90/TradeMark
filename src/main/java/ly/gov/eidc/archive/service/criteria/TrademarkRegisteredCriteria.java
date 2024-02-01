@@ -24,6 +24,14 @@ import tech.jhipster.service.filter.StringFilter;
  */
 public class TrademarkRegisteredCriteria implements Serializable, Criteria {
 
+    public Boolean getOr() {
+        return isOr;
+    }
+
+    public void setOr(Boolean or) {
+        isOr = or;
+    }
+
     /**
      * Class for filtering TrademarkRegisteredStatus
      */
@@ -44,6 +52,8 @@ public class TrademarkRegisteredCriteria implements Serializable, Criteria {
     private static final long serialVersionUID = 1L;
 
     private LongFilter id;
+
+    private StringFilter trademarkUUID;
 
     private StringFilter trademarkNo;
 
@@ -87,10 +97,13 @@ public class TrademarkRegisteredCriteria implements Serializable, Criteria {
 
     private Boolean distinct;
 
+    private Boolean isOr = false;
+
     public TrademarkRegisteredCriteria() {}
 
     public TrademarkRegisteredCriteria(TrademarkRegisteredCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
+        this.trademarkUUID = other.trademarkUUID == null ? null : other.trademarkUUID.copy();
         this.trademarkNo = other.trademarkNo == null ? null : other.trademarkNo.copy();
         this.year = other.year == null ? null : other.year.copy();
         this.decreeNo = other.decreeNo == null ? null : other.decreeNo.copy();
@@ -132,6 +145,21 @@ public class TrademarkRegisteredCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
+    }
+
+    public StringFilter getTrademarkUUID() {
+        return trademarkUUID;
+    }
+
+    public StringFilter trademarkUUID() {
+        if (trademarkUUID == null) {
+            trademarkUUID = new StringFilter();
+        }
+        return trademarkUUID;
+    }
+
+    public void setTrademarkUUID(StringFilter trademarkUUID) {
+        this.trademarkUUID = trademarkUUID;
     }
 
     public StringFilter getTrademarkNo() {
@@ -453,6 +481,7 @@ public class TrademarkRegisteredCriteria implements Serializable, Criteria {
         final TrademarkRegisteredCriteria that = (TrademarkRegisteredCriteria) o;
         return (
             Objects.equals(id, that.id) &&
+            Objects.equals(trademarkUUID, that.trademarkUUID) &&
             Objects.equals(trademarkNo, that.trademarkNo) &&
             Objects.equals(year, that.year) &&
             Objects.equals(decreeNo, that.decreeNo) &&
@@ -481,6 +510,7 @@ public class TrademarkRegisteredCriteria implements Serializable, Criteria {
     public int hashCode() {
         return Objects.hash(
             id,
+            trademarkUUID,
             trademarkNo,
             year,
             decreeNo,
@@ -510,6 +540,7 @@ public class TrademarkRegisteredCriteria implements Serializable, Criteria {
     public String toString() {
         return "TrademarkRegisteredCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
+            (trademarkUUID != null ? "trademarkUUID=" + trademarkUUID + ", " : "") +
             (trademarkNo != null ? "trademarkNo=" + trademarkNo + ", " : "") +
             (year != null ? "year=" + year + ", " : "") +
             (decreeNo != null ? "decreeNo=" + decreeNo + ", " : "") +

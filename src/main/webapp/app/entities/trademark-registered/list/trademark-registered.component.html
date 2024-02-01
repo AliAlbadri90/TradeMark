@@ -110,6 +110,10 @@
                   <mat-icon class="ml-2">picture_as_pdf</mat-icon>
                   <span class="d-none d-md-inline">طباعة</span>
                 </button>
+                <button [routerLink]="['complaint', trademarkRegistered.trademarkNo, 'trademark']" mat-menu-item>
+                  <mat-icon>arrow_forward</mat-icon>
+                  <span class="d-none d-md-inline">اعتراض</span>
+                </button>
 
                 <button [routerLink]="['./', trademarkRegistered.id, 'edit']" *jhiHasAnyAuthority="['ROLE_ADMIN']" mat-menu-item>
                   <mat-icon>edit</mat-icon>

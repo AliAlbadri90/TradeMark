@@ -3,6 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import dayjs from 'dayjs/esm';
 
 import { DATE_FORMAT } from 'app/config/input.constants';
+import { TrademarkRegisteredStatus } from 'app/entities/enumerations/trademark-registered-status.model';
 import { ITrademarkRegistered, TrademarkRegistered } from '../trademark-registered.model';
 
 import { TrademarkRegisteredService } from './trademark-registered.service';
@@ -25,6 +26,7 @@ describe('TrademarkRegistered Service', () => {
 
     elemDefault = {
       id: 0,
+      trademarkUUID: 'AAAAAAA',
       trademarkNo: 'AAAAAAA',
       year: 0,
       decreeNo: 'AAAAAAA',
@@ -37,12 +39,19 @@ describe('TrademarkRegistered Service', () => {
       trademarkEnglish: 'AAAAAAA',
       trademarkArabic: 'AAAAAAA',
       category: 'AAAAAAA',
+      imageFileContentType: 'image/png',
+      imageFile: 'AAAAAAA',
+      imageFileUrl: 'AAAAAAA',
       fileContentType: 'image/png',
       file: 'AAAAAAA',
       fileUrl: 'AAAAAAA',
       extraFileContentType: 'image/png',
       extraFile: 'AAAAAAA',
       extraFileUrl: 'AAAAAAA',
+      publicationDate: currentDate,
+      publicationNo: 0,
+      trademarkRegisteredStatus: TrademarkRegisteredStatus.INITIAL_PUBLICATION,
+      isHidden: false,
       notes: 'AAAAAAA',
     };
   });
@@ -52,6 +61,7 @@ describe('TrademarkRegistered Service', () => {
       const returnedFromService = Object.assign(
         {
           applyDate: currentDate.format(DATE_FORMAT),
+          publicationDate: currentDate.format(DATE_FORMAT),
         },
         elemDefault
       );
@@ -68,6 +78,7 @@ describe('TrademarkRegistered Service', () => {
         {
           id: 0,
           applyDate: currentDate.format(DATE_FORMAT),
+          publicationDate: currentDate.format(DATE_FORMAT),
         },
         elemDefault
       );
@@ -75,6 +86,7 @@ describe('TrademarkRegistered Service', () => {
       const expected = Object.assign(
         {
           applyDate: currentDate,
+          publicationDate: currentDate,
         },
         returnedFromService
       );
@@ -90,6 +102,7 @@ describe('TrademarkRegistered Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
+          trademarkUUID: 'BBBBBB',
           trademarkNo: 'BBBBBB',
           year: 1,
           decreeNo: 'BBBBBB',
@@ -102,10 +115,16 @@ describe('TrademarkRegistered Service', () => {
           trademarkEnglish: 'BBBBBB',
           trademarkArabic: 'BBBBBB',
           category: 'BBBBBB',
+          imageFile: 'BBBBBB',
+          imageFileUrl: 'BBBBBB',
           file: 'BBBBBB',
           fileUrl: 'BBBBBB',
           extraFile: 'BBBBBB',
           extraFileUrl: 'BBBBBB',
+          publicationDate: currentDate.format(DATE_FORMAT),
+          publicationNo: 1,
+          trademarkRegisteredStatus: 'BBBBBB',
+          isHidden: true,
           notes: 'BBBBBB',
         },
         elemDefault
@@ -114,6 +133,7 @@ describe('TrademarkRegistered Service', () => {
       const expected = Object.assign(
         {
           applyDate: currentDate,
+          publicationDate: currentDate,
         },
         returnedFromService
       );
@@ -128,16 +148,19 @@ describe('TrademarkRegistered Service', () => {
     it('should partial update a TrademarkRegistered', () => {
       const patchObject = Object.assign(
         {
-          trademarkNo: 'BBBBBB',
+          trademarkUUID: 'BBBBBB',
+          year: 1,
           decreeNo: 'BBBBBB',
           applicantName: 'BBBBBB',
-          tradeMarkOwner: 'BBBBBB',
+          nationality: 'BBBBBB',
           address: 'BBBBBB',
-          applyDate: currentDate.format(DATE_FORMAT),
+          trademarkEnglish: 'BBBBBB',
           trademarkArabic: 'BBBBBB',
-          category: 'BBBBBB',
+          imageFileUrl: 'BBBBBB',
+          file: 'BBBBBB',
           extraFile: 'BBBBBB',
           extraFileUrl: 'BBBBBB',
+          isHidden: true,
         },
         new TrademarkRegistered()
       );
@@ -147,6 +170,7 @@ describe('TrademarkRegistered Service', () => {
       const expected = Object.assign(
         {
           applyDate: currentDate,
+          publicationDate: currentDate,
         },
         returnedFromService
       );
@@ -162,6 +186,7 @@ describe('TrademarkRegistered Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
+          trademarkUUID: 'BBBBBB',
           trademarkNo: 'BBBBBB',
           year: 1,
           decreeNo: 'BBBBBB',
@@ -174,10 +199,16 @@ describe('TrademarkRegistered Service', () => {
           trademarkEnglish: 'BBBBBB',
           trademarkArabic: 'BBBBBB',
           category: 'BBBBBB',
+          imageFile: 'BBBBBB',
+          imageFileUrl: 'BBBBBB',
           file: 'BBBBBB',
           fileUrl: 'BBBBBB',
           extraFile: 'BBBBBB',
           extraFileUrl: 'BBBBBB',
+          publicationDate: currentDate.format(DATE_FORMAT),
+          publicationNo: 1,
+          trademarkRegisteredStatus: 'BBBBBB',
+          isHidden: true,
           notes: 'BBBBBB',
         },
         elemDefault
@@ -186,6 +217,7 @@ describe('TrademarkRegistered Service', () => {
       const expected = Object.assign(
         {
           applyDate: currentDate,
+          publicationDate: currentDate,
         },
         returnedFromService
       );
@@ -235,7 +267,7 @@ describe('TrademarkRegistered Service', () => {
       });
 
       it('should add only unique TrademarkRegistered to an array', () => {
-        const trademarkRegisteredArray: ITrademarkRegistered[] = [{ id: 123 }, { id: 456 }, { id: 92141 }];
+        const trademarkRegisteredArray: ITrademarkRegistered[] = [{ id: 123 }, { id: 456 }, { id: 51614 }];
         const trademarkRegisteredCollection: ITrademarkRegistered[] = [{ id: 123 }];
         expectedResult = service.addTrademarkRegisteredToCollectionIfMissing(trademarkRegisteredCollection, ...trademarkRegisteredArray);
         expect(expectedResult).toHaveLength(3);

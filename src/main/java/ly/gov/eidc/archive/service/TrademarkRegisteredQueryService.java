@@ -92,79 +92,172 @@ public class TrademarkRegisteredQueryService extends QueryService<TrademarkRegis
         Specification<TrademarkRegistered> specification = Specification.where(null);
         if (criteria != null) {
             // This has to be called first, because the distinct method returns null
-            if (criteria.getDistinct() != null) {
-                specification = specification.and(distinct(criteria.getDistinct()));
-            }
-            if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), TrademarkRegistered_.id));
-            }
-            if (criteria.getTrademarkNo() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getTrademarkNo(), TrademarkRegistered_.trademarkNo));
-            }
-            if (criteria.getYear() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getYear(), TrademarkRegistered_.year));
-            }
-            if (criteria.getDecreeNo() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDecreeNo(), TrademarkRegistered_.decreeNo));
-            }
-            if (criteria.getApplicantName() != null) {
-                specification =
-                    specification.and(buildStringSpecification(criteria.getApplicantName(), TrademarkRegistered_.applicantName));
-            }
-            if (criteria.getTradeMarkOwner() != null) {
-                specification =
-                    specification.and(buildStringSpecification(criteria.getTradeMarkOwner(), TrademarkRegistered_.tradeMarkOwner));
-            }
-            if (criteria.getCountry() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getCountry(), TrademarkRegistered_.country));
-            }
-            if (criteria.getNationality() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getNationality(), TrademarkRegistered_.nationality));
-            }
-            if (criteria.getAddress() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getAddress(), TrademarkRegistered_.address));
-            }
-            if (criteria.getApplyDate() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getApplyDate(), TrademarkRegistered_.applyDate));
-            }
-            if (criteria.getTrademarkEnglish() != null) {
-                specification =
-                    specification.and(buildStringSpecification(criteria.getTrademarkEnglish(), TrademarkRegistered_.trademarkEnglish));
-            }
-            if (criteria.getTrademarkArabic() != null) {
-                specification =
-                    specification.and(buildStringSpecification(criteria.getTrademarkArabic(), TrademarkRegistered_.trademarkArabic));
-            }
-            if (criteria.getCategory() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getCategory(), TrademarkRegistered_.category));
-            }
-            if (criteria.getImageFileUrl() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getImageFileUrl(), TrademarkRegistered_.imageFileUrl));
-            }
-            if (criteria.getFileUrl() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getFileUrl(), TrademarkRegistered_.fileUrl));
-            }
-            if (criteria.getExtraFileUrl() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getExtraFileUrl(), TrademarkRegistered_.extraFileUrl));
-            }
-            if (criteria.getPublicationDate() != null) {
-                specification =
-                    specification.and(buildRangeSpecification(criteria.getPublicationDate(), TrademarkRegistered_.publicationDate));
-            }
-            if (criteria.getPublicationNo() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getPublicationNo(), TrademarkRegistered_.publicationNo));
-            }
-            if (criteria.getTrademarkRegisteredStatus() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(criteria.getTrademarkRegisteredStatus(), TrademarkRegistered_.trademarkRegisteredStatus)
-                    );
-            }
-            if (criteria.getIsHidden() != null) {
-                specification = specification.and(buildSpecification(criteria.getIsHidden(), TrademarkRegistered_.isHidden));
-            }
-            if (criteria.getNotes() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getNotes(), TrademarkRegistered_.notes));
+            if (criteria.getOr()) {
+                if (criteria.getDistinct() != null) {
+                    specification = specification.or(distinct(criteria.getDistinct()));
+                }
+                if (criteria.getId() != null) {
+                    specification = specification.or(buildRangeSpecification(criteria.getId(), TrademarkRegistered_.id));
+                }
+                if (criteria.getTrademarkUUID() != null) {
+                    specification =
+                        specification.or(buildStringSpecification(criteria.getTrademarkUUID(), TrademarkRegistered_.trademarkUUID));
+                }
+                if (criteria.getTrademarkNo() != null) {
+                    specification = specification.or(buildStringSpecification(criteria.getTrademarkNo(), TrademarkRegistered_.trademarkNo));
+                }
+                if (criteria.getYear() != null) {
+                    specification = specification.or(buildRangeSpecification(criteria.getYear(), TrademarkRegistered_.year));
+                }
+                if (criteria.getDecreeNo() != null) {
+                    specification = specification.or(buildStringSpecification(criteria.getDecreeNo(), TrademarkRegistered_.decreeNo));
+                }
+                if (criteria.getApplicantName() != null) {
+                    specification =
+                        specification.or(buildStringSpecification(criteria.getApplicantName(), TrademarkRegistered_.applicantName));
+                }
+                if (criteria.getTradeMarkOwner() != null) {
+                    specification =
+                        specification.or(buildStringSpecification(criteria.getTradeMarkOwner(), TrademarkRegistered_.tradeMarkOwner));
+                }
+                if (criteria.getCountry() != null) {
+                    specification = specification.or(buildStringSpecification(criteria.getCountry(), TrademarkRegistered_.country));
+                }
+                if (criteria.getNationality() != null) {
+                    specification = specification.or(buildStringSpecification(criteria.getNationality(), TrademarkRegistered_.nationality));
+                }
+                if (criteria.getAddress() != null) {
+                    specification = specification.or(buildStringSpecification(criteria.getAddress(), TrademarkRegistered_.address));
+                }
+                if (criteria.getApplyDate() != null) {
+                    specification = specification.or(buildRangeSpecification(criteria.getApplyDate(), TrademarkRegistered_.applyDate));
+                }
+                if (criteria.getTrademarkEnglish() != null) {
+                    specification =
+                        specification.or(buildStringSpecification(criteria.getTrademarkEnglish(), TrademarkRegistered_.trademarkEnglish));
+                }
+                if (criteria.getTrademarkArabic() != null) {
+                    specification =
+                        specification.or(buildStringSpecification(criteria.getTrademarkArabic(), TrademarkRegistered_.trademarkArabic));
+                }
+                if (criteria.getCategory() != null) {
+                    specification = specification.or(buildStringSpecification(criteria.getCategory(), TrademarkRegistered_.category));
+                }
+                if (criteria.getImageFileUrl() != null) {
+                    specification =
+                        specification.or(buildStringSpecification(criteria.getImageFileUrl(), TrademarkRegistered_.imageFileUrl));
+                }
+                if (criteria.getFileUrl() != null) {
+                    specification = specification.or(buildStringSpecification(criteria.getFileUrl(), TrademarkRegistered_.fileUrl));
+                }
+                if (criteria.getExtraFileUrl() != null) {
+                    specification =
+                        specification.or(buildStringSpecification(criteria.getExtraFileUrl(), TrademarkRegistered_.extraFileUrl));
+                }
+                if (criteria.getPublicationDate() != null) {
+                    specification =
+                        specification.or(buildRangeSpecification(criteria.getPublicationDate(), TrademarkRegistered_.publicationDate));
+                }
+                if (criteria.getPublicationNo() != null) {
+                    specification =
+                        specification.or(buildRangeSpecification(criteria.getPublicationNo(), TrademarkRegistered_.publicationNo));
+                }
+                if (criteria.getTrademarkRegisteredStatus() != null) {
+                    specification =
+                        specification.or(
+                            buildSpecification(criteria.getTrademarkRegisteredStatus(), TrademarkRegistered_.trademarkRegisteredStatus)
+                        );
+                }
+                if (criteria.getIsHidden() != null) {
+                    specification = specification.or(buildSpecification(criteria.getIsHidden(), TrademarkRegistered_.isHidden));
+                }
+                if (criteria.getNotes() != null) {
+                    specification = specification.or(buildStringSpecification(criteria.getNotes(), TrademarkRegistered_.notes));
+                }
+            } else {
+                if (criteria.getDistinct() != null) {
+                    specification = specification.and(distinct(criteria.getDistinct()));
+                }
+                if (criteria.getId() != null) {
+                    specification = specification.and(buildRangeSpecification(criteria.getId(), TrademarkRegistered_.id));
+                }
+                if (criteria.getTrademarkUUID() != null) {
+                    specification =
+                        specification.and(buildStringSpecification(criteria.getTrademarkUUID(), TrademarkRegistered_.trademarkUUID));
+                }
+                if (criteria.getTrademarkNo() != null) {
+                    specification =
+                        specification.and(buildStringSpecification(criteria.getTrademarkNo(), TrademarkRegistered_.trademarkNo));
+                }
+                if (criteria.getYear() != null) {
+                    specification = specification.and(buildRangeSpecification(criteria.getYear(), TrademarkRegistered_.year));
+                }
+                if (criteria.getDecreeNo() != null) {
+                    specification = specification.and(buildStringSpecification(criteria.getDecreeNo(), TrademarkRegistered_.decreeNo));
+                }
+                if (criteria.getApplicantName() != null) {
+                    specification =
+                        specification.and(buildStringSpecification(criteria.getApplicantName(), TrademarkRegistered_.applicantName));
+                }
+                if (criteria.getTradeMarkOwner() != null) {
+                    specification =
+                        specification.and(buildStringSpecification(criteria.getTradeMarkOwner(), TrademarkRegistered_.tradeMarkOwner));
+                }
+                if (criteria.getCountry() != null) {
+                    specification = specification.and(buildStringSpecification(criteria.getCountry(), TrademarkRegistered_.country));
+                }
+                if (criteria.getNationality() != null) {
+                    specification =
+                        specification.and(buildStringSpecification(criteria.getNationality(), TrademarkRegistered_.nationality));
+                }
+                if (criteria.getAddress() != null) {
+                    specification = specification.and(buildStringSpecification(criteria.getAddress(), TrademarkRegistered_.address));
+                }
+                if (criteria.getApplyDate() != null) {
+                    specification = specification.and(buildRangeSpecification(criteria.getApplyDate(), TrademarkRegistered_.applyDate));
+                }
+                if (criteria.getTrademarkEnglish() != null) {
+                    specification =
+                        specification.and(buildStringSpecification(criteria.getTrademarkEnglish(), TrademarkRegistered_.trademarkEnglish));
+                }
+                if (criteria.getTrademarkArabic() != null) {
+                    specification =
+                        specification.and(buildStringSpecification(criteria.getTrademarkArabic(), TrademarkRegistered_.trademarkArabic));
+                }
+                if (criteria.getCategory() != null) {
+                    specification = specification.and(buildStringSpecification(criteria.getCategory(), TrademarkRegistered_.category));
+                }
+                if (criteria.getImageFileUrl() != null) {
+                    specification =
+                        specification.and(buildStringSpecification(criteria.getImageFileUrl(), TrademarkRegistered_.imageFileUrl));
+                }
+                if (criteria.getFileUrl() != null) {
+                    specification = specification.and(buildStringSpecification(criteria.getFileUrl(), TrademarkRegistered_.fileUrl));
+                }
+                if (criteria.getExtraFileUrl() != null) {
+                    specification =
+                        specification.and(buildStringSpecification(criteria.getExtraFileUrl(), TrademarkRegistered_.extraFileUrl));
+                }
+                if (criteria.getPublicationDate() != null) {
+                    specification =
+                        specification.and(buildRangeSpecification(criteria.getPublicationDate(), TrademarkRegistered_.publicationDate));
+                }
+                if (criteria.getPublicationNo() != null) {
+                    specification =
+                        specification.and(buildRangeSpecification(criteria.getPublicationNo(), TrademarkRegistered_.publicationNo));
+                }
+                if (criteria.getTrademarkRegisteredStatus() != null) {
+                    specification =
+                        specification.and(
+                            buildSpecification(criteria.getTrademarkRegisteredStatus(), TrademarkRegistered_.trademarkRegisteredStatus)
+                        );
+                }
+                if (criteria.getIsHidden() != null) {
+                    specification = specification.and(buildSpecification(criteria.getIsHidden(), TrademarkRegistered_.isHidden));
+                }
+                if (criteria.getNotes() != null) {
+                    specification = specification.and(buildStringSpecification(criteria.getNotes(), TrademarkRegistered_.notes));
+                }
             }
         }
         return specification;

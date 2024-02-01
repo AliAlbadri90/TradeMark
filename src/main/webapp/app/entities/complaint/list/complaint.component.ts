@@ -137,6 +137,10 @@ export class ComplaintComponent implements OnInit {
     });
   }
 
+  openPdfFile(trademarkNo: any): void {
+    window.open('/api/public/file/download/' + String(trademarkNo) + '.pdf#zoom=85&scrollbar=0&toolbar=0&navpanes=0', '_blank');
+  }
+
   protected sort(): string[] {
     const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
     if (this.predicate !== 'id') {

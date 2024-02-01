@@ -22,6 +22,7 @@ export class TrademarkRegisteredUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
+    trademarkUUID: [],
     trademarkNo: [],
     year: [],
     decreeNo: [],
@@ -115,6 +116,7 @@ export class TrademarkRegisteredUpdateComponent implements OnInit {
   protected updateForm(trademarkRegistered: ITrademarkRegistered): void {
     this.editForm.patchValue({
       id: trademarkRegistered.id,
+      trademarkUUID: trademarkRegistered.trademarkUUID,
       trademarkNo: trademarkRegistered.trademarkNo,
       year: trademarkRegistered.year,
       decreeNo: trademarkRegistered.decreeNo,
@@ -148,6 +150,7 @@ export class TrademarkRegisteredUpdateComponent implements OnInit {
     return {
       ...new TrademarkRegistered(),
       id: this.editForm.get(['id'])!.value,
+      trademarkUUID: this.editForm.get(['trademarkUUID'])!.value,
       trademarkNo: this.editForm.get(['trademarkNo'])!.value,
       year: this.editForm.get(['year'])!.value,
       decreeNo: this.editForm.get(['decreeNo'])!.value,

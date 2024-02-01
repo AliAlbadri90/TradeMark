@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { IComplaint, Complaint } from '../complaint.model';
+import { Complaint, IComplaint } from '../complaint.model';
 import { ComplaintService } from '../service/complaint.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
@@ -56,7 +56,10 @@ export class ComplaintUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ complaint }) => {
-      this.updateForm(complaint);
+      this.activatedRoute.params.subscribe(params => {
+        complaint.trademarkNo = params['trademarkNo'];
+        this.updateForm(complaint);
+      });
     });
   }
 

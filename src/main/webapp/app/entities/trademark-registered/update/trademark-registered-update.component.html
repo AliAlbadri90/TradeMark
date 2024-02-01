@@ -1,5 +1,5 @@
-<div class="row justify-content-center">
-  <div class="col-8">
+<div class="entity-container">
+  <div class="mat-elevation-z1 round-card white-bg p-4 mt-5">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-trademark-registered-heading" data-cy="TrademarkRegisteredCreateUpdateHeading">Create or edit a Trademark Registered</h2>
 
@@ -11,8 +11,78 @@
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_trademarkUUID">Trademark UUID</label>
+          <input
+            type="text"
+            class="form-control"
+            name="trademarkUUID"
+            id="field_trademarkUUID"
+            data-cy="trademarkUUID"
+            formControlName="trademarkUUID"
+          />
+        </div>
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_year">السنة</label>
+          <input type="number" class="form-control" name="year" id="field_year" data-cy="year" formControlName="year" />
+        </div>
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_imageFileUrl">Image File Url</label>
+          <input
+            type="text"
+            class="form-control"
+            name="imageFileUrl"
+            id="field_imageFileUrl"
+            data-cy="imageFileUrl"
+            formControlName="imageFileUrl"
+          />
+        </div>
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_fileUrl">File Url</label>
+          <input type="text" class="form-control" name="fileUrl" id="field_fileUrl" data-cy="fileUrl" formControlName="fileUrl" />
+        </div>
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_extraFile">Extra File</label>
+          <div>
+            <div *ngIf="editForm.get('extraFile')!.value" class="form-text text-danger clearfix">
+              <a class="pull-left" (click)="openFile(editForm.get('extraFile')!.value, editForm.get('extraFileContentType')!.value)">open</a
+              ><br />
+              <span class="pull-left"
+                >{{ editForm.get('extraFileContentType')!.value }}, {{ byteSize(editForm.get('extraFile')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="editForm.patchValue({ extraFile: null }); editForm.patchValue({ extraFileContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_extraFile" data-cy="extraFile" (change)="setFileData($event, 'extraFile', false)" />
+          </div>
+          <input type="hidden" class="form-control" name="extraFile" id="field_extraFile" data-cy="extraFile" formControlName="extraFile" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="extraFileContentType"
+            id="field_extraFileContentType"
+            formControlName="extraFileContentType"
+          />
+        </div>
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_extraFileUrl">Extra File Url</label>
+          <input
+            type="text"
+            class="form-control"
+            name="extraFileUrl"
+            id="field_extraFileUrl"
+            data-cy="extraFileUrl"
+            formControlName="extraFileUrl"
+          />
+        </div>
+
         <div class="form-group">
-          <label class="form-control-label" for="field_trademarkNo">Trademark No</label>
+          <label class="form-control-label" for="field_trademarkNo">رقم التسجيل</label>
           <input
             type="text"
             class="form-control"
@@ -24,17 +94,12 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_year">Year</label>
-          <input type="number" class="form-control" name="year" id="field_year" data-cy="year" formControlName="year" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_decreeNo">Decree No</label>
+          <label class="form-control-label" for="field_decreeNo">رقم القرار</label>
           <input type="text" class="form-control" name="decreeNo" id="field_decreeNo" data-cy="decreeNo" formControlName="decreeNo" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_applicantName">Applicant Name</label>
+          <label class="form-control-label" for="field_applicantName">طالب التسجيل</label>
           <input
             type="text"
             class="form-control"
@@ -46,7 +111,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_tradeMarkOwner">Trade Mark Owner</label>
+          <label class="form-control-label" for="field_tradeMarkOwner">مالك العلامة</label>
           <input
             type="text"
             class="form-control"
@@ -58,12 +123,12 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_country">Country</label>
+          <label class="form-control-label" for="field_country">الدولة</label>
           <input type="text" class="form-control" name="country" id="field_country" data-cy="country" formControlName="country" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_nationality">Nationality</label>
+          <label class="form-control-label" for="field_nationality">الجنسية</label>
           <input
             type="text"
             class="form-control"
@@ -75,12 +140,12 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_address">Address</label>
+          <label class="form-control-label" for="field_address">العنوان (محل الاقامة)</label>
           <input type="text" class="form-control" name="address" id="field_address" data-cy="address" formControlName="address" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_applyDate">Apply Date</label>
+          <label class="form-control-label" for="field_applyDate">تاريخ التقديم</label>
           <div class="input-group">
             <input
               id="field_applyDate"
@@ -101,7 +166,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_trademarkEnglish">Trademark English</label>
+          <label class="form-control-label" for="field_trademarkEnglish">العلامة التجارية انجليزي</label>
           <input
             type="text"
             class="form-control"
@@ -113,7 +178,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_trademarkArabic">Trademark Arabic</label>
+          <label class="form-control-label" for="field_trademarkArabic">العلامة التجارية عربي</label>
           <input
             type="text"
             class="form-control"
@@ -125,12 +190,12 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_category">Category</label>
+          <label class="form-control-label" for="field_category">الفئة</label>
           <input type="text" class="form-control" name="category" id="field_category" data-cy="category" formControlName="category" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_imageFile">Image File</label>
+          <label class="form-control-label" for="field_imageFile">الصورة</label>
           <div>
             <div *ngIf="editForm.get('imageFile')!.value" class="form-text text-danger clearfix">
               <a class="pull-left" (click)="openFile(editForm.get('imageFile')!.value, editForm.get('imageFileContentType')!.value)">open</a
@@ -159,19 +224,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_imageFileUrl">Image File Url</label>
-          <input
-            type="text"
-            class="form-control"
-            name="imageFileUrl"
-            id="field_imageFileUrl"
-            data-cy="imageFileUrl"
-            formControlName="imageFileUrl"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_file">File</label>
+          <label class="form-control-label" for="field_file">ملف</label>
           <div>
             <div *ngIf="editForm.get('file')!.value" class="form-text text-danger clearfix">
               <a class="pull-left" (click)="openFile(editForm.get('file')!.value, editForm.get('fileContentType')!.value)">open</a><br />
@@ -191,53 +244,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_fileUrl">File Url</label>
-          <input type="text" class="form-control" name="fileUrl" id="field_fileUrl" data-cy="fileUrl" formControlName="fileUrl" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_extraFile">Extra File</label>
-          <div>
-            <div *ngIf="editForm.get('extraFile')!.value" class="form-text text-danger clearfix">
-              <a class="pull-left" (click)="openFile(editForm.get('extraFile')!.value, editForm.get('extraFileContentType')!.value)">open</a
-              ><br />
-              <span class="pull-left"
-                >{{ editForm.get('extraFileContentType')!.value }}, {{ byteSize(editForm.get('extraFile')!.value) }}</span
-              >
-              <button
-                type="button"
-                (click)="editForm.patchValue({ extraFile: null }); editForm.patchValue({ extraFileContentType: null })"
-                class="btn btn-secondary btn-xs pull-right"
-              >
-                <fa-icon icon="times"></fa-icon>
-              </button>
-            </div>
-            <input type="file" id="file_extraFile" data-cy="extraFile" (change)="setFileData($event, 'extraFile', false)" />
-          </div>
-          <input type="hidden" class="form-control" name="extraFile" id="field_extraFile" data-cy="extraFile" formControlName="extraFile" />
-          <input
-            type="hidden"
-            class="form-control"
-            name="extraFileContentType"
-            id="field_extraFileContentType"
-            formControlName="extraFileContentType"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_extraFileUrl">Extra File Url</label>
-          <input
-            type="text"
-            class="form-control"
-            name="extraFileUrl"
-            id="field_extraFileUrl"
-            data-cy="extraFileUrl"
-            formControlName="extraFileUrl"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_publicationDate">Publication Date</label>
+          <label class="form-control-label" for="field_publicationDate">تاريخ النشر</label>
           <div class="input-group">
             <input
               id="field_publicationDate"
@@ -258,7 +265,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_publicationNo">Publication No</label>
+          <label class="form-control-label" for="field_publicationNo">رقم النشرية الالكترونية</label>
           <input
             type="number"
             class="form-control"
@@ -270,7 +277,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_trademarkRegisteredStatus">Trademark Registered Status</label>
+          <label class="form-control-label" for="field_trademarkRegisteredStatus">حالة التسجيل</label>
           <select
             class="form-control"
             name="trademarkRegisteredStatus"
@@ -280,25 +287,25 @@
           >
             <option [ngValue]="null"></option>
             <option *ngFor="let trademarkRegisteredStatus of trademarkRegisteredStatusValues" [value]="trademarkRegisteredStatus">
-              trademarkRegisteredStatus
+              {{ trademarkRegisteredStatus | translateMe }}
             </option>
           </select>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_isHidden">Is Hidden</label>
+          <label class="form-control-label" for="field_isHidden">مخفي</label>
           <input type="checkbox" class="form-check" name="isHidden" id="field_isHidden" data-cy="isHidden" formControlName="isHidden" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_notes">Notes</label>
+          <label class="form-control-label" for="field_notes">ملاحظات</label>
           <input type="text" class="form-control" name="notes" id="field_notes" data-cy="notes" formControlName="notes" />
         </div>
       </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>الغاء</span>
         </button>
 
         <button
@@ -308,7 +315,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>حفظ</span>
         </button>
       </div>
     </form>

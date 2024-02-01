@@ -6,16 +6,17 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <!--
-        Added the entity TrademarkRegistered.
-    -->
+    <!-- Added the entity TrademarkRegistered. -->
     <changeSet id="20230113163521-1" author="jhipster">
         <createTable tableName="trademark_registered">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="trademark_no" type="varchar(255)" >
-                <constraints nullable="true" unique="true" />
+            <column name="trademark_uuid" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="trademark_no" type="varchar(255)">
+                <constraints nullable="true"  unique="true" />
             </column>
             <column name="year" type="integer">
                 <constraints nullable="true" />
@@ -121,6 +122,7 @@
                   tableName="trademark_registered"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
+            <column name="trademark_uuid" type="string"/>
             <column name="trademark_no" type="string"/>
             <column name="year" type="numeric"/>
             <column name="decree_no" type="string"/>

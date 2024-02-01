@@ -17,6 +17,8 @@ public class FileTools {
 
     private static final String uploadsDir = "uploads/archive/";
 
+    //    private static final String uploadsDir = "uploads/archive/";
+
     public static String upload(byte[] fileBytes, String fileContentType, String name) {
         String generatedName = "";
 
