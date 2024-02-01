@@ -1,10 +1,10 @@
 <div class="wide-container">
-  <!--  <div *ngIf="isCountdownFinished && !isVideoEnded" class="video-container">-->
-  <!--    <video #videoPlayer autoplay muted controls class="centered-video" (ended)="onVideoEnded()">-->
-  <!--      <source src="content/images/vid.mp4" type="video/mp4">-->
-  <!--      Your browser does not support the video tag.-->
-  <!--    </video>-->
-  <!--  </div>-->
+  <div *ngIf="isCountdownFinished && !isVideoEnded" class="video-container">
+    <video #videoPlayer autoplay muted controls class="centered-video" (ended)="onVideoEnded()">
+      <source src="content/images/vid.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
 
   <div *ngIf="isCountdownFinished">
     <div class="col text-center">
@@ -52,14 +52,44 @@
         </div>
       </div>
     </div>
+
     <div style="min-height: 300px">
       <div class="row d-flex p-5 align-items-center main-container mx-auto">
-        <div class="mat-elevation-z1 px-4 py-3 d-flex round-card col white-bg">
-          <div class="d-flex flex-column">
-            <h3 class="m-0">{{ decreeRegisterCount }}</h3>
-            <p class="m-0">عدد العلامات المشهرة</p>
+        <div class="card-container m-2">
+          <div class="mat-elevation-z1 px-4 py-3 d-flex round-card col white-bg">
+            <div class="d-flex flex-column">
+              <h3 class="m-0">{{ decreeRegisterCount }}</h3>
+              <p class="m-0">عدد العلامات المشهرة</p>
+            </div>
+            <mat-icon class="big-icon mr-auto" color="primary">description</mat-icon>
           </div>
-          <mat-icon class="big-icon mr-auto" color="primary">description</mat-icon>
+        </div>
+        <div class="card-container m-2">
+          <div class="mat-elevation-z1 px-4 py-3 d-flex round-card col white-bg">
+            <div class="d-flex flex-column">
+              <h3 class="m-0">{{ decreeRegisterCount1 }}</h3>
+              <p class="m-0">عدد العلامات المشهرة لسنة 2013</p>
+            </div>
+            <mat-icon class="big-icon mr-auto" color="primary">description</mat-icon>
+          </div>
+        </div>
+        <div class="card-container m-2">
+          <div class="mat-elevation-z1 px-4 py-3 d-flex round-card col white-bg">
+            <div class="d-flex flex-column">
+              <h3 class="m-0">{{ decreeRegisterCount2 }}</h3>
+              <p class="m-0">عدد العلامات المشهرة لسنة 2014</p>
+            </div>
+            <mat-icon class="big-icon mr-auto" color="primary">description</mat-icon>
+          </div>
+        </div>
+        <div class="card-container m-2">
+          <div class="mat-elevation-z1 px-4 py-3 d-flex round-card col white-bg">
+            <div class="d-flex flex-column">
+              <h3 class="m-0">{{ decreeRegisterCount3 }}</h3>
+              <p class="m-0">عدد العلامات المشهرة لسنة 2015</p>
+            </div>
+            <mat-icon class="big-icon mr-auto" color="primary">description</mat-icon>
+          </div>
         </div>
       </div>
     </div>

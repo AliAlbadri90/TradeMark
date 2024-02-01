@@ -31,6 +31,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   isCountdownFinished = false;
   isVideoEnded = false; // New flag for video ended state
   decreeRegisterCount = '';
+  decreeRegisterCount1 = '';
+  decreeRegisterCount2 = '';
+  decreeRegisterCount3 = '';
 
   private readonly destroy$ = new Subject<void>();
 
@@ -54,6 +57,30 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.trademarkRegisteredService.count().subscribe((res: any) => {
       this.decreeRegisterCount = res.body;
     });
+
+    this.trademarkRegisteredService
+      .count({
+        'year.equals': 2013,
+      })
+      .subscribe((res: any) => {
+        this.decreeRegisterCount1 = res.body;
+      });
+
+    this.trademarkRegisteredService
+      .count({
+        'year.equals': 2014,
+      })
+      .subscribe((res: any) => {
+        this.decreeRegisterCount2 = res.body;
+      });
+
+    this.trademarkRegisteredService
+      .count({
+        'year.equals': 2015,
+      })
+      .subscribe((res: any) => {
+        this.decreeRegisterCount3 = res.body;
+      });
   }
 
   ngOnDestroy(): void {
