@@ -147,6 +147,7 @@ public class TrademarkRegisteredService {
             TrademarkRegisteredCriteria criteria = new TrademarkRegisteredCriteria();
             if (selectedColumn.contains("all")) {
                 criteria.setOr(true);
+                criteria.trademarkNo().setContains(query);
                 criteria.applicantName().setContains(query);
                 criteria.trademarkArabic().setContains(query);
                 criteria.trademarkEnglish().setContains(query);
@@ -156,6 +157,9 @@ public class TrademarkRegisteredService {
                 criteria.decreeNo().setEquals(query);
             } else {
                 switch (selectedColumn) {
+                    case "trademarkNo":
+                        criteria.trademarkNo().setContains(query);
+                        break;
                     case "applicantName":
                         criteria.applicantName().setContains(query);
                         break;
@@ -186,6 +190,7 @@ public class TrademarkRegisteredService {
             builder =
                 new BoolQueryBuilder()
                     .should(QueryBuilders.matchQuery("applicantName", query).operator(Operator.AND))
+                    .should(QueryBuilders.matchQuery("trademarkNo", query))
                     .should(QueryBuilders.matchQuery("country", query))
                     .should(QueryBuilders.matchQuery("nationality", query))
                     .should(QueryBuilders.matchQuery("trademarkArabic", query))

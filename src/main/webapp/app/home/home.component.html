@@ -1,10 +1,10 @@
 <div class="wide-container">
-  <div *ngIf="isCountdownFinished && !isVideoEnded" class="video-container">
-    <video #videoPlayer autoplay muted controls class="centered-video" (ended)="onVideoEnded()">
-      <source src="content/images/vid.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  </div>
+  <!--  <div *ngIf="isCountdownFinished && !isVideoEnded" class="video-container">-->
+  <!--    <video #videoPlayer autoplay muted controls class="centered-video" (ended)="onVideoEnded()">-->
+  <!--      <source src="content/images/vid.mp4" type="video/mp4" />-->
+  <!--      Your browser does not support the video tag.-->
+  <!--    </video>-->
+  <!--  </div>-->
 
   <div *ngIf="isCountdownFinished">
     <div class="col text-center">
@@ -98,28 +98,36 @@
   <br />
   <br />
 
-  <div *ngIf="!isCountdownFinished">
-    <div *ngIf="secondsToDday >= 0 || hoursToDday >= 0 || minutesToDday >= 0" class="timer">
-      <img alt="logo" class="img-logo" src="../../../content/images/logo.png" />
+  <!--  <div *ngIf="!isCountdownFinished">-->
+  <!--    <div *ngIf="secondsToDday >= 0 || hoursToDday >= 0 || minutesToDday >= 0" class="timer">-->
+  <!--      <img alt="logo" class="img-logo" src="../../../content/images/logo.png" />-->
 
-      <h3>حكومة الوحدة الوطنية</h3>
-      <h3>وزارة الاقتصاد و التجارة</h3>
-      <h4>مكتب العلامات التجارية</h4>
+  <!--      <h3>حكومة الوحدة الوطنية</h3>-->
+  <!--      <h3>وزارة الاقتصاد و التجارة</h3>-->
+  <!--      <h4>مكتب العلامات التجارية</h4>-->
 
-      <br />
-      <span id="days"> {{ daysToDday }} </span>يوم <span id="hours"> {{ hoursToDday }} </span>ساعة
-      <span id="minutes"> {{ minutesToDday }} </span>دقيقة <span id="seconds"> {{ secondsToDday }} </span>ثانية
-      <br />
-      <h4>العد التنازلي لاطلاق موقع الاشهار الالكتروني للعلامات التجارية</h4>
-      <h4>الخميس 1-2-2024م الساعة 12 ظهرا</h4>
-      <br />
-      <h4>تنفيذ مركز المعلومات و التوثيق الاقتصادي</h4>
+  <!--      <br />-->
+  <!--      <span id="days"> {{ daysToDday }} </span>يوم <span id="hours"> {{ hoursToDday }} </span>ساعة-->
+  <!--      <span id="minutes"> {{ minutesToDday }} </span>دقيقة <span id="seconds"> {{ secondsToDday }} </span>ثانية-->
+  <!--      <br />-->
+  <!--      <h4>العد التنازلي لاطلاق موقع الاشهار الالكتروني للعلامات التجارية</h4>-->
+  <!--      <h4>الخميس 1-2-2024م الساعة 12 ظهرا</h4>-->
+  <!--      <br />-->
+  <!--      <h4>تنفيذ مركز المعلومات و التوثيق الاقتصادي</h4>-->
 
-      <br />
-    </div>
-  </div>
+  <!--      <br />-->
+  <!--    </div>-->
+  <!--  </div>-->
 
   <br />
+  <h3 class="text-center">
+    للاستفسار أو المساعدة يمكن الاتصال بنا على
+    <a href="https://www.facebook.com/TdmLY2024/" rel="noopener noreferrer" style="vertical-align: middle" target="_blank">
+      صفحة الفيسبوك
+    </a>
+  </h3>
+  <br />
+
   <br />
   <br />
 </div>

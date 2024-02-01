@@ -31,6 +31,7 @@
     <mat-form-field class="ml-4">
       <mat-select [(ngModel)]="selectedColumn" name="selectedColumn">
         <mat-option value="all">كل الحقول</mat-option>
+        <mat-option value="trademarkNo">رقم التسجيل</mat-option>
         <mat-option value="applicantName">مقدم الطلب</mat-option>
         <mat-option value="country">الدولة</mat-option>
         <mat-option value="nationality">الجنسية</mat-option>
@@ -66,12 +67,16 @@
           <!--          <th scope="col" jhiSortBy="trademarkArabic"><span>العلامة عربي</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
           <th scope="col" jhiSortBy="category"><span>الفئة</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
           <!--          <th scope="col" jhiSortBy="file"><span>File</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
-          <th scope="col" jhiSortBy="fileUrl"><span>الصورة</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="imageFileUrl"><span>الصورة</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
           <!--          <th scope="col" jhiSortBy="extraFile"><span>Extra File</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
           <!--          <th scope="col" jhiSortBy="extraFileUrl"><span>Extra File Url</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
           <!--          <th scope="col" jhiSortBy="notes"><span>Notes</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>-->
           <th scope="col" jhiSortBy="publicationDate"><span>تاريخ النشرية</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="publicationNo"><span>رقم النشرية</span> <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fileUrl">
+            <span>الملف</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -94,13 +99,28 @@
           <td>{{ trademarkRegistered.category }}</td>
 
           <td>
-            <a href="/api/public/file/download/{{ trademarkRegistered.imageFile }}" target="_blank">
-              <img class="m-3" src="/api/public/file/download/{{ trademarkRegistered.imageFile }}" style="max-height: 60px" alt="image" />
+            <a href="/api/public/file/download/{{ trademarkRegistered.imageFileUrl }}" target="_blank">
+              <img
+                class="m-3"
+                src="/api/public/file/download/{{ trademarkRegistered.imageFileUrl }}"
+                style="max-height: 60px"
+                alt="image"
+              />
             </a>
           </td>
           <td>{{ trademarkRegistered.publicationDate | arabicDate }}</td>
           <td>{{ trademarkRegistered.publicationNo }}</td>
-
+          <td>
+            <button
+              [disabled]="!trademarkRegistered.fileUrl"
+              (click)="openFilePdf(trademarkRegistered.fileUrl)"
+              color="primary"
+              mat-raised-button
+              type="button"
+            >
+              <mat-icon class="ml-2">picture_as_pdf</mat-icon>
+            </button>
+          </td>
           <!--          <td>{{ trademarkRegistered.extraFileUrl }}</td>-->
           <!--          <td>{{ trademarkRegistered.notes }}</td>-->
           <td class="text-left">

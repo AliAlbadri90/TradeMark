@@ -128,7 +128,7 @@ export class TrademarkRegisteredComponent implements OnInit {
   }
 
   openPdfFile(id: any): void {
-    window.open('/api/public/trademark-registereds/print/' + String(id) + '.pdf#zoom=85&scrollbar=0&toolbar=0&navpanes=0', '_blank');
+    window.open('/api/public/trademark-registereds/print/' + String(id) + '#zoom=85&scrollbar=0&toolbar=0&navpanes=0', '_blank');
   }
 
   delete(trademarkRegistered: ITrademarkRegistered): void {
@@ -141,7 +141,9 @@ export class TrademarkRegisteredComponent implements OnInit {
       }
     });
   }
-
+  openFilePdf(fileUrl: any): void {
+    window.open('/api/public/file/download/' + String(fileUrl) + '#zoom=85&scrollbar=0&toolbar=0&navpanes=0', '_blank');
+  }
   protected sort(): string[] {
     const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
     if (this.predicate !== 'id') {
