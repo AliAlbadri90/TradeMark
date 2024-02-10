@@ -308,13 +308,7 @@
           <fa-icon icon="ban"></fa-icon>&nbsp;<span>الغاء</span>
         </button>
 
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
+        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="isSaving" class="btn btn-primary">
           <fa-icon icon="save"></fa-icon>&nbsp;<span>حفظ</span>
         </button>
       </div>

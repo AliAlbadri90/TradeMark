@@ -11,6 +11,7 @@ import ly.gov.eidc.archive.repository.search.TrademarkRegisteredSearchRepository
 import ly.gov.eidc.archive.service.criteria.TrademarkRegisteredCriteria;
 import ly.gov.eidc.archive.service.dto.TrademarkRegisteredDTO;
 import ly.gov.eidc.archive.service.mapper.TrademarkRegisteredMapper;
+import ly.gov.eidc.archive.service.util.FileTools;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.Operator;
@@ -61,6 +62,29 @@ public class TrademarkRegisteredService {
     public TrademarkRegisteredDTO save(TrademarkRegisteredDTO trademarkRegisteredDTO) {
         log.debug("Request to save TrademarkRegistered : {}", trademarkRegisteredDTO);
         TrademarkRegistered trademarkRegistered = trademarkRegisteredMapper.toEntity(trademarkRegisteredDTO);
+
+        if (trademarkRegisteredDTO.getImageFile() != null) {
+            String filePath = FileTools.upload(
+                trademarkRegistered.getImageFile(),
+                trademarkRegistered.getImageFileContentType(),
+                trademarkRegisteredDTO.getTrademarkNo()
+            );
+            trademarkRegistered.setImageFile(null);
+            trademarkRegistered.setImageFileContentType(trademarkRegisteredDTO.getImageFileContentType());
+            trademarkRegistered.setImageFileUrl(filePath);
+        }
+
+        if (trademarkRegisteredDTO.getFile() != null) {
+            String filePath = FileTools.upload(
+                trademarkRegistered.getFile(),
+                trademarkRegistered.getFileContentType(),
+                trademarkRegisteredDTO.getTrademarkNo()
+            );
+            trademarkRegistered.setFile(null);
+            trademarkRegistered.setFileContentType(trademarkRegisteredDTO.getFileContentType());
+            trademarkRegistered.setFileUrl(filePath);
+        }
+
         trademarkRegistered = trademarkRegisteredRepository.save(trademarkRegistered);
         TrademarkRegisteredDTO result = trademarkRegisteredMapper.toDto(trademarkRegistered);
         trademarkRegisteredSearchRepository.save(trademarkRegistered);

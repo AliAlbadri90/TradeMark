@@ -6,6 +6,8 @@ import { TrademarkRegisteredComponent } from '../list/trademark-registered.compo
 import { TrademarkRegisteredDetailComponent } from '../detail/trademark-registered-detail.component';
 import { TrademarkRegisteredUpdateComponent } from '../update/trademark-registered-update.component';
 import { TrademarkRegisteredRoutingResolveService } from './trademark-registered-routing-resolve.service';
+import { TrademarkRegisteredPublicComponent } from '../list-public/trademark-registered-public.component';
+import { ComplaintNewPublicComponent } from '../../complaint/new-public/complaint-new-public.component';
 
 const trademarkRegisteredRoute: Routes = [
   {
@@ -14,10 +16,18 @@ const trademarkRegisteredRoute: Routes = [
     data: {
       defaultSort: 'id,desc',
     },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: 'public',
+    component: TrademarkRegisteredPublicComponent,
+    data: {
+      defaultSort: 'id,desc',
+    },
     // canActivate: [UserRouteAccessService],
   },
   {
-    path: ':id/view',
+    path: 'public/:id/view',
     component: TrademarkRegisteredDetailComponent,
     resolve: {
       trademarkRegistered: TrademarkRegisteredRoutingResolveService,
@@ -39,6 +49,10 @@ const trademarkRegisteredRoute: Routes = [
       trademarkRegistered: TrademarkRegisteredRoutingResolveService,
     },
     canActivate: [UserRouteAccessService],
+  },
+  {
+    path: 'public/complaint/:trademarkNo/trademark',
+    component: ComplaintNewPublicComponent,
   },
 ];
 

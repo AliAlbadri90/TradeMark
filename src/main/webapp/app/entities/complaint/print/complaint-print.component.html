@@ -1,0 +1,25 @@
+<div class="entity-container">
+  <div class="mat-elevation-z1 round-card white-bg p-4 mt-5">
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <br />
+    <div class="d-flex flex-row align-items-start">
+      <h1>تم تقديم المعارضة بنجاح</h1>
+      <h3>رقم المعارضة {{ complaint?.complaintNo }}</h3>
+      <br />
+      <div>
+        <p>إضغط هنا لطباعة المعارضة</p>
+        <button (click)="printSection()" color="primary" mat-raised-button>
+          طباعة
+          <mat-icon class="mx-2">print</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>رجوع</span>
+    </button>
+  </div>
+</div>

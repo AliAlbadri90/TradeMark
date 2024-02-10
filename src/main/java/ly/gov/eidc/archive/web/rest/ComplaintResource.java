@@ -4,15 +4,14 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.StreamSupport;
 import ly.gov.eidc.archive.repository.ComplaintRepository;
 import ly.gov.eidc.archive.service.ComplaintQueryService;
 import ly.gov.eidc.archive.service.ComplaintService;
 import ly.gov.eidc.archive.service.criteria.ComplaintCriteria;
 import ly.gov.eidc.archive.service.dto.ComplaintDTO;
+import ly.gov.eidc.archive.service.util.JasperReportsUtil;
 import ly.gov.eidc.archive.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -47,14 +47,18 @@ public class ComplaintResource {
 
     private final ComplaintQueryService complaintQueryService;
 
+    private final JasperReportsUtil jasperReportsUtil;
+
     public ComplaintResource(
         ComplaintService complaintService,
         ComplaintRepository complaintRepository,
-        ComplaintQueryService complaintQueryService
+        ComplaintQueryService complaintQueryService,
+        JasperReportsUtil jasperReportsUtil
     ) {
         this.complaintService = complaintService;
         this.complaintRepository = complaintRepository;
         this.complaintQueryService = complaintQueryService;
+        this.jasperReportsUtil = jasperReportsUtil;
     }
 
     /**
@@ -70,7 +74,20 @@ public class ComplaintResource {
         if (complaintDTO.getId() != null) {
             throw new BadRequestAlertException("A new complaint cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ComplaintDTO result = complaintService.save(complaintDTO);
+        ComplaintDTO result = complaintService.create(complaintDTO);
+        return ResponseEntity
+            .created(new URI("/api/complaints/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    @PostMapping("/public/complaints")
+    public ResponseEntity<ComplaintDTO> createComplaintPublic(@RequestBody ComplaintDTO complaintDTO) throws URISyntaxException {
+        log.debug("REST request to save Complaint : {}", complaintDTO);
+        if (complaintDTO.getId() != null) {
+            throw new BadRequestAlertException("A new complaint cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        ComplaintDTO result = complaintService.create(complaintDTO);
         return ResponseEntity
             .created(new URI("/api/complaints/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -190,6 +207,13 @@ public class ComplaintResource {
         return ResponseUtil.wrapOrNotFound(complaintDTO);
     }
 
+    @GetMapping("/public/complaints/{id}")
+    public ResponseEntity<ComplaintDTO> getComplaintPublic(@PathVariable Long id) {
+        log.debug("REST request to get Complaint : {}", id);
+        Optional<ComplaintDTO> complaintDTO = complaintService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(complaintDTO);
+    }
+
     /**
      * {@code DELETE  /complaints/:id} : delete the "id" complaint.
      *
@@ -223,5 +247,18 @@ public class ComplaintResource {
         Page<ComplaintDTO> page = complaintService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping(value = "/public/complaints/print/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<byte[]> printComplaintPDF(@PathVariable Long id) {
+        log.debug("REST request to get report");
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("complaint_id", id);
+        byte[] fileBytes = jasperReportsUtil.getReportAsPDF(parameters, "trademark_complaint");
+        HttpHeaders header = new HttpHeaders();
+        header.setContentType(MediaType.APPLICATION_PDF);
+        header.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=Name_" + System.currentTimeMillis() + ".pdf");
+        header.setContentLength(fileBytes.length);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(fileBytes), header);
     }
 }

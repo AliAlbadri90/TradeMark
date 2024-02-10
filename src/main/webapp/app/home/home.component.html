@@ -6,19 +6,23 @@
   <!--    </video>-->
   <!--  </div>-->
 
-  <div *ngIf="isCountdownFinished">
+  <div>
     <div class="col text-center">
       <h3 class="primary">اشهارات العلامات التجارية</h3>
     </div>
     <div style="min-height: 300px">
       <div class="row d-flex p-5 align-items-center main-container mx-auto">
         <div class="card-container m-5">
-          <mat-card class="example-ripple mat-elevation-z1 round-card d-flex flex-column" matRipple routerLink="/trademark-registered">
+          <mat-card
+            class="example-ripple mat-elevation-z1 round-card d-flex flex-column"
+            matRipple
+            routerLink="/trademark-registered/public"
+          >
             <strong>اشهارات العلامات التجارية</strong>
             <br />
             <p>البحث في قائمة العلامات التجارية المشهرة</p>
             <div class="text-left">
-              <button mat-mini-fab class="mat-elevation-z0" color="primary" matRipple routerLink="trademark-registered">
+              <button mat-mini-fab class="mat-elevation-z0" color="primary" matRipple routerLink="trademark-registered/public">
                 <mat-icon>chevron_left</mat-icon>
               </button>
             </div>
@@ -39,12 +43,16 @@
         </div>
 
         <div class="card-container m-5">
-          <mat-card class="example-ripple mat-elevation-z1 round-card d-flex flex-column" matRipple>
-            <strong> تقديم معارضة (قريبا)</strong>
+          <mat-card
+            class="example-ripple mat-elevation-z1 round-card d-flex flex-column"
+            matRipple
+            routerLink="trademark-registered/public"
+          >
+            <strong> تقديم معارضة </strong>
             <br />
             <p>تقديم معارضة على الاستمارة رقم 4</p>
             <div class="text-left">
-              <button mat-mini-fab class="mat-elevation-z0" color="primary" matRipple>
+              <button mat-mini-fab class="mat-elevation-z0" color="primary" matRipple routerLink="trademark-registered/public">
                 <mat-icon>chevron_left</mat-icon>
               </button>
             </div>
@@ -95,6 +103,9 @@
     </div>
   </div>
 
+  <!--    <div >-->
+  <!--        <h3>خارج الخدمة مؤقتا لاغراض الصيانة</h3>-->
+  <!--    </div>-->
   <br />
   <br />
 

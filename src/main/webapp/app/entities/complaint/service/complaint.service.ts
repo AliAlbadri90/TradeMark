@@ -17,6 +17,7 @@ export type EntityArrayResponseType = HttpResponse<IComplaint[]>;
 @Injectable({ providedIn: 'root' })
 export class ComplaintService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/complaints');
+  protected resourcePublicUrl = this.applicationConfigService.getEndpointFor('api/public/complaints');
   protected resourceSearchUrl = this.applicationConfigService.getEndpointFor('api/_search/complaints');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
@@ -25,6 +26,13 @@ export class ComplaintService {
     const copy = this.convertDateFromClient(complaint);
     return this.http
       .post<IComplaint>(this.resourceUrl, copy, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  createPublic(complaint: IComplaint): Observable<EntityResponseType> {
+    const copy = this.convertDateFromClient(complaint);
+    return this.http
+      .post<IComplaint>(this.resourcePublicUrl, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
@@ -45,6 +53,12 @@ export class ComplaintService {
   find(id: number): Observable<EntityResponseType> {
     return this.http
       .get<IComplaint>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  findPublic(id: number): Observable<EntityResponseType> {
+    return this.http
+      .get<IComplaint>(`${this.resourcePublicUrl}/${id}`, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 

@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="trademarkComplaint" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e425e21f-146f-4177-b4ec-b91b2124a35a">
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql"/>
+    <parameter name="complaint_id" class="java.lang.Long">
+        <parameterDescription><![CDATA[]]></parameterDescription>
+    </parameter>
+    <queryString language="SQL">
+        <![CDATA[SELECT
+            archive.complaint.id,
+            archive.complaint.complaint_uuid,
+            archive.complaint.complaint_no,
+            archive.complaint.trademark_no,
+            archive.complaint.complaint_date,
+            archive.complaint.complainer_person_full_name,
+            archive.complaint.complainer_person_job,
+            archive.complaint.complainer_person_nationality,
+            archive.complaint.complainer_person_address,
+            archive.complaint.complainer_company_name,
+            archive.complaint.complainer_company_address,
+            archive.complaint.complainer_company_purpose,
+            archive.complaint.complainer_company_head_quarter_address,
+            archive.complaint.complainer_company_libya_address,
+            archive.complaint.complaint_status,
+            archive.complaint.complaint_details,
+            archive.complaint.notes,
+            tr.applicant_name AS trademark_registered_applicant_name,
+            tr.publication_date AS trademark_registered_publication_date,
+            tr.publication_no AS trademark_registered_publication_no
+        FROM
+            archive.complaint
+        INNER JOIN archive.trademark_registered tr ON archive.complaint.trademark_no = tr.trademark_no
+        WHERE archive.complaint.id = $P{complaint_id};]]>
+    </queryString>
+    <field name="id" class="java.lang.Long"/>
+    <field name="complaint_no" class="java.lang.String"/>
+    <field name="complaint_uuid" class="java.lang.String"/>
+    <field name="trademark_no" class="java.lang.String"/>
+    <field name="complaint_date" class="java.util.Date"/>
+    <field name="complainer_person_full_name" class="java.lang.String"/>
+    <field name="complainer_person_job" class="java.lang.String"/>
+    <field name="complainer_person_nationality" class="java.lang.String"/>
+    <field name="complainer_person_address" class="java.lang.String"/>
+    <field name="complainer_company_name" class="java.lang.String"/>
+    <field name="complainer_company_address" class="java.lang.String"/>
+    <field name="complainer_company_purpose" class="java.lang.String"/>
+    <field name="complainer_company_head_quarter_address" class="java.lang.String"/>
+    <field name="complainer_company_libya_address" class="java.lang.String"/>
+    <field name="complaint_status" class="java.lang.String"/>
+    <field name="complaint_details" class="java.lang.String"/>
+    <field name="notes" class="java.lang.String"/>
+    <field name="trademark_registered_applicant_name" class="java.lang.String"/>
+    <field name="trademark_registered_publication_date" class="java.util.Date"/>
+    <field name="trademark_registered_publication_no" class="java.lang.String"/>
+    <pageHeader>
+        <band height="173" splitType="Stretch">
+            <line>
+                <reportElement x="14" y="168" width="527" height="1" uuid="3dcea5d2-31bd-4946-8d20-7a595b3a19f5"/>
+                <graphicElement>
+                    <pen lineWidth="1.0" lineColor="#000000"/>
+                </graphicElement>
+            </line>
+            <image>
+                <reportElement x="240" y="2" width="82" height="80" uuid="7a3c2523-2e19-477e-a1e8-9adf7cb1efe9"/>
+                <imageExpression><![CDATA["logo.png"]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement x="177" y="110" width="203" height="30" uuid="cb16c936-9746-4be8-a9e8-bd272280de8c"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[ديوان وزارة الاقتصاد والتجارة]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="195" y="87" width="170" height="22" uuid="f8a49dd9-a133-4c78-b3ef-ae6e7cb472f7"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="19" isBold="true"/>
+                </textElement>
+                <text><![CDATA[حكومة الوحدة الوطنية ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="179" y="140" width="203" height="20" uuid="21e6914f-1938-4ae7-a833-51a3266aac70"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="13" isBold="true"/>
+                </textElement>
+                <text><![CDATA[مكتب العلامات التجارية ]]></text>
+            </staticText>
+            <componentElement>
+                <reportElement x="456" y="10" width="89" height="87" uuid="295e359a-c193-462e-afa3-d51fa0beeee7"/>
+                <jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+                    <jr:codeExpression><![CDATA[$F{complaint_uuid}]]></jr:codeExpression>
+                </jr:QRCode>
+            </componentElement>
+            <staticText>
+                <reportElement x="10" y="10" width="146" height="20" forecolor="#383838" uuid="c7b33c21-df74-4f78-91e1-b6b85dac2c5f"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="13" isBold="false"/>
+                </textElement>
+                <text><![CDATA[استمارة رقم (4)]]></text>
+            </staticText>
+        </band>
+    </pageHeader>
+    <detail>
+        <band height="456" splitType="Stretch">
+            <staticText>
+                <reportElement x="383" y="18" width="158" height="26" uuid="21c5173f-36ec-4370-8e31-de988163f4e2"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true" isUnderline="true"/>
+                </textElement>
+                <text><![CDATA[بيانات يعبئها مقدم المعارضة]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="44" width="260" height="28" uuid="5b6b375f-b5ee-44f2-a07c-58d6788a8cd7"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[رقم طلب التسجيل كما هو مقيد بمكتب العلامات :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="72" width="260" height="27" uuid="60a73408-9a65-4d5d-a54d-ecfbe2a3fa3d"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[اسم طالب التسجيل :-  ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="150" y="99" width="390" height="31" uuid="633d2130-2f5d-4093-b9f4-91d20654361d"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[رقم النشرية الالكترونية التي اشهر فيها قبول/ تسجيل العلامة المعترض عليها :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="279" y="130" width="263" height="30" uuid="c1038e99-0187-40de-8771-cbe596d45957"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[تاريخ النشر :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="410" y="187" width="130" height="19" uuid="9f81f5fd-a6ac-4253-863a-b60c1cee0d76"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[مهنته :]]></text>
+            </staticText>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="20" y="44" width="259" height="29" uuid="21a2aeff-f917-4cc0-af9f-f2724e78567d">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{trademark_no}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="278" y="317" width="131" height="28" uuid="7fb2cc44-788a-4431-8e30-a0147f3368a3">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format($F{complaint_date})]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="20" y="73" width="259" height="26" uuid="6698ee02-3840-47ce-bfa0-dcd84ab2171d">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{trademark_registered_applicant_name}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="20" y="101" width="130" height="28" uuid="614bb76e-02a3-424d-80c0-58807978a1af">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Top">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{trademark_registered_publication_no}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="20" y="131" width="259" height="29" uuid="7bca41f6-1e2d-478a-865a-6e165411b703">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Top">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format($F{trademark_registered_publication_date})]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="20" y="161" width="260" height="25" uuid="75f8d914-94ab-4afd-9df1-3d7c23484331">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Top">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{complainer_person_full_name}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="409" y="317" width="131" height="28" uuid="bce38d8d-dda3-449d-b1f4-4ba13fbdcdd4"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[تاريخ تقديم المعارضة :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="180" y="2" width="203" height="18" uuid="4f2283c7-1aac-4041-a200-d0d6e592df1e"/>
+                <textElement textAlignment="Center">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[اخطار بالمعارضة في تسجيل علامة تجارية]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="161" width="260" height="26" uuid="295eda1c-5ac4-42a2-b736-36a09b0bac76"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[اسم المعارض في تسجيل العلامة ولقبه :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="150" y="186" width="129" height="19" uuid="a034254c-1ea9-4cd7-9983-675e9725dfea"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[جنسيته:]]></text>
+            </staticText>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="280" y="187" width="129" height="18" uuid="42522f95-c4bc-4b3f-8a1d-c87cbea1b2a4">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Top">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{complainer_person_job}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="20" y="187" width="129" height="19" uuid="61a8f4df-00bc-47ba-aaa0-efd23ce98741">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Top">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{complainer_person_nationality}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="280" y="206" width="260" height="19" uuid="db0b546a-1168-4100-8816-4a07b12b5117"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[محل اقامته :]]></text>
+            </staticText>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="20" y="206" width="259" height="20" uuid="dbf38f48-3b6d-4365-87cc-5033172c5159">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Top">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{complainer_person_address}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="279" y="227" width="260" height="19" uuid="a0b23076-fc3a-44d5-ad29-415964371a09"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[اسم الشركة (اذا كان المعارض شركة) :]]></text>
+            </staticText>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="20" y="227" width="258" height="18" uuid="1b06d00a-c48c-4801-9cc3-d74f7fae3c33">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Top">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{complainer_company_name}]]></textFieldExpression>
+            </textField>
+            <line>
+                <reportElement x="30" y="454" width="500" height="1" uuid="d525b0d6-78db-46f3-89bf-52684132700b"/>
+                <graphicElement>
+                    <pen lineWidth="1.0" lineColor="#000000"/>
+                </graphicElement>
+            </line>
+            <staticText>
+                <reportElement x="410" y="247" width="130" height="19" uuid="a2a7f484-db7b-4c3c-b7f5-639c5945bb7a"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[عنوانها:]]></text>
+            </staticText>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="280" y="247" width="129" height="18" uuid="743e0db4-11ec-4659-b4d3-97600b67d8df">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Top">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{complainer_company_address}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="20" y="267" width="259" height="18" uuid="130aba29-c506-4753-8c51-0993f67c9a20">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Top">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{complainer_company_head_quarter_address}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="279" y="267" width="260" height="19" uuid="e5d6ef29-1eae-4818-b95b-ccdf38795dca"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[مركزها العام:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="150" y="247" width="129" height="19" uuid="380f3f6b-cdf6-431a-9532-3fb1d5a2aa03"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[الغرض من تأليفها:]]></text>
+            </staticText>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="20" y="247" width="128" height="18" uuid="04a35fbf-bd68-4f8c-ac95-02ed3ceb7b3a">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Top">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{complainer_company_purpose}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="279" y="286" width="259" height="30" uuid="47201766-13bf-4e8d-8273-4a67357b7129"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[المحل المختار بليبيا الذي ترسل اليه المكاتبات و المستندات المتعلقة بالمعارضة:]]></text>
+            </staticText>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="21" y="286" width="256" height="30" uuid="b5960aef-4cc0-45f5-907d-a95ef649a38f">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddc454e1-415e-4619-a5b7-c7f300236ed1"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Top">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{complainer_company_libya_address}]]></textFieldExpression>
+            </textField>
+            <line>
+                <reportElement x="29" y="360" width="500" height="1" uuid="bf017838-fd69-454d-b33f-65302e74b3f6"/>
+                <graphicElement>
+                    <pen lineWidth="1.0" lineColor="#000000"/>
+                </graphicElement>
+            </line>
+            <staticText>
+                <reportElement x="16" y="361" width="522" height="68" uuid="71a1beb3-8aea-4db7-872c-be15f7ad58f1"/>
+                <textElement textAlignment="Justified" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <text><![CDATA[السيد رئيس مكتب تسجيل العلامات التجارية
+ أنا الموقع اذناه ........................................................ بصفتي .....................................
+اعارض في تسجيل العلامة التجارية المشار اليها أعلاه للأسباب الاتية ......................................................................
+و اتحمل كل مسؤولية تنتج عن هذا الاعتراض.]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="430" width="259" height="22" uuid="16b56e3f-ae04-433d-bbba-3a721d4a5cdb"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[التوقيع : ..............................]]></text>
+            </staticText>
+        </band>
+    </detail>
+    <pageFooter>
+        <band height="173" splitType="Stretch">
+            <staticText>
+                <reportElement x="344" y="0" width="200" height="28" uuid="a7d77f12-4574-4c60-bdce-c63e82a6822a"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true" isItalic="false" isUnderline="true"/>
+                </textElement>
+                <text><![CDATA[بيانات للاستخدام الرسمي (يعبئها مكتب العلامات)]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="29" width="263" height="31" uuid="55929115-ef26-4c17-913b-c90abc28bf91"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[رقم المعارضة : ..............................]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="15" y="29" width="265" height="31" uuid="817fc5b8-12a7-46ee-aaf8-cbbf221e3e7b"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[السنة: ......................]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="60" width="263" height="31" uuid="047b03d7-0f19-4980-a3c2-60634eafe906"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[تاريخ استلام المعارضة بالمكتب : ...............................]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="15" y="60" width="264" height="31" uuid="ae76942c-8b99-4a3a-a991-3bff514edffc"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[رقم الايصال المالي : ..............................]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="91" width="263" height="29" uuid="3779bc6f-4239-466c-a77c-ffaab7415fbe"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[توقيع الموظف المختص وختم المكتب : ..............................]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="15" y="120" width="528" height="49" uuid="9352eae7-b0c7-41a8-9eac-19ffa9aacd36"/>
+                <textElement textAlignment="Justified" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                </textElement>
+                <text><![CDATA[اذا رأى المعارض عدم الاكتفاء بهذا البيان فله أن يرفق بمعارضته مذكرة من نسختين ببيان الأسباب و الوقائع المتعلقة بهذه المعارضة، و اذا كانت المعارضة بسبب مطابقة العلامة المقبولة للتسجيل او مشابهتها لعلامة أخرى سبق تسجيلها، فاذكر ارقام تسجيل تلك العلامة و كذلك رقمها المرجعي في النشرة الالكترونية التي اشهرت فيها.]]></text>
+            </staticText>
+        </band>
+    </pageFooter>
+</jasperReport>

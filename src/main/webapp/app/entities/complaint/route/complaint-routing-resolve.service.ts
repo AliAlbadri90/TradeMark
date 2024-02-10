@@ -14,7 +14,7 @@ export class ComplaintRoutingResolveService implements Resolve<IComplaint> {
   resolve(route: ActivatedRouteSnapshot): Observable<IComplaint> | Observable<never> {
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
+      return this.service.findPublic(id).pipe(
         mergeMap((complaint: HttpResponse<Complaint>) => {
           if (complaint.body) {
             return of(complaint.body);

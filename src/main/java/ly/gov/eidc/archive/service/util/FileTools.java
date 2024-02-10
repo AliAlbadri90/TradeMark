@@ -1,7 +1,6 @@
 package ly.gov.eidc.archive.service.util;
 
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -55,8 +54,6 @@ public class FileTools {
             byte[] byteFile = java.nio.file.Files.readAllBytes(file.toPath());
 
             if (fileName.contains(".pdf")) {
-                byteFile = java.nio.file.Files.readAllBytes(file.toPath());
-
                 ByteArrayOutputStream invoiceWithBarCode = new ByteArrayOutputStream();
                 PdfReader pdfReader = new PdfReader(byteFile);
                 PdfStamper pdfStamper = new PdfStamper(pdfReader, invoiceWithBarCode);
@@ -64,34 +61,105 @@ public class FileTools {
                 barcode128.setCode("EIDC_" + fileName.replaceAll(".pdf", ""));
                 barcode128.setCodeType(Barcode.CODE128);
 
+                // Metadata modifications here as before
                 HashMap<String, String> info = pdfReader.getInfo();
-                info.put("Title", fileName.replaceAll(".pdf", ""));
-                info.put("Author", "Center for Economic Information and Documentation, Libyan Ministry of Economy");
-                info.put("Subject", "مركز المعلومات والتوثيق الاقتصادي");
-                info.put("Keywords", "EIDC, P.O.Box 82280 Tripoli, Libya, https://eidc.gov.ly");
-                info.put("Creator", "EIDC");
-                info.put("Producer", null);
-                info.put("CreationDate", null);
-                info.put("ModDate", LocalDate.now().toString());
-                info.put("Trapped", null);
+                // Setting or updating PDF metadata as before
+                info.put("ModDate", LocalDate.now().toString()); // Update modification date
                 pdfStamper.setMoreInfo(info);
+
+                // Iterate over each page to add barcode and current date
                 for (int j = 1; j <= pdfReader.getNumberOfPages(); j++) {
                     PdfContentByte content = pdfStamper.getOverContent(j);
+
+                    // Add barcode as before
                     Rectangle mediabox = pdfReader.getPageSize(j);
                     Image image = barcode128.createImageWithBarcode(content, null, null);
                     image.setAbsolutePosition(mediabox.getWidth() - 150, mediabox.getHeight() - 60);
                     content.addImage(image);
-                    image.setAbsolutePosition(30f, 30f);
-                    content.addImage(image);
+
+                    // Adding current print date
+                    Font font = new Font(Font.FontFamily.HELVETICA, 14);
+                    Phrase phrase = new Phrase(LocalDate.now().toString(), font);
+                    ColumnText.showTextAligned(content, Element.ALIGN_RIGHT, phrase, mediabox.getWidth() - 30, 30, 0);
                 }
+
                 pdfStamper.close();
                 byteFile = invoiceWithBarCode.toByteArray();
                 return byteFile;
             }
 
-            System.out.println(fileName + "");
             return byteFile;
         } catch (Exception e) {
+            e.printStackTrace(); // It's better to print the stack trace for debugging
+            return null;
+        }
+    }
+
+    public static byte[] downloadWithPublicationInfo(String fileName, String publicationDate, String publicationNo) {
+        try {
+            File file = new File(uploadsDir + fileName);
+            byte[] byteFile = java.nio.file.Files.readAllBytes(file.toPath());
+
+            if (fileName.contains(".pdf")) {
+                ByteArrayOutputStream invoiceWithBarCode = new ByteArrayOutputStream();
+                PdfReader pdfReader = new PdfReader(byteFile);
+                PdfStamper pdfStamper = new PdfStamper(pdfReader, invoiceWithBarCode);
+                Barcode128 barcode128 = new Barcode128();
+                barcode128.setCode("EIDC_" + fileName.replaceAll(".pdf", ""));
+                barcode128.setCodeType(Barcode.CODE128);
+
+                // Metadata modifications here as before
+                HashMap<String, String> info = pdfReader.getInfo();
+                // Setting or updating PDF metadata as before
+                info.put("ModDate", LocalDate.now().toString()); // Update modification date
+                pdfStamper.setMoreInfo(info);
+
+                // Iterate over each page to add barcode and current date
+                for (int j = 1; j <= pdfReader.getNumberOfPages(); j++) {
+                    PdfContentByte content = pdfStamper.getOverContent(j);
+
+                    // Add barcode as before
+                    Rectangle mediabox = pdfReader.getPageSize(j);
+                    Image image = barcode128.createImageWithBarcode(content, null, null);
+                    image.setAbsolutePosition(mediabox.getWidth() - 150, mediabox.getHeight() - 60);
+                    content.addImage(image);
+
+                    Font font = new Font(Font.FontFamily.HELVETICA, 14);
+
+                    ColumnText.showTextAligned(
+                        content,
+                        Element.ALIGN_RIGHT,
+                        new Phrase(LocalDate.now().toString(), font),
+                        mediabox.getWidth() - 30,
+                        30,
+                        0
+                    );
+                    ColumnText.showTextAligned(
+                        content,
+                        Element.ALIGN_LEFT,
+                        new Phrase(publicationDate + " Publication Date ", font),
+                        mediabox.getWidth() - 150,
+                        50,
+                        0
+                    );
+                    ColumnText.showTextAligned(
+                        content,
+                        Element.ALIGN_LEFT,
+                        new Phrase(publicationNo + " Publication No ", font),
+                        mediabox.getWidth() - 150,
+                        30,
+                        0
+                    );
+                }
+
+                pdfStamper.close();
+                byteFile = invoiceWithBarCode.toByteArray();
+                return byteFile;
+            }
+
+            return byteFile;
+        } catch (Exception e) {
+            e.printStackTrace(); // It's better to print the stack trace for debugging
             return null;
         }
     }

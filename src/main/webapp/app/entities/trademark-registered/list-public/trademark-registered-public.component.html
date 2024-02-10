@@ -23,8 +23,8 @@
 
     <!-- Radio buttons for search type -->
     <mat-radio-group [(ngModel)]="searchType" aria-labelledby="search-type-label" class="ml-4">
-      <mat-radio-button value="matching">بحث تقريبي</mat-radio-button>
-      <mat-radio-button value="similar">بحث حرفي</mat-radio-button>
+      <mat-radio-button value="matching">بحث حرفي</mat-radio-button>
+      <mat-radio-button value="similar">بحث تقريبي</mat-radio-button>
     </mat-radio-group>
 
     <!-- Dropdown for column selection -->
@@ -41,6 +41,11 @@
         <mat-option value="decreeNo">رقم القرار</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <button (click)="downloadPage()" class="ml-1" color="warn" mat-stroked-button>
+      <mat-icon>picture_as_pdf</mat-icon>
+      <span> تحميل الاشهارات بالصفحة الحالية </span>
+    </button>
   </div>
 
   <div
@@ -126,7 +131,7 @@
           <td class="text-left">
             <div class="btn-group flex-btn-group-container">
               <mat-menu #appMenu="matMenu">
-                <button [routerLink]="['./', trademarkRegistered.id, 'view-public']" mat-menu-item>
+                <button [routerLink]="['./', trademarkRegistered.id, 'view']" mat-menu-item>
                   <mat-icon>remove_red_eye</mat-icon>
                   <span class="d-none d-md-inline">عرض</span>
                 </button>
@@ -135,10 +140,10 @@
                   <mat-icon class="ml-2">picture_as_pdf</mat-icon>
                   <span class="d-none d-md-inline">طباعة كيو ار</span>
                 </button>
-                <!--                <button [routerLink]="['/complaint', trademarkRegistered.trademarkNo, 'trademark']" mat-menu-item>-->
-                <!--                  <mat-icon>arrow_forward</mat-icon>-->
-                <!--                  <span class="d-none d-md-inline">اعتراض</span>-->
-                <!--                </button>-->
+                <button [routerLink]="['complaint', trademarkRegistered.trademarkNo, 'trademark']" mat-menu-item>
+                  <mat-icon>arrow_forward</mat-icon>
+                  <span class="d-none d-md-inline">اعتراض</span>
+                </button>
 
                 <button [routerLink]="['./', trademarkRegistered.id, 'edit']" *jhiHasAnyAuthority="['ROLE_ADMIN']" mat-menu-item>
                   <mat-icon>edit</mat-icon>
@@ -162,12 +167,14 @@
     <div class="col white-b">
       <mat-divider></mat-divider>
       <mat-paginator
-        (page)="loadPage($event.pageIndex)"
+        (page)="loadPage($event.pageIndex, false, $event.pageSize)"
         [length]="totalItems"
         [pageIndex]="page"
         [pageSize]="itemsPerPage"
+        [pageSizeOptions]="[10, 20, 50, 100]"
         showFirstLastButtons
-      ></mat-paginator>
+      >
+      </mat-paginator>
     </div>
   </div>
   <ng-template #emptyContent>

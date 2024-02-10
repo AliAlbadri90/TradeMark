@@ -2,8 +2,10 @@ package ly.gov.eidc.archive.service;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import ly.gov.eidc.archive.domain.Complaint;
+import ly.gov.eidc.archive.domain.enumeration.ComplaintStatus;
 import ly.gov.eidc.archive.repository.ComplaintRepository;
 import ly.gov.eidc.archive.repository.search.ComplaintSearchRepository;
 import ly.gov.eidc.archive.service.dto.ComplaintDTO;
@@ -126,5 +128,14 @@ public class ComplaintService {
     public Page<ComplaintDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Complaints for query {}", query);
         return complaintSearchRepository.search(query, pageable).map(complaintMapper::toDto);
+    }
+
+    public ComplaintDTO create(ComplaintDTO complaintDTO) {
+        complaintDTO.setComplaintStatus(ComplaintStatus.PENDING);
+        complaintDTO.setComplaintDate(LocalDate.now());
+        complaintDTO.setComplaintYear(LocalDate.now().getYear());
+        ComplaintDTO result = save(complaintDTO);
+        result.setComplaintNo(complaintDTO.getTrademarkNo() + result.getId());
+        return save(result);
     }
 }

@@ -1,28 +1,29 @@
 package ly.gov.eidc.archive.web.rest;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import ly.gov.eidc.archive.service.TrademarkRegisteredService;
 import ly.gov.eidc.archive.service.ViewLogService;
+import ly.gov.eidc.archive.service.dto.TrademarkRegisteredDTO;
 import ly.gov.eidc.archive.service.util.FileTools;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
 public class FileResource {
 
-    private final ViewLogService viewLogService;
-
-    public FileResource(ViewLogService viewLogService) {
-        this.viewLogService = viewLogService;
-    }
-
-    //TODO:: FILE UUID
     @GetMapping("/public/file/download/{fileName}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
-        viewLogService.newLog("VIEW_FILE", fileName, "Files");
+        //        viewLogService.newLog("VIEW_FILE", fileName, "Files");
 
         if (fileName.endsWith(".png")) {
             return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(FileTools.download(fileName));
@@ -43,6 +44,29 @@ public class FileResource {
                 .body(FileTools.download(fileName));
         } else {
             return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).body(FileTools.download(fileName));
+        }
+    }
+
+    @PostMapping("/public/files/download")
+    public ResponseEntity<byte[]> downloadFiles(@RequestBody List<String> fileNames) {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream(); ZipOutputStream zos = new ZipOutputStream(baos)) {
+            for (String fileName : fileNames) {
+                ZipEntry entry = new ZipEntry(fileName);
+                zos.putNextEntry(entry);
+                byte[] bytes = FileTools.download(fileName);
+                zos.write(bytes, 0, bytes.length);
+                zos.closeEntry();
+            }
+
+            zos.finish();
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"files.zip\"");
+            headers.add(HttpHeaders.CONTENT_TYPE, "application/zip");
+
+            return new ResponseEntity<>(baos.toByteArray(), headers, org.springframework.http.HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

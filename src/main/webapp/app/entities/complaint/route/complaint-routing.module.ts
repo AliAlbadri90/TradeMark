@@ -6,6 +6,8 @@ import { ComplaintComponent } from '../list/complaint.component';
 import { ComplaintDetailComponent } from '../detail/complaint-detail.component';
 import { ComplaintUpdateComponent } from '../update/complaint-update.component';
 import { ComplaintRoutingResolveService } from './complaint-routing-resolve.service';
+import { ComplaintNewPublicComponent } from '../new-public/complaint-new-public.component';
+import { ComplaintPrintComponent } from '../print/complaint-print.component';
 
 const complaintRoute: Routes = [
   {
@@ -41,12 +43,11 @@ const complaintRoute: Routes = [
     canActivate: [UserRouteAccessService],
   },
   {
-    path: ':trademarkNo/trademark',
-    component: ComplaintUpdateComponent,
+    path: ':id/complaint-print',
+    component: ComplaintPrintComponent,
     resolve: {
       complaint: ComplaintRoutingResolveService,
     },
-    canActivate: [UserRouteAccessService],
   },
 ];
 

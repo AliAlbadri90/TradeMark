@@ -1,0 +1,308 @@
+<div class="entity-container">
+  <div class="mat-elevation-z1 round-card white-bg p-4 mt-5">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-complaint-heading" data-cy="ComplaintCreateUpdateHeading">انشاء اعتراض</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">#</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_complainerPersonFullName">الاسم واللقب لمقدم الشكوى</label>
+          <input
+            type="text"
+            class="form-control"
+            name="complainerPersonFullName"
+            id="field_complainerPersonFullName"
+            data-cy="complainerPersonFullName"
+            formControlName="complainerPersonFullName"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_complainerPersonJob">المهنة</label>
+          <input
+            type="text"
+            class="form-control"
+            name="complainerPersonJob"
+            id="field_complainerPersonJob"
+            data-cy="complainerPersonJob"
+            formControlName="complainerPersonJob"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_complainerPersonNationality">الجنسية</label>
+          <input
+            type="text"
+            class="form-control"
+            name="complainerPersonNationality"
+            id="field_complainerPersonNationality"
+            data-cy="complainerPersonNationality"
+            formControlName="complainerPersonNationality"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_complainerPersonAddress">محل الاقامة</label>
+          <input
+            type="text"
+            class="form-control"
+            name="complainerPersonAddress"
+            id="field_complainerPersonAddress"
+            data-cy="complainerPersonAddress"
+            formControlName="complainerPersonAddress"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_complainerCompanyName">اسم الشركة المقدمة للشكوى </label>
+          <input
+            type="text"
+            class="form-control"
+            name="complainerCompanyName"
+            id="field_complainerCompanyName"
+            data-cy="complainerCompanyName"
+            formControlName="complainerCompanyName"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_complainerCompanyAddress">عنوان الشركة</label>
+          <input
+            type="text"
+            class="form-control"
+            name="complainerCompanyAddress"
+            id="field_complainerCompanyAddress"
+            data-cy="complainerCompanyAddress"
+            formControlName="complainerCompanyAddress"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_complainerCompanyPurpose">غرض الشركة</label>
+          <input
+            type="text"
+            class="form-control"
+            name="complainerCompanyPurpose"
+            id="field_complainerCompanyPurpose"
+            data-cy="complainerCompanyPurpose"
+            formControlName="complainerCompanyPurpose"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_complainerCompanyHeadQuarterAddress">عنوان المقر الرئيسي للشركة</label>
+          <input
+            type="text"
+            class="form-control"
+            name="complainerCompanyHeadQuarterAddress"
+            id="field_complainerCompanyHeadQuarterAddress"
+            data-cy="complainerCompanyHeadQuarterAddress"
+            formControlName="complainerCompanyHeadQuarterAddress"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_complainerCompanyLibyaAddress"
+            >المحل المختار بليبيا الذي ترسل اليه المكاتبات و المستندات المتعلقة بالمعارضة</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="complainerCompanyLibyaAddress"
+            id="field_complainerCompanyLibyaAddress"
+            data-cy="complainerCompanyLibyaAddress"
+            formControlName="complainerCompanyLibyaAddress"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_complaintDetails">تفاصيل عن المعارضة</label>
+          <input
+            type="text"
+            class="form-control"
+            name="complaintDetails"
+            id="field_complaintDetails"
+            data-cy="complaintDetails"
+            formControlName="complaintDetails"
+          />
+        </div>
+
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_complaintUUID">Complaint UUID</label>
+          <input
+            type="text"
+            class="form-control"
+            name="complaintUUID"
+            id="field_complaintUUID"
+            data-cy="complaintUUID"
+            formControlName="complaintUUID"
+          />
+        </div>
+
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_complaintNo">Complaint No</label>
+          <input
+            type="text"
+            class="form-control"
+            name="complaintNo"
+            id="field_complaintNo"
+            data-cy="complaintNo"
+            formControlName="complaintNo"
+          />
+        </div>
+
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_trademarkNo">Trademark No</label>
+          <input
+            type="text"
+            class="form-control"
+            name="trademarkNo"
+            id="field_trademarkNo"
+            data-cy="trademarkNo"
+            formControlName="trademarkNo"
+          />
+        </div>
+
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_complaintDate">Complaint Date</label>
+          <div class="input-group">
+            <input
+              id="field_complaintDate"
+              data-cy="complaintDate"
+              type="text"
+              class="form-control"
+              name="complaintDate"
+              ngbDatepicker
+              #complaintDateDp="ngbDatepicker"
+              formControlName="complaintDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="complaintDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_complaintOfficeReceivedDate">Complaint Office Received Date</label>
+          <div class="input-group">
+            <input
+              id="field_complaintOfficeReceivedDate"
+              data-cy="complaintOfficeReceivedDate"
+              type="text"
+              class="form-control"
+              name="complaintOfficeReceivedDate"
+              ngbDatepicker
+              #complaintOfficeReceivedDateDp="ngbDatepicker"
+              formControlName="complaintOfficeReceivedDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="complaintOfficeReceivedDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_complaintPaymentReceipt">Complaint Payment Receipt</label>
+          <input
+            type="text"
+            class="form-control"
+            name="complaintPaymentReceipt"
+            id="field_complaintPaymentReceipt"
+            data-cy="complaintPaymentReceipt"
+            formControlName="complaintPaymentReceipt"
+          />
+        </div>
+
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_complaintYear">Complaint Year</label>
+          <input
+            type="number"
+            class="form-control"
+            name="complaintYear"
+            id="field_complaintYear"
+            data-cy="complaintYear"
+            formControlName="complaintYear"
+          />
+        </div>
+
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_pdfFile">Pdf File</label>
+          <div>
+            <div *ngIf="editForm.get('pdfFile')!.value" class="form-text text-danger clearfix">
+              <a class="pull-left" (click)="openFile(editForm.get('pdfFile')!.value, editForm.get('pdfFileContentType')!.value)">open</a
+              ><br />
+              <span class="pull-left">{{ editForm.get('pdfFileContentType')!.value }}, {{ byteSize(editForm.get('pdfFile')!.value) }}</span>
+              <button
+                type="button"
+                (click)="editForm.patchValue({ pdfFile: null }); editForm.patchValue({ pdfFileContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_pdfFile" data-cy="pdfFile" (change)="setFileData($event, 'pdfFile', false)" />
+          </div>
+          <input type="hidden" class="form-control" name="pdfFile" id="field_pdfFile" data-cy="pdfFile" formControlName="pdfFile" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="pdfFileContentType"
+            id="field_pdfFileContentType"
+            formControlName="pdfFileContentType"
+          />
+        </div>
+
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_pdfFileUrl">Pdf File Url</label>
+          <input
+            type="text"
+            class="form-control"
+            name="pdfFileUrl"
+            id="field_pdfFileUrl"
+            data-cy="pdfFileUrl"
+            formControlName="pdfFileUrl"
+          />
+        </div>
+
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_complaintStatus">Complaint Status</label>
+          <select
+            class="form-control"
+            name="complaintStatus"
+            formControlName="complaintStatus"
+            id="field_complaintStatus"
+            data-cy="complaintStatus"
+          >
+            <option [ngValue]="null"></option>
+            <option *ngFor="let complaintStatus of complaintStatusValues" [value]="complaintStatus">complaintStatus</option>
+          </select>
+        </div>
+
+        <div class="form-group" hidden>
+          <label class="form-control-label" for="field_notes">Notes</label>
+          <input type="text" class="form-control" name="notes" id="field_notes" data-cy="notes" formControlName="notes" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>الغاء</span>
+        </button>
+
+        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="isSaving" class="btn btn-primary">
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>حفظ وطباعة الاعتراض</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

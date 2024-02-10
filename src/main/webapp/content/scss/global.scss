@@ -396,3 +396,72 @@ agm-map {
   margin: 0; /* Remove any default margin */
   box-shadow: none; /* Optional: removes shadow for a flat design if desired */
 }
+
+////////////////////////
+
+.grey-background {
+  background-color: gray;
+}
+
+.page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  padding: 1.2cm;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.3cm rgba(0, 0, 0, 0.5);
+  width: 21cm;
+  height: 29.7cm;
+  page-break-after: avoid;
+}
+
+@media print {
+  app-root * {
+    display: none;
+  }
+
+  app-root jhi-license-template {
+    display: block;
+  }
+}
+
+.page-to-print {
+  height: 297mm;
+  width: 210mm;
+  margin: 0 auto;
+  background: white;
+  box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+}
+
+.field {
+  font-weight: bold;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.value {
+  background-color: #ececec8a;
+  border-radius: 4px;
+  padding: 2px 16px 2px 16px;
+  font-weight: 400;
+
+  // uncomment for dotted underline
+  // background-image: linear-gradient(to right, #222222 20%, #ffffff00 0%);
+  // background-position: bottom;
+  // background-size: 6px 1.5px;
+  // background-repeat: repeat-x;
+}
+
+.bold {
+  font-weight: 800;
+}
+
+.paragraph {
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.img-logo-invoice {
+  width: auto;
+  height: 110px;
+}
