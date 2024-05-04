@@ -1,0 +1,141 @@
+<div class="entity-container">
+  <h3 id="page-heading">
+    <span>قرارات مكتب العلامات التجارية</span>
+  </h3>
+  <div class="mt-1 ml-1 d-flex align-items-center">
+    <button [routerLink]="['./new']" class="ml-1" color="primary" mat-raised-button *jhiHasAnyAuthority="['ROLE_ADMIN']">
+      <mat-icon>add</mat-icon>
+      <span jhiTranslate="eTravelApp.airline.home.createLabel"> اضافة قرار جديد </span>
+    </button>
+
+    <form class="mr-4">
+      <mat-form-field appearance="standard" floatLabel="never">
+        <button (click)="searchPublic(currentSearch)" mat-icon-button matPrefix type="submit">
+          <mat-icon>search</mat-icon>
+        </button>
+        <input [(ngModel)]="currentSearch" matInput name="currentSearch" placeholder="بحث" type="text" />
+
+        <button (click)="searchPublic('')" *ngIf="currentSearch" color="warn" mat-icon-button matSuffix>
+          <mat-icon>clear</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field class="mr-auto" appearance="standard">
+        <mat-select (selectionChange)="filterByYear($event.value)" placeholder="السنة">
+          <mat-option value="">الكل</mat-option>
+          <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <div *ngIf="trademarkDecrees && trademarkDecrees.length > 0; else emptyContent" class="col-12 p-0 mat-elevation-z1 mt-3" id="entities">
+    <table class="col mat-table">
+      <thead>
+      <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+        <th scope="col" jhiSortBy="id">
+          <span>#</span>
+          <fa-icon icon="sort"></fa-icon>
+        </th>
+        <th scope="col" jhiSortBy="year">
+          <span>السنة</span>
+          <fa-icon icon="sort"></fa-icon>
+        </th>
+        <th scope="col" jhiSortBy="decreeNo">
+          <span>رقم القرار</span>
+          <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+        </th>
+        <th scope="col" jhiSortBy="decreeDate">
+          <span>تاريخ القرار</span>
+          <fa-icon icon="sort"></fa-icon>
+        </th>
+        <th scope="col" jhiSortBy="applicantName">
+          <span>مقدم الطلب(الوكيل)</span>
+          <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+        </th>
+        <th scope="col" jhiSortBy="trademarkEnglish">
+          <span>العلامة التجارية انجليزي</span>
+          <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+        </th>
+        <th scope="col" jhiSortBy="trademarkArabic">
+          <span>العلامة التجارية عربي</span>
+          <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+        </th>
+        <th scope="col" jhiSortBy="category">
+          <span>الفئة</span>
+          <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+        </th>
+        <th scope="col" jhiSortBy="pdfFileUrl">
+          <span>القرار</span>
+          <fa-icon icon="sort"></fa-icon>
+        </th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let trademarkDecree of trademarkDecrees; trackBy: trackId" data-cy="entityTable">
+        <td>
+          <a [routerLink]="['/trademark-decree', trademarkDecree.id, 'view']">{{ trademarkDecree.id }}</a>
+        </td>
+        <td>{{ trademarkDecree.year }}</td>
+        <td>{{ trademarkDecree.decreeNo }}</td>
+        <td>{{ trademarkDecree.decreeDate | formatMediumDate }}</td>
+        <td>{{ trademarkDecree.applicantName }}</td>
+        <td>{{ trademarkDecree.trademarkEnglish }}</td>
+        <td>{{ trademarkDecree.trademarkArabic }}</td>
+        <td>{{ trademarkDecree.category }}</td>
+
+        <td>
+          <button
+            [disabled]="!trademarkDecree.pdfFileUrl"
+            (click)="openFile(trademarkDecree.pdfFileUrl)"
+            color="primary"
+            mat-raised-button
+            type="button"
+          >
+            <mat-icon class="ml-2">picture_as_pdf</mat-icon>
+          </button>
+        </td>
+
+        <td class="text-left">
+          <div class="btn-group flex-btn-group-container">
+            <mat-menu #appMenu="matMenu">
+              <button [routerLink]="['./', trademarkDecree.id, 'view']" mat-menu-item>
+                <mat-icon>remove_red_eye</mat-icon>
+                <span class="d-none d-md-inline">عرض</span>
+              </button>
+
+              <button [routerLink]="['./', trademarkDecree.id, 'edit']" *jhiHasAnyAuthority="['ROLE_ADMIN']" mat-menu-item>
+                <mat-icon>edit</mat-icon>
+                <span class="d-none d-md-inline">تعديل</span>
+              </button>
+              <button (click)="delete(trademarkDecree)" *jhiHasAnyAuthority="['ROLE_ADMIN']" mat-menu-item>
+                <mat-icon>delete</mat-icon>
+                <span class="d-none d-md-inline">حذف</span>
+              </button>
+            </mat-menu>
+
+            <button [matMenuTriggerFor]="appMenu" class="mr-2" mat-icon-button>
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="col white-b">
+      <mat-divider></mat-divider>
+      <mat-paginator
+        (page)="loadPage($event.pageIndex)"
+        [length]="totalItems"
+        [pageIndex]="page"
+        [pageSize]="itemsPerPage"
+        showFirstLastButtons
+      ></mat-paginator>
+    </div>
+  </div>
+  <ng-template #emptyContent>
+    <jhi-empty-content [isLoading]="isLoading"></jhi-empty-content>
+  </ng-template>
+</div>

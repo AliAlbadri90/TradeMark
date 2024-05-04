@@ -6,6 +6,7 @@ import { TrademarkDecreeComponent } from '../list/trademark-decree.component';
 import { TrademarkDecreeDetailComponent } from '../detail/trademark-decree-detail.component';
 import { TrademarkDecreeUpdateComponent } from '../update/trademark-decree-update.component';
 import { TrademarkDecreeRoutingResolveService } from './trademark-decree-routing-resolve.service';
+import {TrademarkDecreePublicComponent} from "../list_public/trademark-decree-public.component";
 
 const trademarkDecreeRoute: Routes = [
   {
@@ -31,6 +32,14 @@ const trademarkDecreeRoute: Routes = [
       trademarkDecree: TrademarkDecreeRoutingResolveService,
     },
     canActivate: [UserRouteAccessService],
+  },
+  {
+    path: 'public',
+    component: TrademarkDecreePublicComponent,
+    data: {
+      defaultSort: 'id,desc',
+    },
+  //  canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/edit',

@@ -5,11 +5,13 @@ import { TrademarkDecreeDetailComponent } from './detail/trademark-decree-detail
 import { TrademarkDecreeUpdateComponent } from './update/trademark-decree-update.component';
 import { TrademarkDecreeDeleteDialogComponent } from './delete/trademark-decree-delete-dialog.component';
 import { TrademarkDecreeRoutingModule } from './route/trademark-decree-routing.module';
+import {TrademarkDecreePublicComponent} from "./list_public/trademark-decree-public.component";
 
 @NgModule({
   imports: [SharedModule, TrademarkDecreeRoutingModule],
   declarations: [
     TrademarkDecreeComponent,
+    TrademarkDecreePublicComponent,
     TrademarkDecreeDetailComponent,
     TrademarkDecreeUpdateComponent,
     TrademarkDecreeDeleteDialogComponent,

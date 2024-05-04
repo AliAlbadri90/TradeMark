@@ -167,7 +167,16 @@ public class TrademarkDecreeResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
-
+    @GetMapping("/public/trademark-decrees")
+    public ResponseEntity<List<TrademarkDecreeDTO>> getAllTrademarkDecreesPublic(
+        TrademarkDecreeCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get TrademarkDecrees by criteria: {}", criteria);
+        Page<TrademarkDecreeDTO> page = trademarkDecreeQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
     /**
      * {@code GET  /trademark-decrees/count} : count all the trademarkDecrees.
      *
@@ -179,7 +188,11 @@ public class TrademarkDecreeResource {
         log.debug("REST request to count TrademarkDecrees by criteria: {}", criteria);
         return ResponseEntity.ok().body(trademarkDecreeQueryService.countByCriteria(criteria));
     }
-
+    @GetMapping("/public/trademark-decrees/count")
+    public ResponseEntity<Long> countTrademarkDecreesPublic(TrademarkDecreeCriteria criteria) {
+        log.debug("REST request to count TrademarkDecrees by criteria: {}", criteria);
+        return ResponseEntity.ok().body(trademarkDecreeQueryService.countByCriteria(criteria));
+    }
     /**
      * {@code GET  /trademark-decrees/:id} : get the "id" trademarkDecree.
      *
@@ -253,7 +266,11 @@ public class TrademarkDecreeResource {
         List<String> list = trademarkDecreeService.findAllYears();
         return ResponseEntity.ok().body(list);
     }
-
+    @GetMapping("/public/trademark-decrees/years")
+    public ResponseEntity<List<String>> getYearsPublic() {
+        List<String> list = trademarkDecreeService.findAllYears();
+        return ResponseEntity.ok().body(list);
+    }
     @GetMapping("/trademark-decrees/recheck-files")
     public void recheckFiles() {
         trademarkDecreeService

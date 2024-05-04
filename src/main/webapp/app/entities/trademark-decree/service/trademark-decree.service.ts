@@ -60,7 +60,12 @@ export class TrademarkDecreeService {
       .get<ITrademarkDecree[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
-
+  queryPublic(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<ITrademarkDecree[]>(this.resourceUrlPublic, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
@@ -71,7 +76,12 @@ export class TrademarkDecreeService {
       .get<ITrademarkDecree[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
-
+  searchPublic(req: SearchWithPagination): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<ITrademarkDecree[]>(this.resourceUrlPublic, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
   getTrademarkDecreeLineChart(): Observable<HttpResponse<any>> {
     return this.http.get<any>(this.resourceUrl + '/line-chart', { observe: 'response' });
   }
@@ -87,7 +97,9 @@ export class TrademarkDecreeService {
   getYears(): Observable<HttpResponse<any[]>> {
     return this.http.get<any[]>(`${this.resourceUrl}/years/`, { observe: 'response' });
   }
-
+  getYearsPublic(): Observable<HttpResponse<any[]>> {
+    return this.http.get<any[]>(`${this.resourceUrlPublic}/years/`, { observe: 'response' });
+  }
   getReport(year: string): Observable<HttpResponse<IDecreeReport>> {
     return this.http
       .get<IDecreeReport>(`${this.resourceUrl}/report/${year}`, { observe: 'response' })
