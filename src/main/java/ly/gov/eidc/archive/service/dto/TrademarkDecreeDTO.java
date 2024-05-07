@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Lob;
+import ly.gov.eidc.archive.domain.enumeration.TrademarkDecreeStatus;
 
 /**
  * A DTO for the {@link ly.gov.eidc.archive.domain.TrademarkDecree} entity.
  */
-public class TrademarkDecreeDTO extends AbstractAuditingDTO implements Serializable {
+public class TrademarkDecreeDTO implements Serializable {
 
     private Long id;
 
@@ -51,6 +52,12 @@ public class TrademarkDecreeDTO extends AbstractAuditingDTO implements Serializa
     private Boolean isWithdrawal;
 
     private String withdrawalDecreeNo;
+
+    private TrademarkDecreeStatus trademarkDecreeStatus;
+
+    private String relatedDecreeNumber;
+
+    private String relatedDecreeYear;
 
     private String notes;
 
@@ -222,6 +229,30 @@ public class TrademarkDecreeDTO extends AbstractAuditingDTO implements Serializa
         this.withdrawalDecreeNo = withdrawalDecreeNo;
     }
 
+    public TrademarkDecreeStatus getTrademarkDecreeStatus() {
+        return trademarkDecreeStatus;
+    }
+
+    public void setTrademarkDecreeStatus(TrademarkDecreeStatus trademarkDecreeStatus) {
+        this.trademarkDecreeStatus = trademarkDecreeStatus;
+    }
+
+    public String getRelatedDecreeNumber() {
+        return relatedDecreeNumber;
+    }
+
+    public void setRelatedDecreeNumber(String relatedDecreeNumber) {
+        this.relatedDecreeNumber = relatedDecreeNumber;
+    }
+
+    public String getRelatedDecreeYear() {
+        return relatedDecreeYear;
+    }
+
+    public void setRelatedDecreeYear(String relatedDecreeYear) {
+        this.relatedDecreeYear = relatedDecreeYear;
+    }
+
     public String getNotes() {
         return notes;
     }
@@ -274,6 +305,9 @@ public class TrademarkDecreeDTO extends AbstractAuditingDTO implements Serializa
             ", extraPdfFileUrl='" + getExtraPdfFileUrl() + "'" +
             ", isWithdrawal='" + getIsWithdrawal() + "'" +
             ", withdrawalDecreeNo='" + getWithdrawalDecreeNo() + "'" +
+            ", trademarkDecreeStatus='" + getTrademarkDecreeStatus() + "'" +
+            ", relatedDecreeNumber='" + getRelatedDecreeNumber() + "'" +
+            ", relatedDecreeYear='" + getRelatedDecreeYear() + "'" +
             ", notes='" + getNotes() + "'" +
             "}";
     }

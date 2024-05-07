@@ -22,6 +22,20 @@
         <dd>
           <span>{{ trademarkDecree.decreeNo }}</span>
         </dd>
+
+        <dt><span>نوع القرار</span></dt>
+        <dd>
+          <span>{{ trademarkDecree.trademarkDecreeStatus | translateMe}}</span>
+        </dd>
+
+        <dt><span>رقم القرار {{ trademarkDecree.trademarkDecreeStatus+'a' | translateMe}}</span></dt>
+        <dd>
+          <span>{{ trademarkDecree.relatedDecreeNumber }}</span>
+        </dd>
+        <dt><span>سنة القرار {{ trademarkDecree.trademarkDecreeStatus+'a' | translateMe}}</span></dt>
+        <dd>
+          <span>{{ trademarkDecree.relatedDecreeYear }}</span>
+        </dd>
         <dt><span>تم قبوله ؟</span></dt>
         <dd>
           <span>{{ trademarkDecree.isAccepted }}</span>

@@ -1,0 +1,10 @@
+export enum TrademarkDecreeStatus {
+  ACCEPTED = 'ACCEPTED',
+  REJECTED = 'REJECTED',
+  WITHDRAW = 'WITHDRAW',
+  WRITTEN_OFF = 'WRITTEN_OFF',
+  CANCELED = 'CANCELED',
+  OTHER = 'OTHER',
+
+
+}

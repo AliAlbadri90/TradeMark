@@ -3,6 +3,7 @@ package ly.gov.eidc.archive.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.*;
+import ly.gov.eidc.archive.domain.enumeration.TrademarkDecreeStatus;
 
 /**
  * A TrademarkDecree.
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "trademark_decree")
 @org.springframework.data.elasticsearch.annotations.Document(indexName = "trademarkdecree")
-public class TrademarkDecree extends AbstractAuditingEntity implements Serializable {
+public class TrademarkDecree implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -80,6 +81,16 @@ public class TrademarkDecree extends AbstractAuditingEntity implements Serializa
 
     @Column(name = "withdrawal_decree_no")
     private String withdrawalDecreeNo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "trademark_decree_status")
+    private TrademarkDecreeStatus trademarkDecreeStatus;
+
+    @Column(name = "related_decree_number")
+    private String relatedDecreeNumber;
+
+    @Column(name = "related_decree_year")
+    private String relatedDecreeYear;
 
     @Column(name = "notes")
     private String notes;
@@ -359,6 +370,45 @@ public class TrademarkDecree extends AbstractAuditingEntity implements Serializa
         this.withdrawalDecreeNo = withdrawalDecreeNo;
     }
 
+    public TrademarkDecreeStatus getTrademarkDecreeStatus() {
+        return this.trademarkDecreeStatus;
+    }
+
+    public TrademarkDecree trademarkDecreeStatus(TrademarkDecreeStatus trademarkDecreeStatus) {
+        this.setTrademarkDecreeStatus(trademarkDecreeStatus);
+        return this;
+    }
+
+    public void setTrademarkDecreeStatus(TrademarkDecreeStatus trademarkDecreeStatus) {
+        this.trademarkDecreeStatus = trademarkDecreeStatus;
+    }
+
+    public String getRelatedDecreeNumber() {
+        return this.relatedDecreeNumber;
+    }
+
+    public TrademarkDecree relatedDecreeNumber(String relatedDecreeNumber) {
+        this.setRelatedDecreeNumber(relatedDecreeNumber);
+        return this;
+    }
+
+    public void setRelatedDecreeNumber(String relatedDecreeNumber) {
+        this.relatedDecreeNumber = relatedDecreeNumber;
+    }
+
+    public String getRelatedDecreeYear() {
+        return this.relatedDecreeYear;
+    }
+
+    public TrademarkDecree relatedDecreeYear(String relatedDecreeYear) {
+        this.setRelatedDecreeYear(relatedDecreeYear);
+        return this;
+    }
+
+    public void setRelatedDecreeYear(String relatedDecreeYear) {
+        this.relatedDecreeYear = relatedDecreeYear;
+    }
+
     public String getNotes() {
         return this.notes;
     }
@@ -416,6 +466,9 @@ public class TrademarkDecree extends AbstractAuditingEntity implements Serializa
             ", extraPdfFileUrl='" + getExtraPdfFileUrl() + "'" +
             ", isWithdrawal='" + getIsWithdrawal() + "'" +
             ", withdrawalDecreeNo='" + getWithdrawalDecreeNo() + "'" +
+            ", trademarkDecreeStatus='" + getTrademarkDecreeStatus() + "'" +
+            ", relatedDecreeNumber='" + getRelatedDecreeNumber() + "'" +
+            ", relatedDecreeYear='" + getRelatedDecreeYear() + "'" +
             ", notes='" + getNotes() + "'" +
             "}";
     }

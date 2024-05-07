@@ -1,4 +1,5 @@
 import dayjs from 'dayjs/esm';
+import { TrademarkDecreeStatus } from 'app/entities/enumerations/trademark-decree-status.model';
 
 export interface ITrademarkDecree {
   id?: number;
@@ -22,6 +23,9 @@ export interface ITrademarkDecree {
   extraPdfFileUrl?: string | null;
   isWithdrawal?: boolean | null;
   withdrawalDecreeNo?: string | null;
+  trademarkDecreeStatus?: TrademarkDecreeStatus | null;
+  relatedDecreeNumber?: string | null;
+  relatedDecreeYear?: string | null;
   notes?: string | null;
 }
 
@@ -48,10 +52,14 @@ export class TrademarkDecree implements ITrademarkDecree {
     public extraPdfFileUrl?: string | null,
     public isWithdrawal?: boolean | null,
     public withdrawalDecreeNo?: string | null,
+    public trademarkDecreeStatus?: TrademarkDecreeStatus | null,
+    public relatedDecreeNumber?: string | null,
+    public relatedDecreeYear?: string | null,
     public notes?: string | null
   ) {
     this.isAccepted = this.isAccepted ?? false;
     this.isWithdrawal = this.isWithdrawal ?? false;
+    this.trademarkDecreeStatus = TrademarkDecreeStatus.ACCEPTED;
   }
 }
 

@@ -10,6 +10,8 @@ import { TrademarkDecreeService } from '../service/trademark-decree.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
+import {TrademarkRegisteredStatus} from "../../enumerations/trademark-registered-status.model";
+import {TrademarkDecreeStatus} from "../../enumerations/trademark-decree-status.model";
 
 @Component({
   selector: 'jhi-trademark-decree-update',
@@ -17,7 +19,8 @@ import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 })
 export class TrademarkDecreeUpdateComponent implements OnInit {
   isSaving = false;
-
+  isVisible=  false;
+  trademarkDecreeStatusValues = Object.keys(TrademarkDecreeStatus);
   editForm = this.fb.group({
     id: [],
     year: [],
@@ -39,9 +42,13 @@ export class TrademarkDecreeUpdateComponent implements OnInit {
     extraPdfFileContentType: [],
     extraPdfFileUrl: [],
     isWithdrawal: [],
+    trademarkDecreeStatus: [],
+    relatedDecreeNumber:[],
+    relatedDecreeYear:[],
     withdrawalDecreeNo: [],
     notes: [],
   });
+
 
   constructor(
     protected dataUtils: DataUtils,
@@ -64,7 +71,10 @@ export class TrademarkDecreeUpdateComponent implements OnInit {
   openFile(base64String: string, contentType: string | null | undefined): void {
     this.dataUtils.openFile(base64String, contentType);
   }
-
+  updateVisibility(): void {
+    const selectedStatus = this.editForm.get('trademarkDecreeStatus')!.value;
+    this.isVisible = (selectedStatus === 'REJECTED' || selectedStatus === 'WITHDRAW' || selectedStatus === 'WRITTEN_OFF'|| selectedStatus === 'CANCELED');
+  }
   setFileData(event: Event, field: string, isImage: boolean): void {
     this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
       error: (err: FileLoadError) =>
@@ -127,6 +137,9 @@ export class TrademarkDecreeUpdateComponent implements OnInit {
       extraPdfFileContentType: trademarkDecree.extraPdfFileContentType,
       extraPdfFileUrl: trademarkDecree.extraPdfFileUrl,
       isWithdrawal: trademarkDecree.isWithdrawal,
+      trademarkDecreeStatus: trademarkDecree.trademarkDecreeStatus,
+      relatedDecreeNumber:trademarkDecree.relatedDecreeNumber,
+      relatedDecreeYear:trademarkDecree.relatedDecreeYear,
       withdrawalDecreeNo: trademarkDecree.withdrawalDecreeNo,
       notes: trademarkDecree.notes,
     });
@@ -154,9 +167,15 @@ export class TrademarkDecreeUpdateComponent implements OnInit {
       extraPdfFileContentType: this.editForm.get(['extraPdfFileContentType'])!.value,
       extraPdfFile: this.editForm.get(['extraPdfFile'])!.value,
       extraPdfFileUrl: this.editForm.get(['extraPdfFileUrl'])!.value,
+      trademarkDecreeStatus: this.editForm.get(['trademarkDecreeStatus'])!.value,
+      relatedDecreeNumber: this.editForm.get(['relatedDecreeNumber'])!.value,
+      relatedDecreeYear: this.editForm.get(['relatedDecreeYear'])!.value,
       isWithdrawal: this.editForm.get(['isWithdrawal'])!.value,
       withdrawalDecreeNo: this.editForm.get(['withdrawalDecreeNo'])!.value,
       notes: this.editForm.get(['notes'])!.value,
     };
   }
+
+
+
 }

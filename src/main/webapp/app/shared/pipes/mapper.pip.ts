@@ -14,6 +14,20 @@ export class TranslateMePipe implements PipeTransform {
     this.translations.set('INITIAL_PUBLICATION', 'نشر مبدئي');
     this.translations.set('FINAL_PUBLICATION', 'نشر نهائي');
     this.translations.set('CONTESTED', 'متنازع عليه');
+
+    this.translations.set('WITHDRAW', 'سحب');
+    this.translations.set('CANCELED', 'إلغاء');
+    this.translations.set('WRITTEN_OFF', 'شطب');
+    this.translations.set('ACCEPTED', 'قبول');
+    this.translations.set('OTHER', 'أخرى');
+    this.translations.set('REJECTED', 'رفض');
+
+    this.translations.set('WITHDRAWa', 'المسحوب');
+    this.translations.set('CANCELEDa', 'الملغي');
+    this.translations.set('WRITTEN_OFFa', 'المشطوب');
+    this.translations.set('REJECTEDa', 'المرفوض');
+
+
   }
 
   transform(value: any): string {

@@ -83,6 +83,19 @@
       "fieldType": "String"
     },
     {
+      "fieldName": "trademarkDecreeStatus",
+      "fieldType": "TrademarkDecreeStatus",
+      "fieldValues": "WITHDRAW,CANCELED,WRITTEN_OFF,ACCEPTED,OTHER,REJECTED"
+    },
+    {
+      "fieldName": "relatedDecreeNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "relatedDecreeYear",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "notes",
       "fieldType": "String"
     }

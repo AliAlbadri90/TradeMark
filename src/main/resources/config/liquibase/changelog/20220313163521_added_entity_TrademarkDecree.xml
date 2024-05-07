@@ -15,76 +15,77 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="year" type="integer">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="decree_no" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="is_accepted" type="boolean">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="decree_date" type="date">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="applicant_name" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="trade_mark_owner" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="country" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="apply_date" type="date">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="serial_no" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="trademark_english" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="trademark_arabic" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="category" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="pdf_file" type="longblob">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="pdf_file_content_type" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="pdf_file_url" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="extra_pdf_file" type="longblob">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="extra_pdf_file_content_type" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="extra_pdf_file_url" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="is_withdrawal" type="boolean">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
             <column name="withdrawal_decree_no" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
+            </column>
+            <column name="trademark_decree_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="related_decree_number" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="related_decree_year" type="varchar(255)">
+                <constraints nullable="true" />
             </column>
             <column name="notes" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
-            <column name="created_by" type="varchar(50)" defaultValue="system">
-                <constraints nullable="false"/>
-            </column>
-            <column name="created_date" type="timestamp" defaultValueDate="${now}">
-                <constraints nullable="false"/>
-            </column>
-            <column name="last_modified_by" type="varchar(50)"/>
-            <column name="last_modified_date" type="timestamp"/>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -101,10 +102,10 @@
     -->
     <changeSet id="20220313163521-1-data" author="jhipster" context="faker">
         <loadData
-            file="config/liquibase/fake-data/trademark_decree.csv"
-            separator=";"
-            tableName="trademark_decree"
-            usePreparedStatements="true">
+                  file="config/liquibase/fake-data/trademark_decree.csv"
+                  separator=";"
+                  tableName="trademark_decree"
+                  usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="year" type="numeric"/>
             <column name="decree_no" type="string"/>
@@ -126,6 +127,9 @@
             <column name="extra_pdf_file_url" type="string"/>
             <column name="is_withdrawal" type="boolean"/>
             <column name="withdrawal_decree_no" type="string"/>
+            <column name="trademark_decree_status" type="string"/>
+            <column name="related_decree_number" type="string"/>
+            <column name="related_decree_year" type="string"/>
             <column name="notes" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
