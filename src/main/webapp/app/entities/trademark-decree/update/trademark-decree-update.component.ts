@@ -73,7 +73,7 @@ export class TrademarkDecreeUpdateComponent implements OnInit {
   }
   updateVisibility(): void {
     const selectedStatus = this.editForm.get('trademarkDecreeStatus')!.value;
-    this.isVisible = (selectedStatus === 'REJECTED' || selectedStatus === 'WITHDRAW' || selectedStatus === 'WRITTEN_OFF'|| selectedStatus === 'CANCELED');
+    this.isVisible = (selectedStatus === 'WITHDRAW' || selectedStatus === 'WRITTEN_OFF'|| selectedStatus === 'CANCELED');
   }
   setFileData(event: Event, field: string, isImage: boolean): void {
     this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
