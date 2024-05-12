@@ -26,12 +26,31 @@ export class TranslateMePipe implements PipeTransform {
     this.translations.set('CANCELEDa', 'الملغي');
     this.translations.set('WRITTEN_OFFa', 'المشطوب');
     this.translations.set('REJECTEDa', 'المرفوض');
-
-
   }
 
   transform(value: any): string {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return this.translations.get(value) || value;
+  }
+}
+
+@Pipe({
+  name: 'getColor',
+})
+export class GetColorPipe implements PipeTransform {
+  colors: any;
+
+  constructor() {
+    this.colors = new Map<string, string>();
+    this.colors.set('WITHDRAW', 'text-warning');
+    this.colors.set('CANCELED', 'text-warning');
+    this.colors.set('WRITTEN_OFF', 'text-warning');
+    this.colors.set('ACCEPTED', 'text-success');
+    this.colors.set('OTHER', 'text-primary');
+    this.colors.set('REJECTED', 'text-danger');
+  }
+
+  transform(value: any): string {
+    return this.colors.get(value) || value;
   }
 }

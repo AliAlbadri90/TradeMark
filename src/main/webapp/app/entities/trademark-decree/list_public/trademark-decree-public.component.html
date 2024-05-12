@@ -32,95 +32,103 @@
   <div *ngIf="trademarkDecrees && trademarkDecrees.length > 0; else emptyContent" class="col-12 p-0 mat-elevation-z1 mt-3" id="entities">
     <table class="col mat-table">
       <thead>
-      <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-        <th scope="col" jhiSortBy="id">
-          <span>#</span>
-          <fa-icon icon="sort"></fa-icon>
-        </th>
-        <th scope="col" jhiSortBy="year">
-          <span>السنة</span>
-          <fa-icon icon="sort"></fa-icon>
-        </th>
-        <th scope="col" jhiSortBy="decreeNo">
-          <span>رقم القرار</span>
-          <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-        </th>
-        <th scope="col" jhiSortBy="decreeDate">
-          <span>تاريخ القرار</span>
-          <fa-icon icon="sort"></fa-icon>
-        </th>
-        <th scope="col" jhiSortBy="applicantName">
-          <span>مقدم الطلب(الوكيل)</span>
-          <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-        </th>
-        <th scope="col" jhiSortBy="trademarkEnglish">
-          <span>العلامة التجارية انجليزي</span>
-          <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-        </th>
-        <th scope="col" jhiSortBy="trademarkArabic">
-          <span>العلامة التجارية عربي</span>
-          <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-        </th>
-        <th scope="col" jhiSortBy="category">
-          <span>الفئة</span>
-          <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
-        </th>
-        <th scope="col" jhiSortBy="pdfFileUrl">
-          <span>القرار</span>
-          <fa-icon icon="sort"></fa-icon>
-        </th>
-        <th scope="col"></th>
-      </tr>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id">
+            <span>#</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="year">
+            <span>السنة</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="decreeNo">
+            <span>رقم القرار</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="decreeDate">
+            <span>تاريخ القرار</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="applicantName">
+            <span>مقدم الطلب(الوكيل)</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="trademarkEnglish">
+            <span>العلامة التجارية انجليزي</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="trademarkArabic">
+            <span>العلامة التجارية عربي</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="category">
+            <span>الفئة</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="trademarkDecreeStatus">
+            <span>النوع</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="pdfFileUrl">
+            <span>القرار</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+
+          <th scope="col"></th>
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let trademarkDecree of trademarkDecrees; trackBy: trackId" data-cy="entityTable">
-        <td>
-          <a [routerLink]="['/trademark-decree', trademarkDecree.id, 'view']">{{ trademarkDecree.id }}</a>
-        </td>
-        <td>{{ trademarkDecree.year }}</td>
-        <td>{{ trademarkDecree.decreeNo }}</td>
-        <td>{{ trademarkDecree.decreeDate | arabicDate }}</td>
-        <td>{{ trademarkDecree.applicantName }}</td>
-        <td>{{ trademarkDecree.trademarkEnglish }}</td>
-        <td>{{ trademarkDecree.trademarkArabic }}</td>
-        <td>{{ trademarkDecree.category }}</td>
+        <tr *ngFor="let trademarkDecree of trademarkDecrees; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/trademark-decree', trademarkDecree.id, 'view']">{{ trademarkDecree.id }}</a>
+          </td>
+          <td>{{ trademarkDecree.year }}</td>
+          <td>{{ trademarkDecree.decreeNo }}</td>
+          <td>{{ trademarkDecree.decreeDate | arabicDate }}</td>
+          <td>{{ trademarkDecree.applicantName }}</td>
+          <td>{{ trademarkDecree.trademarkEnglish }}</td>
+          <td>{{ trademarkDecree.trademarkArabic }}</td>
+          <td>{{ trademarkDecree.category }}</td>
+          <td class="{{ trademarkDecree.trademarkDecreeStatus | getColor }}">
+            {{ trademarkDecree.trademarkDecreeStatus | translateMe }}
+          </td>
 
-        <td>
-          <button
-            [disabled]="!trademarkDecree.pdfFileUrl"
-            (click)="openFile(trademarkDecree.pdfFileUrl)"
-            color="primary"
-            mat-raised-button
-            type="button"
-          >
-            <mat-icon class="ml-2">picture_as_pdf</mat-icon>
-          </button>
-        </td>
-
-        <td class="text-left">
-          <div class="btn-group flex-btn-group-container">
-            <mat-menu #appMenu="matMenu">
-              <button [routerLink]="['./', trademarkDecree.id, 'view']" mat-menu-item>
-                <mat-icon>remove_red_eye</mat-icon>
-                <span class="d-none d-md-inline">عرض</span>
-              </button>
-
-              <button [routerLink]="['./', trademarkDecree.id, 'edit']" *jhiHasAnyAuthority="['ROLE_ADMIN']" mat-menu-item>
-                <mat-icon>edit</mat-icon>
-                <span class="d-none d-md-inline">تعديل</span>
-              </button>
-              <button (click)="delete(trademarkDecree)" *jhiHasAnyAuthority="['ROLE_ADMIN']" mat-menu-item>
-                <mat-icon>delete</mat-icon>
-                <span class="d-none d-md-inline">حذف</span>
-              </button>
-            </mat-menu>
-
-            <button [matMenuTriggerFor]="appMenu" class="mr-2" mat-icon-button>
-              <mat-icon>more_vert</mat-icon>
+          <td>
+            <button
+              [disabled]="!trademarkDecree.pdfFileUrl"
+              (click)="openFile(trademarkDecree.pdfFileUrl)"
+              color="primary"
+              mat-raised-button
+              type="button"
+            >
+              <mat-icon class="ml-2">picture_as_pdf</mat-icon>
             </button>
-          </div>
-        </td>
-      </tr>
+          </td>
+
+          <td class="text-left">
+            <div class="btn-group flex-btn-group-container">
+              <mat-menu #appMenu="matMenu">
+                <button [routerLink]="['./', trademarkDecree.id, 'view']" mat-menu-item>
+                  <mat-icon>remove_red_eye</mat-icon>
+                  <span class="d-none d-md-inline">عرض</span>
+                </button>
+
+                <button [routerLink]="['./', trademarkDecree.id, 'edit']" *jhiHasAnyAuthority="['ROLE_ADMIN']" mat-menu-item>
+                  <mat-icon>edit</mat-icon>
+                  <span class="d-none d-md-inline">تعديل</span>
+                </button>
+                <button (click)="delete(trademarkDecree)" *jhiHasAnyAuthority="['ROLE_ADMIN']" mat-menu-item>
+                  <mat-icon>delete</mat-icon>
+                  <span class="d-none d-md-inline">حذف</span>
+                </button>
+              </mat-menu>
+
+              <button [matMenuTriggerFor]="appMenu" class="mr-2" mat-icon-button>
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
       </tbody>
     </table>
 

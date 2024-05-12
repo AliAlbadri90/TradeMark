@@ -65,6 +65,10 @@
             <span>الفئة</span>
             <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="trademarkDecreeStatus">
+            <span>النوع</span>
+            <fa-icon *ngIf="!currentSearch" icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="pdfFileUrl">
             <span>القرار</span>
             <fa-icon icon="sort"></fa-icon>
@@ -84,6 +88,9 @@
           <td>{{ trademarkDecree.trademarkEnglish }}</td>
           <td>{{ trademarkDecree.trademarkArabic }}</td>
           <td>{{ trademarkDecree.category }}</td>
+          <td class="{{ trademarkDecree.trademarkDecreeStatus | getColor }}">
+            {{ trademarkDecree.trademarkDecreeStatus | translateMe }}
+          </td>
 
           <td>
             <button

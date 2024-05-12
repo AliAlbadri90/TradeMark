@@ -55,7 +55,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_trademarkDecreeStatus" >نوع القرار </label>
+          <label class="form-control-label" for="field_trademarkDecreeStatus">نوع القرار </label>
           <select
             class="form-control"
             name="trademarkDecreeStatus"
@@ -72,14 +72,31 @@
         </div>
 
         <div class="form-group" *ngIf="isVisible">
-          <label class="form-control-label" for="field_relatedDecreeYear">رقم القرار {{this.editForm.get('trademarkDecreeStatus')!.value+'a' | translateMe}}</label>
-          <input type="text" class="form-control" name="relatedDecreeYear" id="field_relatedDecreeYear" data-cy="relatedDecreeYear" formControlName="relatedDecreeYear" />
+          <label class="form-control-label" for="field_relatedDecreeYear"
+            >سنة القرار {{ this.editForm.get('trademarkDecreeStatus')!.value + 'a' | translateMe }}</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="relatedDecreeYear"
+            id="field_relatedDecreeYear"
+            data-cy="relatedDecreeYear"
+            formControlName="relatedDecreeYear"
+          />
         </div>
         <div class="form-group" *ngIf="isVisible">
-        <label class="form-control-label" for="field_relatedDecreeNumber">سنة القرار {{this.editForm.get('trademarkDecreeStatus')!.value+'a' | translateMe}}</label>
-        <input type="text" class="form-control" name="relatedDecreeNumber" id="field_relatedDecreeNumber" data-cy="relatedDecreeNumber" formControlName="relatedDecreeNumber" />
-       </div>
-
+          <label class="form-control-label" for="field_relatedDecreeNumber"
+            >رقم القرار {{ this.editForm.get('trademarkDecreeStatus')!.value + 'a' | translateMe }}</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="relatedDecreeNumber"
+            id="field_relatedDecreeNumber"
+            data-cy="relatedDecreeNumber"
+            formControlName="relatedDecreeNumber"
+          />
+        </div>
 
         <div class="form-group" *ngIf="!isVisible">
           <label class="form-control-label" for="field_applicantName">مقدم الطلب (الوكيل)</label>
@@ -94,7 +111,7 @@
         </div>
 
         <div class="form-group" *ngIf="!isVisible">
-          <label class="form-control-label" for="field_tradeMarkOwner" >صاحب العلامة التجارية</label>
+          <label class="form-control-label" for="field_tradeMarkOwner">صاحب العلامة التجارية</label>
           <input
             type="text"
             class="form-control"
@@ -106,12 +123,17 @@
         </div>
 
         <div class="form-group" *ngIf="!isVisible">
-          <label class="form-control-label" for="field_country" >الدولة</label>
+          <label class="form-control-label" for="field_country">الدولة</label>
           <input type="text" class="form-control" name="country" id="field_country" data-cy="country" formControlName="country" />
         </div>
 
         <div class="form-group" *ngIf="!isVisible">
-          <label class="form-control-label" for="field_applyDate" >تاريخ التقديم</label>
+          <label class="form-control-label" for="field_serialNo">رقم القيد</label>
+          <input type="text" class="form-control" name="serialNo" id="field_serialNo" data-cy="serialNo" formControlName="serialNo" />
+        </div>
+
+        <div class="form-group" *ngIf="!isVisible">
+          <label class="form-control-label" for="field_applyDate">تاريخ التقديم</label>
           <div class="input-group">
             <input
               id="field_applyDate"
@@ -129,11 +151,6 @@
               </button>
             </span>
           </div>
-        </div>
-
-        <div class="form-group" *ngIf="!isVisible">
-          <label class="form-control-label" for="field_serialNo">رقم القيد</label>
-          <input type="text" class="form-control" name="serialNo" id="field_serialNo" data-cy="serialNo" formControlName="serialNo" />
         </div>
 
         <div class="form-group" *ngIf="!isVisible">
@@ -159,8 +176,6 @@
             formControlName="trademarkEnglish"
           />
         </div>
-
-
 
         <div class="form-group" *ngIf="!isVisible">
           <label class="form-control-label" for="field_category">الفئة</label>
@@ -257,8 +272,8 @@
           />
         </div>
 
-        <div class="form-group" hidden>
-          <label class="form-control-label" for="field_isWithdrawal">قرار مسحوب ؟</label>
+        <div class="form-group">
+          <label class="form-control-label" for="field_isWithdrawal">قرار مسحوب / مشطوب ؟</label>
           <input
             type="checkbox"
             class="form-check"
@@ -269,7 +284,7 @@
           />
         </div>
 
-        <div class="form-group" hidden>
+        <div class="form-group">
           <label class="form-control-label" for="field_withdrawalDecreeNo">رقم قرار السحب</label>
           <input
             type="text"
